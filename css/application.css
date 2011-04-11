@@ -1,0 +1,37 @@
+body{
+  font-family: Arial, Helvetica, Verdana, sans-serif;
+  line-height: 1.5;
+  font-size: 14px;
+  color: #555;
+  background-color: #fff;
+}
+
+a{
+  color: #1364c9;
+}
+h1{
+  color: #111;
+}
+
+h2{
+  color: #333;
+}
+
+h3{
+  color: #555;
+}
+
+h1{
+  color: #000;
+}
+
+ul{
+  margin: 0px 0px 0px 30px;
+  padding: 0;
+  color: #666;
+}
+
+#page{
+  width: 960px;
+  margin: 0px auto;
+}
