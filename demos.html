@@ -1,0 +1,120 @@
+<!DOCTYPE html> 
+<html> 
+  <head> 
+    <title>jQuery Multiple  Select</title>
+    <link href="css/multi-select.css" rel="stylesheet" type="text/css">
+    <link href="css/application.css" rel="stylesheet" type="text/css">
+    <link href="css/github.css" rel="stylesheet" type="text/css">
+  </head> 
+  <body>
+    <div id='page'>
+      <h1>jQuery Multiple Select</h1>
+      <ul id='menu'>
+        <li><a href='index.html'>Home</a></li>
+        <li>&middot;</li>
+        <li class='active'><a href='demos.html'>Demos</a></li>
+        <li>&middot;</li>
+        <li><a href='documentation.html'>Documentation</a></li>
+      </ul>
+      <div id='demos-container'>
+        <ul id='demos-menu'>
+          <li id='simple' class='active'>Simple</li>
+          <li id='callbacks'>Callbacks</li>
+          <li id='outside'>Outside call</li>
+          <li id='multiple'>Multiple</li>
+        </ul>
+        <div id='demos-content'>
+          <div class='simple'>
+             <form>
+                <select multiple='multiple' class='multiselect' id='simpleCountries'>
+                  <option value='fr'>France</option>
+                  <option value='ca'>Canada</option>
+                  <option value='ar'>Argentina</option>
+                  <option value='pt'>Portugal</option>
+                  <option value='us'>United States</option>
+                  <option value='gb'>United Kingdom</option>
+                  <option value='au'>Australia</option>
+                  <option value='ao'>Angola</option>
+                  <option value='aq'>Antarctica</option>
+                  <option value='bq'>Burkina Faso</option>
+                  <option value='cn'>China</option>
+                </select>
+              </form>
+          </div>
+          <div class='callbacks' style='display:none'>
+            <form>
+               <select multiple='multiple' id='callbackCountries'>
+                 <option value='fr'>France</option>
+                 <option value='ca' selected='selected'>Canada</option>
+                 <option value='ar' selected='selected'>Argentina</option>
+                 <option value='pt'>Portugal</option>
+                 <option value='us'>United States</option>
+                 <option value='gb'>United Kingdom</option>
+                 <option value='au'>Australia</option>
+                 <option value='ao'>Angola</option>
+                 <option value='aq'>Antarctica</option>
+                 <option value='bq'>Burkina Faso</option>
+                 <option value='cn'>China</option>
+               </select>
+             </form>
+          </div>
+          <div class='outside'  style='display:none'>
+            <a href='#' id='selectAll'>Select all</a> | <a href='#' id='deselectAll'>Deselect all</a> | <a href='#' id='selectFR'>Select France</a> | <a href='#' id='deselectFR'>Deselect France</a>
+            <br/><br/>
+             <form>
+                <select multiple='multiple' id='outsideCountries' class='multiselect'>
+                  <option value='fr'>France</option>
+                  <option value='ca'>Canada</option>
+                  <option value='ar'>Argentina</option>
+                  <option value='pt'>Portugal</option>
+                  <option value='us'>United States</option>
+                  <option value='gb'>United Kingdom</option>
+                  <option value='au'>Australia</option>
+                  <option value='ao'>Angola</option>
+                  <option value='aq'>Antarctica</option>
+                  <option value='bq'>Burkina Faso</option>
+                  <option value='cn'>China</option>
+                </select>
+              </form>
+          </div>
+          <div class='multiple'  style='display:none'>
+            <form>
+               <select multiple='multiple' id='multipleCountries1' class='multiselect'>
+                 <option value='fr'>France</option>
+                 <option value='ca'>Canada</option>
+                 <option value='ar'>Argentina</option>
+                 <option value='pt'>Portugal</option>
+                 <option value='us'>United States</option>
+                 <option value='gb'>United Kingdom</option>
+                 <option value='au'>Australia</option>
+                 <option value='ao'>Angola</option>
+                 <option value='aq'>Antarctica</option>
+                 <option value='bq'>Burkina Faso</option>
+                 <option value='cn'>China</option>
+               </select>
+             </form>
+             <form>
+                <select multiple='multiple' id='multipleCountries2' class='multiselect'>
+                  <option value='fr'>France</option>
+                  <option value='ca'>Canada</option>
+                  <option value='ar'>Argentina</option>
+                  <option value='pt'>Portugal</option>
+                  <option value='us'>United States</option>
+                  <option value='gb'>United Kingdom</option>
+                  <option value='au'>Australia</option>
+                  <option value='ao'>Angola</option>
+                  <option value='aq'>Antarctica</option>
+                  <option value='bq'>Burkina Faso</option>
+                  <option value='cn'>China</option>
+                </select>
+              </form>
+            
+          </div>
+        </div>
+      </div>
+    </page>
+    <script src="js/jquery.js" type="text/javascript"></script> 
+    <script src="js/jquery.multi-select.js" type="text/javascript"></script>
+    <script src="js/application.js" type="text/javascript"></script>
+  </body>
+</html>
