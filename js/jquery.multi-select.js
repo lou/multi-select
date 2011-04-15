@@ -3,6 +3,7 @@
   var methods = {
     'init' : function(options){
       this.settings = {
+        
       };
       if(options) {
         this.settings = $.extend(this.settings, options);
@@ -20,6 +21,7 @@
         var selectableUl = $('<ul></ul>');
         var selectedUl = $('<ul></ul>');
         
+        ms.data('settings', multiSelects.settings);
         ms.children('option').each(function(){
           var selectableLi = $('<li ms-value="'+$(this).val()+'"></li>');
           
@@ -28,7 +30,7 @@
             ms.multiSelect('select', $(this).attr('ms-value'));
           });
           selectableUl.append(selectableLi);
-        })
+        });
         selectableContainer.append(selectableUl);
         selectedContainer.append(selectedUl);
         container.append(selectableContainer);
@@ -36,40 +38,57 @@
         ms.after(container);
         ms.children('option').each(function(){
           if($(this).attr('selected')){
-            ms.multiSelect('select', $(this).val());
+            ms.multiSelect('select', $(this).val(), 'init');
           }
         });
       });
     },
-    'select' : function(value){
+    'select' : function(value, method){
       var ms = this;
       var msValues = (ms.val() ? ms.val() : []);
-      var option = ms.find('option[value="'+value+'"]');
-      var selectedLi = $('<li ms-value="'+value+'"></li>');
-      var newValues = $.merge(msValues, [value]);
-      var selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul');
-      var selectedUl = $('#ms-'+ms.attr('id')+' .ms-selection ul');
-      var selectableLi = selectableUl.children('li[ms-value="'+value+'"]');
+      var alreadyPresent = $.inArray(value, ms.val());
       
-      selectableLi.hide();
-      ms.val(newValues);
-      selectedLi.html(option.text());
-      selectedLi.click(function(){
-        ms.multiSelect('deselect', $(this).attr('ms-value'));
-      });
-      selectedUl.append(selectedLi);
-
+      if(alreadyPresent == -1 || method == 'init'){
+        var option = ms.find('option[value="'+value+'"]');
+        var selectedLi = $('<li ms-value="'+value+'"></li>');
+        var newValues = $.merge(msValues, [value]);
+        var selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul');
+        var selectedUl = $('#ms-'+ms.attr('id')+' .ms-selection ul');
+        var selectableLi = selectableUl.children('li[ms-value="'+value+'"]');
+        var text = option.text();
+        
+        selectableLi.hide();
+        ms.val(newValues);
+        selectedLi.html(text);
+        selectedLi.click(function(){
+          ms.multiSelect('deselect', $(this).attr('ms-value'));
+        });
+        selectedUl.append(selectedLi);
+        if (typeof ms.data('settings').afterSelect == 'function' && method != 'init') {
+          ms.data('settings').afterSelect.call(this, value, text);
+        }
+      }
     },
     'deselect' : function(value){
       var ms = this;
-      var selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul');
-      var selectedUl = $('#ms-'+ms.attr('id')+' .ms-selection ul');
-      var selectableLi = selectableUl.children('li[ms-value="'+value+'"]');
-      var selectedLi = selectedUl.children('li[ms-value="'+value+'"]');
-      var newValues = $.map(ms.val(), function(e){ if(e != value){ return e; }});
-      ms.val(newValues);
-      selectableLi.show();
-      selectedLi.remove();
+      var msValues = (ms.val() ? ms.val() : []);
+      var present = false;
+      var newValues = $.map(msValues, function(e){ if(e != value){ return e; }else{ present = true}});
+      
+      if(present){
+        var selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul');
+        var selectedUl = $('#ms-'+ms.attr('id')+' .ms-selection ul');
+        var selectableLi = selectableUl.children('li[ms-value="'+value+'"]');
+        var selectedLi = selectedUl.children('li[ms-value="'+value+'"]');
+        var text = selectedLi.text();
+        
+        ms.val(newValues);
+        selectableLi.show();
+        selectedLi.remove();
+        if (typeof ms.data('settings').afterDeselect == 'function') {
+          ms.data('settings').afterDeselect.call(this, value, text);
+        }
+      }
     }
   }
   
