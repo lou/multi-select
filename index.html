@@ -7,8 +7,16 @@
     <link href="css/github.css" rel="stylesheet" type="text/css">
   </head> 
   <body>
-    <div id='page'>
+    
+    <div id='page'>      
       <h1>jQuery Multiple Select</h1>
+      <ul id='menu'>
+        <li class='active'><a href='index.html'>Home</a></li>
+        <li>&middot;</li>
+        <li><a href='demos.html'>Demos</a></li>
+        <li>&middot;</li>
+        <li><a href='documentation.html'>Documentation</a></li>
+      </ul>
       <h2>Features</h2>
       <ul>
         <li>It works in an unobtrusive fashion.</li>
@@ -18,47 +26,13 @@
         <li>It provides some callbacks.</li>
         <li>Methods can be called from outside.</li>
       </ul>
-      <h2>Demo</h2>
-      <h3>Without plugin activated</h1>
-      <form>
-        <select multiple='multiple' id='countries'>
-          <option value='fr'>France</option>
-          <option value='ca'>Canada</option>
-          <option value='ar'>Argentina</option>
-          <option value='pt'>Portugal</option>
-          <option value='us'>United States</option>
-          <option value='gb'>United Kingdom</option>
-          <option value='au'>Australia</option>
-          <option value='ao'>Angola</option>
-          <option value='aq'>Antarctica</option>
-          <option value='bq'>Burkina Faso</option>
-          <option value='cn'>China</option>
-        </select>
-        <h3>With plugin activated</h1>
-        <select multiple='multiple' class='multiselect' id='countries'>
-          <option value='fr'>France</option>
-          <option value='ca'>Canada</option>
-          <option value='ar'>Argentina</option>
-          <option value='pt'>Portugal</option>
-          <option value='us'>United States</option>
-          <option value='gb'>United Kingdom</option>
-          <option value='au'>Australia</option>
-          <option value='ao'>Angola</option>
-          <option value='aq'>Antarctica</option>
-          <option value='bq'>Burkina Faso</option>
-          <option value='cn'>China</option>
-        </select>
-      </form>
-      <p>
-        More demos availables <a href='/'>here</a>.
-      </p>
       <h2>Download and Installation</h2>
-      <p>Download code and examples from my <a href='/'>github repository</a>.</p>
-      <p>Simply add "jquery.multi-select.js" to your project</p>
+      <p>Simply add "jquery.multi-select.js" to your project.</p>
+      <p>Download code and examples from my <a href='https://github.com/lou/multi-select' target='_blank'>github repository</a>.</p>
       <h2>Usage</h2>
       <p>
         Add a css class to all multiple select you want to customize.<br />
-        <strong>note:</strong> and ID is required for your multiple select
+        <strong>note:</strong> an ID is required for your multiple select.
       </p>
       <pre>
       <code class='html'>
@@ -79,7 +53,6 @@
     </page>
     <script src="js/jquery.js" type="text/javascript"></script> 
     <script src="js/jquery.multi-select.js" type="text/javascript"></script>
-        <script src="js/highlight.js" type="text/javascript"></script>
     <script src="js/application.js" type="text/javascript"></script>
   </body>
 </html>
