@@ -36,10 +36,8 @@
         container.append(selectableContainer);
         container.append(selectedContainer);
         ms.after(container);
-        ms.children('option').each(function(){
-          if($(this).attr('selected')){
-            ms.multiSelect('select', $(this).val(), 'init');
-          }
+        ms.children('option:selected').each(function(){
+          ms.multiSelect('select', $(this).val(), 'init');
         });
       });
     },
@@ -68,6 +66,18 @@
           ms.data('settings').afterSelect.call(this, value, text);
         }
       }
+    },
+    'select_all' : function(){
+      var ms = this;
+      ms.children('option').each(function(){
+        ms.multiSelect('select', $(this).val(), 'select_all');
+      });
+    },
+    'deselect_all' :function(){
+      var ms = this;
+      ms.children('option').each(function(){
+        ms.multiSelect('deselect', $(this).val(), 'deselect_all');
+      });
     },
     'deselect' : function(value){
       var ms = this;
