@@ -32,7 +32,7 @@ body{
 
 .download{
     float: right;
-    margin-top: 20px;
+    margin-top: 8px;
 }
 
 .download img{
@@ -63,7 +63,7 @@ body{
 }
 
 a{
-  color: #1364c9;
+  color: #649ddc;
   text-decoration: none;
 }
 
@@ -72,26 +72,27 @@ a:hover{
 }
 
 h1{
-  font-size: 30px;
+  font-size: 24px;
   color: #ffffff;
   margin: 0;
   padding: 5px;
-  text-shadow: 1px 1px 2px rgba(0,0,0,.9);
+  font-weight: normal;
+  text-shadow: 1px 1px 1px rgba(50,50,50,0.7);
 }
 
 h2{
-  margin-top: 50px;
+  margin: 20px 0px 10px 0px;
   font-size: 20px;
-  color: #555;
+  color: #777;
   font-weight: normal;
 }
 
 h3{
-  color: #555;
+  color: #777;
 }
 
 ul{
-  margin: 0px 0px 0px 30px;
+  margin: 0px 0px 0px 20px;
   padding: 0;
   color: #666;
 }
@@ -101,6 +102,23 @@ pre{
   margin: 0;
   padding: 0;
   background: #fbfbfb;
+}
+
+table{
+  width: 100%;
+  border-spacing: 0px;
+  border-collapse: collapse;
+}
+
+th{
+  text-align: left;
+  border-bottom: 1px #aaa solid;  
+}
+
+td{
+  border-bottom: 1px #eee solid;
+  padding: 10px 0px;
+  color: #777;
 }
 
 #page{
@@ -126,10 +144,17 @@ ul#menu{
 
 ul#menu li{
   color: #999;
-  margin-right: 10px;
+  margin-right: 5px;
   padding: 0;
   float: left;
-  font-size: 16px;
+  font-size: 14px;
+}
+
+ul#menu li#fork-me{
+  float: right;
+  margin-right: 9px;
+  font-size: 13px;
+  font-style: italic;
 }
 
 ul#menu li a{
@@ -150,7 +175,19 @@ ul#menu li a:hover, ul#menu li.active a{
   -moz-border-radius:    4px 0px 0px 4px;
   -khtml-border-radius:  4px 0px 0px 4px;
   border: 1px #ddd solid;
+  background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#f9f9f9));
+	background: -moz-linear-gradient(top,  #aaa,  #ccc);
 }
+
+ul#features{
+  list-style-image: url('../img/check.gif');
+  margin: 30px 0px 40px 20px;
+}
+
+ul#features li{
+  margin-top: 5px;
+}
+
 
 #demos-container{
 }
@@ -173,29 +210,37 @@ ul#demos-menu li{
   -webkit-border-radius: 4px 0px 0px 4px;
   -moz-border-radius:    4px 0px 0px 4px;
   -khtml-border-radius:  4px 0px 0px 4px;
+  color: #999;
 }
 
 ul#demos-menu li.active, ul#demos-menu li.active:hover{
-  background: #888;
+  background: #999;
   color: #fff;
+  background: -webkit-gradient(linear, left top, left bottom, from(#999), to(#bbb));
+	background: -moz-linear-gradient(top,  #aaa,  #ccc);
 }
 
 
 ul#demos-menu li:hover{
-  background: #aaa;
+  background: #bbb;
   color: #fff;
   cursor: pointer;
+  background: -webkit-gradient(linear, left top, left bottom, from(#bbb), to(#ddd));
+	background: -moz-linear-gradient(top,  #bbb,  #ddd);
 }
 
 #demos-content{
   float: right;
   width: 818px;
   padding: 20px;
-  border: 1px #aaa solid;
+  border: 1px #ddd solid;
+  background: #eee;
   border-radius:         4px;
   -webkit-border-radius: 4px;
   -moz-border-radius:    4px;
   -khtml-border-radius:  4px;
+  background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#f9f9f9));
+	background: -moz-linear-gradient(top,  #aaa,  #ccc);
 }
 
 form{

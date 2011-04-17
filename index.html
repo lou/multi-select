@@ -6,8 +6,7 @@
     <link href="css/application.css" rel="stylesheet" type="text/css">
     <link href="css/github.css" rel="stylesheet" type="text/css">
   </head> 
-  <body>
-    
+  <body>   
     <div id='page'>
       <a href='https://github.com/lou/multi-select/zipball/master' class='download button green'><img src='img/download.png' width='16' height='16'/>Download</a>  
       <h1>jquery.multi-select.js</h1>
@@ -17,7 +16,9 @@
         <li><a href='demos.html'>Demos</a></li>
         <li>&middot;</li>
         <li><a href='documentation.html'>Documentation</a></li>
+        <li id='fork-me'>Fork me on <a href='https://github.com/lou/multi-select'>Github</a></li>
       </ul>
+      <h2>Making your &lt;select&gt; with multiple attribute not suck !</h2>
       <div id='demo'>
         <form>
           <select multiple='multiple' class='multiselect' id='simpleCountries'>
@@ -35,26 +36,26 @@
           </select>
         </form>
       </div>
-      <h2>Features</h2>
-      <ul>
+      <ul id='features'>
         <li>It works in an unobtrusive fashion.</li>
         <li>Entirely styleable with CSS.</li>
         <li>No extra HTML markup needed.</li>
         <li>You can add as many select as you want on a single page.</li>
         <li>It provides some callbacks.</li>
         <li>Methods can be called from outside.</li>
+        <li>Entirely open sourced.</li>
         <li>Tiny code (4kb when compressed).</li>
-        <li>Entirely open sourced: <a href='https://github.com/lou/multi-select'>github repository</a>.</li>
+        <li>Tested on: Firefox 3/4, chrome 10, safari 5, IE 7/8/9.</li>
+        <li>Works with jQuery 1.4+</li>
       </ul>
-      <br />
-      <br />
-      <h2>Usage</h2>
+      <h3>Usage</h3>
       <p>
         Add a css class to all multiple select you want to customize.<br />
       </p>
       <pre>
       <code class='html'>
       &lt;select multiple='multiple' class='your_class' id='your_id'&gt;
+        &lt;option value='fr'&gt;France&lt;/option&gt;
         ...
       &lt;/select&gt;</code>
       </pre>
