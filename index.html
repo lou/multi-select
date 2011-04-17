@@ -1,1 +1,73 @@
-My GitHub Page
+<!DOCTYPE html> 
+<html> 
+  <head> 
+    <title>jquery.multi-select.js</title>
+    <link href="css/multi-select.css" rel="stylesheet" type="text/css">
+    <link href="css/application.css" rel="stylesheet" type="text/css">
+    <link href="css/github.css" rel="stylesheet" type="text/css">
+  </head> 
+  <body>
+    
+    <div id='page'>
+      <a href='https://github.com/lou/multi-select/zipball/master' class='download button green'><img src='img/download.png' width='16' height='16'/>Download</a>  
+      <h1>jquery.multi-select.js</h1>
+      <ul id='menu'>
+        <li class='active'><a href='index.html'>Home</a></li>
+        <li>&middot;</li>
+        <li><a href='demos.html'>Demos</a></li>
+        <li>&middot;</li>
+        <li><a href='documentation.html'>Documentation</a></li>
+      </ul>
+      <div id='demo'>
+        <form>
+          <select multiple='multiple' class='multiselect' id='simpleCountries'>
+            <option value='fr'>France</option>
+            <option value='ca'>Canada</option>
+            <option value='ar'>Argentina</option>
+            <option value='pt'>Portugal</option>
+            <option value='us'>United States</option>
+            <option value='gb'>United Kingdom</option>
+            <option value='au'>Australia</option>
+            <option value='ao'>Angola</option>
+            <option value='aq'>Antarctica</option>
+            <option value='bq'>Burkina Faso</option>
+            <option value='cn'>China</option>
+          </select>
+        </form>
+      </div>
+      <h2>Features</h2>
+      <ul>
+        <li>It works in an unobtrusive fashion.</li>
+        <li>Entirely styleable with CSS.</li>
+        <li>No extra HTML markup needed.</li>
+        <li>You can add as many select as you want on a single page.</li>
+        <li>It provides some callbacks.</li>
+        <li>Methods can be called from outside.</li>
+        <li>Tiny code (4kb when compressed).</li>
+        <li>Entirely open sourced: <a href='https://github.com/lou/multi-select'>github repository</a>.</li>
+      </ul>
+      <br />
+      <br />
+      <h2>Usage</h2>
+      <p>
+        Add a css class to all multiple select you want to customize.<br />
+      </p>
+      <pre>
+      <code class='html'>
+      &lt;select multiple='multiple' class='your_class' id='your_id'&gt;
+        ...
+      &lt;/select&gt;</code>
+      </pre>
+      <p>Add following code to your project</p>
+      <pre>
+      <code class='javascript'>
+      $(function(){
+        $('.your_class').multiSelect();
+      });</code>
+      </pre>
+    </page>
+    <script src="js/jquery.js" type="text/javascript"></script> 
+    <script src="js/jquery.multi-select.js" type="text/javascript"></script>
+    <script src="js/application.js" type="text/javascript"></script>
+  </body>
+</html>
