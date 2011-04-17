@@ -1,5 +1,5 @@
 .ms-container{
-  background: #fff url('../img/arrow.png') no-repeat 180px 75px;
+  background: transparent url('../img/arrow.png') no-repeat 180px 83px;
 }
 
 .ms-container:after{
@@ -7,6 +7,7 @@
 }
 
 .ms-container .ms-selectable, .ms-container .ms-selection{
+  background: #fff;
   border: 1px #ccc solid;
   float: left;
   border-radius:         4px;
@@ -32,17 +33,20 @@
 .ms-container .ms-selectable li, .ms-container .ms-selection li{
   border-bottom: 1px #eee solid;
   padding: 1px 10px;
+  color: #999;
 }
 
 .ms-container .ms-selection li{
   padding-left: 22px;
+  color: #555;
 }
 
 .ms-container li:hover{
   cursor: pointer;
-  background-color: #e1ecf7;
+  background-color: #eee;
+  color: #000;
 }
 
 .ms-container .ms-selection li:hover{
-  background: #edf6ff url('../img/delete.png') no-repeat 3px 3px;
+  background: #eee url('../img/delete.png') no-repeat 3px 3px;
 }
