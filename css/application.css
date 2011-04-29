@@ -73,22 +73,21 @@ a:hover{
 
 h1{
   font-size: 24px;
-  color: #ffffff;
+  color: #555;
   margin: 0;
   padding: 5px;
-  font-weight: normal;
-  text-shadow: 1px 1px 1px rgba(50,50,50,0.7);
+  font-weight: bold;
 }
 
 h2{
   margin: 20px 0px 10px 0px;
   font-size: 20px;
-  color: #777;
+  color: #555;
   font-weight: normal;
 }
 
 h3{
-  color: #777;
+  color: #555;
 }
 
 ul{
@@ -210,7 +209,7 @@ ul#demos-menu li{
   -webkit-border-radius: 4px 0px 0px 4px;
   -moz-border-radius:    4px 0px 0px 4px;
   -khtml-border-radius:  4px 0px 0px 4px;
-  color: #999;
+  color: #777;
 }
 
 ul#demos-menu li.active, ul#demos-menu li.active:hover{
