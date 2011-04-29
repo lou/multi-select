@@ -4,21 +4,70 @@
     <title>jquery.multi-select.js</title>
     <link href="css/multi-select.css" rel="stylesheet" type="text/css">
     <link href="css/application.css" rel="stylesheet" type="text/css">
-    <link href="css/github.css" rel="stylesheet" type="text/css">
   </head> 
   <body>
-    <div id='page'>      
-      <a href='/' class='download button green'><img src='img/download.png' width='16' height='16'/>Download</a>
+    <div id='page'>
+      <a href='https://github.com/lou/multi-select/zipball/master' class='download button green'><img src='img/download.png' width='16' height='16'/>Download</a>
       <h1>jquery.multi-select.js</h1>
       <ul id='menu'>
         <li><a href='index.html'>Home</a></li>
         <li>&middot;</li>
-        <li class='active'><a href='demos.html'>Demos</a></li>
+        <li><a href='demos.html'>Demos</a></li>
         <li>&middot;</li>
-        <li><a href='documentation.html'>Documentation</a></li>
+        <li class='active'><a href='documentation.html'>Documentation</a></li>
+        <li id='fork-me'>Fork me on <a href='https://github.com/lou/multi-select'>Github</a></li>
       </ul>
       <div>
-        Coming soon ...
+        <h2>Options</h2>
+        <table>
+          <tr>
+            <th>option</th>
+            <th>default</th>
+            <th>description</th>
+          </tr>
+          <tr>
+            <td>afterSelect</td>
+            <td>function() {}</td>
+            <td>Function to call after one option is selected.</td>
+          </tr>
+          <tr>
+            <td>afterDeselect</td>
+            <td>function() {}</td>
+            <td>Function to call after one option is deselected.</td>
+          </tr>
+        </table>
+        <h2>Methods</h2>
+        <p>
+          You must init the multiple select by calling $('#my-select').multiSelect() before you call one of the following methods.
+        </p>
+        <br/>
+        <table>
+          <tr>
+            <th>method</th>
+            <th>options</th>
+            <th>example</th>
+          </tr>
+          <tr>
+            <td>select</td>
+            <td>value</td>
+            <td>$('#my-select').multiSelect('select', 'fr');</td>
+          </tr>
+          <tr>
+            <td>deselect</td>
+            <td>value</td>
+            <td>$('#my-select').multiSelect('deselect', 'fr');</td>
+          </tr>
+          <tr>
+            <td>select_all</td>
+            <td>-</td>
+            <td>$('#my-select').multiSelect('select_all');</td>
+          </tr>
+          <tr>
+            <td>deselect_all</td>
+            <td>-</td>
+            <td>$('#my-select').multiSelect('deselect_all');</td>
+          </tr>
+        </table>
       </div>
     </div>
   </body>
