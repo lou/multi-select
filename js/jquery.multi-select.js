@@ -14,8 +14,8 @@
       multiSelects.each(function(){
         
         var ms = $(this);
-        var msId = ms.attr('id') != undefined ? ms.attr('id') : 'select'+((new Date()).getTime());
-        var container = $('<div id="ms-'+msId+'" class="ms-container"></div>').detach(),
+        ms.attr('id', ms.attr('id') != undefined ? ms.attr('id') : 'select'+((new Date()).getTime()));
+        var container = $('<div id="ms-'+ms.attr('id')+'" class="ms-container"></div>').detach(),
             selectableContainer = $('<div class="ms-selectable"></div>').detach(),
             selectedContainer = $('<div class="ms-selection"></div>').detach(),
             selectableUl = $('<ul></ul>').detach(),
