@@ -42,10 +42,11 @@
     'select' : function(value, method){
       var ms = this,
           msValues = (ms.val() ? ms.val() : []),
-          alreadyPresent = $.inArray(value, msValues);
+          alreadyPresent = $.inArray(value, msValues),
+          text = ms.find('option[value="'+value+'"]').text();
       
       if(alreadyPresent == -1 || method == 'init'){
-        var selectedLi = $('<li ms-value="'+value+'">'+ms.find('option[value="'+value+'"]').text()+'</li>').detach(),
+        var selectedLi = $('<li ms-value="'+value+'">'+text+'</li>').detach(),
             newValues = $.merge(msValues, [value]),
             selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul'),
             selectedUl = $('#ms-'+ms.attr('id')+' .ms-selection ul'),
