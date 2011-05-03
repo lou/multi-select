@@ -1,6 +1,10 @@
 (function($){
   $(function(){
     $('.multiselect').multiSelect();
+    $('#multipleHeaders').multiSelect({
+      selectableHeader : '<h4>Selectable Items</h4>',
+      selectedHeader : '<h4>Selected Items</h4>'
+    });
     
     $('#callbackCountries').multiSelect({
       afterSelect: function(value, text){

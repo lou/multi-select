@@ -3,7 +3,6 @@
   var msMethods = {
     'init' : function(options){
       this.settings = {
-        
       };
       if(options) {
         this.settings = $.extend(this.settings, options);
@@ -29,7 +28,13 @@
           });
           selectableUl.append(selectableLi);
         });
+        if (multiSelects.settings.selectableHeader){
+          selectableContainer.append(multiSelects.settings.selectableHeader);
+        }
         selectableContainer.append(selectableUl);
+        if (multiSelects.settings.selectedHeader){
+          selectedContainer.append(multiSelects.settings.selectedHeader);
+        }
         selectedContainer.append(selectedUl);
         container.append(selectableContainer);
         container.append(selectedContainer);
