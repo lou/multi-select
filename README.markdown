@@ -1,3 +1,3 @@
 # jquery.multi-select.js
 
-Demos and Usage are on [http://lou.github.com/multi-select/](http://lou.github.com/multi-select/ "jquery.multi-select.js")
+Usage and Demos [http://loudev.com](http://loudev.com "jquery.multi-select.js")
