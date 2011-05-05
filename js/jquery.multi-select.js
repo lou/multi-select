@@ -26,8 +26,8 @@
         ms.children('option').each(function(){
           var selectableLi = $('<li ms-value="'+$(this).val()+'">'+$(this).text()+'</li>');
           
-          // if ($(this).attr('title'))
-          //   selectableLi.attr('title', $(this).attr('title'));
+          if ($(this).attr('title'))
+            selectableLi.attr('title', $(this).attr('title'));
           if ($(this).attr('disabled') || ms.attr('disabled')){
             selectableLi.attr('disabled', 'disabled');
             selectableLi.addClass(multiSelects.settings.disabledClass)
@@ -58,23 +58,21 @@
           msValues = (ms.val() ? ms.val() : []),
           alreadyPresent = $.inArray(value, msValues),
           text = ms.find('option[value="'+value+'"]').text();
-          title_attr = ms.find('option[value="'+value+'"]').attr('title');
+          titleAttr = ms.find('option[value="'+value+'"]').attr('title');
 
       if(alreadyPresent == -1 || method == 'init'){
-<<<<<<< HEAD
-        var selectedLi = $('<li ms-value="'+value+'">'+text+'</li>'),
-=======
-        var selectedLi = $('<li ms-value="'+value+'" title="' + title_attr + '">'+text+'</li>').detach(),
->>>>>>> 46ec109620af198e54c3bbbac2bf60e64618f027
+        var selectedLi = $('<li ms-value="'+value+'">'+text+'</li>').detach(),
             newValues = $.merge(msValues, [value]),
             selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul'),
             selectedUl = $('#ms-'+ms.attr('id')+' .ms-selection ul'),
             selectableLi = selectableUl.children('li[ms-value="'+value+'"]');
-<<<<<<< HEAD
         
         if (!selectableLi.attr('disabled')){
           selectableLi.hide();
           ms.val(newValues);
+          if(titleAttr){
+            selectedLi.attr('title', titleAttr)
+          }
           selectedLi.click(function(){
             ms.multiSelect('deselect', $(this).attr('ms-value'));
           });
@@ -82,17 +80,6 @@
           if (typeof ms.data('settings').afterSelect == 'function' && method != 'init') {
             ms.data('settings').afterSelect.call(this, value, text);
           }
-=======
-
-        selectableLi.hide();
-        ms.val(newValues);
-        selectedLi.click(function(){
-          ms.multiSelect('deselect', $(this).attr('ms-value'));
-        });
-        selectedUl.append(selectedLi);
-        if (typeof ms.data('settings').afterSelect == 'function' && method != 'init') {
-          ms.data('settings').afterSelect.call(this, value, text);
->>>>>>> 46ec109620af198e54c3bbbac2bf60e64618f027
         }
       }
     },
@@ -106,13 +93,8 @@
         var selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul'),
             selectedUl = $('#ms-'+ms.attr('id')+' .ms-selection ul'),
             selectableLi = selectableUl.children('li[ms-value="'+value+'"]'),
-<<<<<<< HEAD
             selectedLi = selectedUl.children('li[ms-value="'+value+'"]');
-        
-=======
-            selectedLi = selectedUl.children('li[ms-value="'+value+'"]').detach();
-
->>>>>>> 46ec109620af198e54c3bbbac2bf60e64618f027
+          
         ms.val(newValues);
         selectableLi.show();
         selectedLi.remove();
