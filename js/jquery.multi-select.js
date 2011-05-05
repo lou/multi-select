@@ -23,7 +23,7 @@
         
         ms.data('settings', multiSelects.settings);
         ms.children('option').each(function(){
-          var selectableLi = $('<li ms-value="'+$(this).val()+'">'+$(this).text()+'</li>').detach();
+          var selectableLi = $('<li ms-value="'+$(this).val()+'" title="' + $(this).val('title') + '">'+$(this).text()+'</li>').detach();
           
           selectableLi.click(function(){
             ms.multiSelect('select', $(this).attr('ms-value'));
