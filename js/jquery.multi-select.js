@@ -23,7 +23,7 @@
 
         ms.data('settings', multiSelects.settings);
         ms.children('option').each(function(){
-            //alert($(this).val('title'));
+
           var selectableLi = $('<li ms-value="'+$(this).val()+'" title="' + $(this).attr('title') + '">'+$(this).text()+'</li>').detach();
 
           selectableLi.click(function(){
@@ -76,7 +76,7 @@
       var ms = this,
           msValues = (ms.val() ? ms.val() : []),
           present = false,
-          newValues = $.map(msValues, function(e){ if(e != value){ return e; }else{ present = true}});
+          newValues = $.map(msValues, function(e){ if(e != value){ return e; }else{ present = true} return false;});
 
       if(present){
         var selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul'),
@@ -104,7 +104,7 @@
         ms.multiSelect('deselect', $(this).val(), 'deselect_all');
       });
     }
-  }
+  };
 
   $.fn.multiSelect = function(method){
     if ( msMethods[method] ) {
@@ -114,5 +114,6 @@
     } else {
       if(console.log) console.log( 'Method ' +  method + ' does not exist on jquery.multiSelect' );
     }
-  }
+    return false;
+  };
 })(jQuery);
