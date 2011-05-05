@@ -1,5 +1,5 @@
 (function($){
-  
+
   var msMethods = {
     'init' : function(options){
       this.settings = {
@@ -7,12 +7,12 @@
       if(options) {
         this.settings = $.extend(this.settings, options);
       }
-      
+
       var multiSelects = this;
       multiSelects.hide();
-      
+
       multiSelects.each(function(){
-        
+
         var ms = $(this);
         ms.attr('id', ms.attr('id') != undefined ? ms.attr('id') : 'select'+((new Date()).getTime()));
         var container = $('<div id="ms-'+ms.attr('id')+'" class="ms-container"></div>').detach(),
@@ -20,11 +20,12 @@
             selectedContainer = $('<div class="ms-selection"></div>').detach(),
             selectableUl = $('<ul></ul>').detach(),
             selectedUl = $('<ul></ul>').detach();
-        
+
         ms.data('settings', multiSelects.settings);
         ms.children('option').each(function(){
-          var selectableLi = $('<li ms-value="'+$(this).val()+'" title="' + $(this).val('title') + '">'+$(this).text()+'</li>').detach();
-          
+            //alert($(this).val('title'));
+          var selectableLi = $('<li ms-value="'+$(this).val()+'" title="' + $(this).attr('title') + '">'+$(this).text()+'</li>').detach();
+
           selectableLi.click(function(){
             ms.multiSelect('select', $(this).attr('ms-value'));
           });
@@ -51,14 +52,15 @@
           msValues = (ms.val() ? ms.val() : []),
           alreadyPresent = $.inArray(value, msValues),
           text = ms.find('option[value="'+value+'"]').text();
-      
+          title_attr = ms.find('option[value="'+value+'"]').attr('title');
+
       if(alreadyPresent == -1 || method == 'init'){
-        var selectedLi = $('<li ms-value="'+value+'">'+text+'</li>').detach(),
+        var selectedLi = $('<li ms-value="'+value+'" title="' + title_attr + '">'+text+'</li>').detach(),
             newValues = $.merge(msValues, [value]),
             selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul'),
             selectedUl = $('#ms-'+ms.attr('id')+' .ms-selection ul'),
             selectableLi = selectableUl.children('li[ms-value="'+value+'"]');
-        
+
         selectableLi.hide();
         ms.val(newValues);
         selectedLi.click(function(){
@@ -75,13 +77,13 @@
           msValues = (ms.val() ? ms.val() : []),
           present = false,
           newValues = $.map(msValues, function(e){ if(e != value){ return e; }else{ present = true}});
-      
+
       if(present){
         var selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul'),
             selectedUl = $('#ms-'+ms.attr('id')+' .ms-selection ul'),
             selectableLi = selectableUl.children('li[ms-value="'+value+'"]'),
             selectedLi = selectedUl.children('li[ms-value="'+value+'"]').detach();
-        
+
         ms.val(newValues);
         selectableLi.show();
         selectedLi.remove();
@@ -103,7 +105,7 @@
       });
     }
   }
-  
+
   $.fn.multiSelect = function(method){
     if ( msMethods[method] ) {
       return msMethods[method].apply( this, Array.prototype.slice.call( arguments, 1 ));
