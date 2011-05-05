@@ -109,7 +109,7 @@
         ms.multiSelect('select', $(this).val(), 'select_all');
       });
     },
-    'deselect_all' :function(){
+    'deselect_all' : function(){
       var ms = this;
       ms.children('option').each(function(){
         ms.multiSelect('deselect', $(this).val(), 'deselect_all');
