@@ -1,5 +1,5 @@
 (function($){
-  
+
   var msMethods = {
     'init' : function(options){
       this.settings = {
@@ -8,12 +8,12 @@
       if(options) {
         this.settings = $.extend(this.settings, options);
       }
-      
+
       var multiSelects = this;
       multiSelects.hide();
-      
+
       multiSelects.each(function(){
-        
+
         var ms = $(this);
         ms.attr('id', ms.attr('id') != undefined ? ms.attr('id') : 'ms-'+Math.ceil(Math.random()*1000));
         var container = $('<div id="ms-'+ms.attr('id')+'" class="ms-container"></div>'),
@@ -58,13 +58,19 @@
           msValues = (ms.val() ? ms.val() : []),
           alreadyPresent = $.inArray(value, msValues),
           text = ms.find('option[value="'+value+'"]').text();
-      
+          title_attr = ms.find('option[value="'+value+'"]').attr('title');
+
       if(alreadyPresent == -1 || method == 'init'){
+<<<<<<< HEAD
         var selectedLi = $('<li ms-value="'+value+'">'+text+'</li>'),
+=======
+        var selectedLi = $('<li ms-value="'+value+'" title="' + title_attr + '">'+text+'</li>').detach(),
+>>>>>>> 46ec109620af198e54c3bbbac2bf60e64618f027
             newValues = $.merge(msValues, [value]),
             selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul'),
             selectedUl = $('#ms-'+ms.attr('id')+' .ms-selection ul'),
             selectableLi = selectableUl.children('li[ms-value="'+value+'"]');
+<<<<<<< HEAD
         
         if (!selectableLi.attr('disabled')){
           selectableLi.hide();
@@ -76,6 +82,17 @@
           if (typeof ms.data('settings').afterSelect == 'function' && method != 'init') {
             ms.data('settings').afterSelect.call(this, value, text);
           }
+=======
+
+        selectableLi.hide();
+        ms.val(newValues);
+        selectedLi.click(function(){
+          ms.multiSelect('deselect', $(this).attr('ms-value'));
+        });
+        selectedUl.append(selectedLi);
+        if (typeof ms.data('settings').afterSelect == 'function' && method != 'init') {
+          ms.data('settings').afterSelect.call(this, value, text);
+>>>>>>> 46ec109620af198e54c3bbbac2bf60e64618f027
         }
       }
     },
@@ -83,14 +100,19 @@
       var ms = this,
           msValues = (ms.val() ? ms.val() : []),
           present = false,
-          newValues = $.map(msValues, function(e){ if(e != value){ return e; }else{ present = true}});
-      
+          newValues = $.map(msValues, function(e){ if(e != value){ return e; }else{ present = true} return false;});
+
       if(present){
         var selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul'),
             selectedUl = $('#ms-'+ms.attr('id')+' .ms-selection ul'),
             selectableLi = selectableUl.children('li[ms-value="'+value+'"]'),
+<<<<<<< HEAD
             selectedLi = selectedUl.children('li[ms-value="'+value+'"]');
         
+=======
+            selectedLi = selectedUl.children('li[ms-value="'+value+'"]').detach();
+
+>>>>>>> 46ec109620af198e54c3bbbac2bf60e64618f027
         ms.val(newValues);
         selectableLi.show();
         selectedLi.remove();
@@ -111,8 +133,8 @@
         ms.multiSelect('deselect', $(this).val(), 'deselect_all');
       });
     }
-  }
-  
+  };
+
   $.fn.multiSelect = function(method){
     if ( msMethods[method] ) {
       return msMethods[method].apply( this, Array.prototype.slice.call( arguments, 1 ));
@@ -121,5 +143,6 @@
     } else {
       if(console.log) console.log( 'Method ' +  method + ' does not exist on jquery.multiSelect' );
     }
-  }
+    return false;
+  };
 })(jQuery);
