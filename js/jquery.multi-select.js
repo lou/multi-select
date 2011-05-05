@@ -3,6 +3,7 @@
   var msMethods = {
     'init' : function(options){
       this.settings = {
+        disabledClass : 'disabled'
       };
       if(options) {
         this.settings = $.extend(this.settings, options);
@@ -14,17 +15,23 @@
       multiSelects.each(function(){
         
         var ms = $(this);
-        ms.attr('id', ms.attr('id') != undefined ? ms.attr('id') : 'select'+((new Date()).getTime()));
-        var container = $('<div id="ms-'+ms.attr('id')+'" class="ms-container"></div>').detach(),
-            selectableContainer = $('<div class="ms-selectable"></div>').detach(),
-            selectedContainer = $('<div class="ms-selection"></div>').detach(),
-            selectableUl = $('<ul></ul>').detach(),
-            selectedUl = $('<ul></ul>').detach();
+        ms.attr('id', ms.attr('id') != undefined ? ms.attr('id') : 'ms-'+Math.ceil(Math.random()*1000));
+        var container = $('<div id="ms-'+ms.attr('id')+'" class="ms-container"></div>'),
+            selectableContainer = $('<div class="ms-selectable"></div>'),
+            selectedContainer = $('<div class="ms-selection"></div>'),
+            selectableUl = $('<ul></ul>'),
+            selectedUl = $('<ul></ul>');
         
         ms.data('settings', multiSelects.settings);
         ms.children('option').each(function(){
-          var selectableLi = $('<li ms-value="'+$(this).val()+'">'+$(this).text()+'</li>').detach();
+          var selectableLi = $('<li ms-value="'+$(this).val()+'">'+$(this).text()+'</li>');
           
+          // if ($(this).attr('title'))
+          //   selectableLi.attr('title', $(this).attr('title'));
+          if ($(this).attr('disabled') || ms.attr('disabled')){
+            selectableLi.attr('disabled', 'disabled');
+            selectableLi.addClass(multiSelects.settings.disabledClass)
+          }
           selectableLi.click(function(){
             ms.multiSelect('select', $(this).attr('ms-value'));
           });
@@ -53,20 +60,22 @@
           text = ms.find('option[value="'+value+'"]').text();
       
       if(alreadyPresent == -1 || method == 'init'){
-        var selectedLi = $('<li ms-value="'+value+'">'+text+'</li>').detach(),
+        var selectedLi = $('<li ms-value="'+value+'">'+text+'</li>'),
             newValues = $.merge(msValues, [value]),
             selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul'),
             selectedUl = $('#ms-'+ms.attr('id')+' .ms-selection ul'),
             selectableLi = selectableUl.children('li[ms-value="'+value+'"]');
         
-        selectableLi.hide();
-        ms.val(newValues);
-        selectedLi.click(function(){
-          ms.multiSelect('deselect', $(this).attr('ms-value'));
-        });
-        selectedUl.append(selectedLi);
-        if (typeof ms.data('settings').afterSelect == 'function' && method != 'init') {
-          ms.data('settings').afterSelect.call(this, value, text);
+        if (!selectableLi.attr('disabled')){
+          selectableLi.hide();
+          ms.val(newValues);
+          selectedLi.click(function(){
+            ms.multiSelect('deselect', $(this).attr('ms-value'));
+          });
+          selectedUl.append(selectedLi);
+          if (typeof ms.data('settings').afterSelect == 'function' && method != 'init') {
+            ms.data('settings').afterSelect.call(this, value, text);
+          }
         }
       }
     },
@@ -80,7 +89,7 @@
         var selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul'),
             selectedUl = $('#ms-'+ms.attr('id')+' .ms-selection ul'),
             selectableLi = selectableUl.children('li[ms-value="'+value+'"]'),
-            selectedLi = selectedUl.children('li[ms-value="'+value+'"]').detach();
+            selectedLi = selectedUl.children('li[ms-value="'+value+'"]');
         
         ms.val(newValues);
         selectableLi.show();
