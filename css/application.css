@@ -208,7 +208,7 @@ ul#menu:after,
 #demos-container:after{ content: "."; display: block; height: 0; line-height: 0; font-size: 0; clear: both; min-height: 0; visibility: hidden; }
 
 ul#demos-menu{
-  width: 100px;
+  width: 130px;
   float: left;
   margin: 10px 0;
   padding: 0;
@@ -242,7 +242,7 @@ ul#demos-menu li:hover{
 
 #demos-content{
   float: right;
-  width: 818px;
+  width: 788px;
   padding: 20px;
   border: 1px #ddd solid;
   background: #eee;
@@ -257,5 +257,5 @@ ul#demos-menu li:hover{
 form{
   width: 398px;
   float: left;
-  margin-right: 10px;
+  margin: 20px 0px;
 }

@@ -1,5 +1,5 @@
 .ms-container{
-  background: transparent url('../img/arrow.png') no-repeat 180px 83px;
+  background: transparent url('../img/arrow.png') no-repeat 175px 83px;
 }
 
 .ms-container:after{
@@ -17,7 +17,7 @@
 }
 
 .ms-container .ms-selectable{
-  margin-right: 50px;
+  margin-right: 40px;
 }
 
 .ms-container ul{
@@ -39,6 +39,11 @@
 .ms-container .ms-selection li{
   padding-left: 22px;
   color: #101010;
+}
+
+.ms-container .ms-selectable li.disabled{
+  background-color: #eee;
+  color: #aaa;
 }
 
 .ms-container li:hover{

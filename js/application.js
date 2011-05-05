@@ -41,5 +41,10 @@
       $(this).addClass('active');
       $('#demos-content .'+$(this).attr('id')).show();
     });
+    
+    $('#real-form').submit(function(){
+      alert("select value:\n"+$('#real-form').find('select').val());
+      return false;
+    });
   });
 })(jQuery)
