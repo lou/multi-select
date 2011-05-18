@@ -22,8 +22,11 @@
             selectableUl = $('<ul></ul>'),
             selectedUl = $('<ul></ul>');
         
+        if (ms.children("option[value='']").length == 0){
+          ms.prepend("<option value=''></option>");
+        }
         ms.data('settings', multiSelects.settings);
-        ms.children('option').each(function(){
+        ms.children("option:not(option[value=''])").each(function(){
           var selectableLi = $('<li ms-value="'+$(this).val()+'">'+$(this).text()+'</li>');
           
           if ($(this).attr('title'))
@@ -87,14 +90,17 @@
       var ms = this,
           msValues = (ms.val() ? ms.val() : []),
           present = false,
-          newValues = $.map(msValues, function(e){ if(e != value){ return e; }else{ present = true} return false;});
+          newValues = $.map(msValues, function(e){ if(e != value){ return e; }else{ present = true}});
 
       if(present){
         var selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul'),
             selectedUl = $('#ms-'+ms.attr('id')+' .ms-selection ul'),
             selectableLi = selectableUl.children('li[ms-value="'+value+'"]'),
             selectedLi = selectedUl.children('li[ms-value="'+value+'"]');
-          
+       
+        if (newValues.length == 0){
+          newValues = [''];
+        }
         ms.val(newValues);
         selectableLi.show();
         selectedLi.remove();
@@ -105,13 +111,13 @@
     },
     'select_all' : function(){
       var ms = this;
-      ms.children('option').each(function(){
+      ms.children("option:not(option[value=''])").each(function(){
         ms.multiSelect('select', $(this).val(), 'select_all');
       });
     },
     'deselect_all' : function(){
       var ms = this;
-      ms.children('option').each(function(){
+      ms.children("option:not(option[value=''])").each(function(){
         ms.multiSelect('deselect', $(this).val(), 'deselect_all');
       });
     }
