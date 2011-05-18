@@ -43,11 +43,11 @@
       $('#demos-content .'+$(this).attr('id')).show();
     });
     
-    // $('#real-form').submit(function(){
-    //   var value = $('#real-form').find('select').val();
-    //   var str = value ? '['+value+']' : value;
-    //   alert("select value:\n"+str);
-    //   return false;
-    // });
+    $('#real-form').submit(function(){
+      var value = $('#real-form').find('select').val();
+      var str = value ? '['+value+']' : value;
+      alert("select value:\n"+str);
+      return false;
+    });
   });
 })(jQuery)
