@@ -186,8 +186,6 @@ ul#menu li a:hover, ul#menu li.active a{
   -moz-border-radius:    4px 0px 0px 4px;
   -khtml-border-radius:  4px 0px 0px 4px;
   border: 1px #ddd solid;
-  background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#f9f9f9));
-	background: -moz-linear-gradient(top,  #aaa,  #ccc);
 }
 
 ul#features{
@@ -227,8 +225,6 @@ ul#demos-menu li{
 ul#demos-menu li.active, ul#demos-menu li.active:hover{
   background: #999;
   color: #fff;
-  background: -webkit-gradient(linear, left top, left bottom, from(#999), to(#bbb));
-	background: -moz-linear-gradient(top,  #aaa,  #ccc);
 }
 
 
@@ -236,8 +232,6 @@ ul#demos-menu li:hover{
   background: #bbb;
   color: #fff;
   cursor: pointer;
-  background: -webkit-gradient(linear, left top, left bottom, from(#bbb), to(#ddd));
-	background: -moz-linear-gradient(top,  #bbb,  #ddd);
 }
 
 #demos-content{
@@ -250,8 +244,6 @@ ul#demos-menu li:hover{
   -webkit-border-radius: 4px;
   -moz-border-radius:    4px;
   -khtml-border-radius:  4px;
-  background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#f9f9f9));
-  background: -moz-linear-gradient(top,  #aaa,  #ccc);
 }
 
 form{
