@@ -57,34 +57,37 @@
       });
     },
     'select' : function(value, method){
-      var ms = this,
-          msValues = (ms.val() ? ms.val() : []),
-          alreadyPresent = $.inArray(value, msValues),
-          text = ms.find('option[value="'+value+'"]').text();
-          titleAttr = ms.find('option[value="'+value+'"]').attr('title');
+      if (value != ''){
+        var ms = this,
+            msValues = ((ms.val() && ms.val()[0] != '') ? ms.val() : []),
+            alreadyPresent = $.inArray(value, msValues),
+            text = ms.find('option[value="'+value+'"]').text(),
+            titleAttr = ms.find('option[value="'+value+'"]').attr('title');
 
-      if(alreadyPresent == -1 || method == 'init'){
-        var selectedLi = $('<li ms-value="'+value+'">'+text+'</li>').detach(),
-            newValues = $.merge(msValues, [value]),
-            selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul'),
-            selectedUl = $('#ms-'+ms.attr('id')+' .ms-selection ul'),
-            selectableLi = selectableUl.children('li[ms-value="'+value+'"]');
-        
-        if (!selectableLi.attr('disabled')){
-          selectableLi.hide();
-          ms.val(newValues);
-          if(titleAttr){
-            selectedLi.attr('title', titleAttr)
-          }
-          selectedLi.click(function(){
-            ms.multiSelect('deselect', $(this).attr('ms-value'));
-          });
-          selectedUl.append(selectedLi);
-          if (typeof ms.data('settings').afterSelect == 'function' && method != 'init') {
-            ms.data('settings').afterSelect.call(this, value, text);
+        if(alreadyPresent == -1 || method == 'init'){
+          var selectedLi = $('<li ms-value="'+value+'">'+text+'</li>').detach(),
+              newValues = $.merge(msValues, [value]),
+              selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul'),
+              selectedUl = $('#ms-'+ms.attr('id')+' .ms-selection ul'),
+              selectableLi = selectableUl.children('li[ms-value="'+value+'"]');
+
+          if (!selectableLi.attr('disabled')){
+            selectableLi.hide();
+            ms.val(newValues);
+            if(titleAttr){
+              selectedLi.attr('title', titleAttr)
+            }
+            selectedLi.click(function(){
+              ms.multiSelect('deselect', $(this).attr('ms-value'));
+            });
+            selectedUl.append(selectedLi);
+            if (typeof ms.data('settings').afterSelect == 'function' && method != 'init') {
+              ms.data('settings').afterSelect.call(this, value, text);
+            }
           }
         }
       }
+
     },
     'deselect' : function(value){
       var ms = this,
