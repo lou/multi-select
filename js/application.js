@@ -43,7 +43,9 @@
     });
     
     $('#real-form').submit(function(){
-      alert("select value:\n"+$('#real-form').find('select').val());
+      var value = $('#real-form').find('select').val();
+      var str = value ? '['+value+']' : value;
+      alert("select value:\n"+str);
       return false;
     });
   });
