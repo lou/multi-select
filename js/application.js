@@ -14,7 +14,7 @@
         alert('Deselect element\nvalue: '+value+'\ntext: '+text);
       }
     });
-
+    
     $('#selectAll').click(function(){
       $('#outsideCountries').multiSelect('select_all');
       return false;
@@ -24,7 +24,7 @@
       $('#outsideCountries').multiSelect('deselect_all');
       return false;
     });
-
+    
     $('#selectFR').click(function(){
       $('#outsideCountries').multiSelect('select', 'fr');
       return false;
@@ -35,6 +35,7 @@
       return false;
     });
     
+    
     $('#demos-menu li').click(function(){
       $('#demos-menu li').removeClass('active');
       $('#demos-content').children('div').hide();
@@ -42,11 +43,11 @@
       $('#demos-content .'+$(this).attr('id')).show();
     });
     
-    $('#real-form').submit(function(){
-      var value = $('#real-form').find('select').val();
-      var str = value ? '['+value+']' : value;
-      alert("select value:\n"+str);
-      return false;
-    });
+    // $('#real-form').submit(function(){
+    //   var value = $('#real-form').find('select').val();
+    //   var str = value ? '['+value+']' : value;
+    //   alert("select value:\n"+str);
+    //   return false;
+    // });
   });
 })(jQuery)

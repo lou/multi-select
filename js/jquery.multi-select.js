@@ -1,5 +1,4 @@
 (function($){
-
   var msMethods = {
     'init' : function(options){
       this.settings = {
@@ -13,8 +12,8 @@
       multiSelects.hide();
 
       multiSelects.each(function(){
-
         var ms = $(this);
+        ms.val(null);
         ms.attr('id', ms.attr('id') != undefined ? ms.attr('id') : 'ms-'+Math.ceil(Math.random()*1000));
         var container = $('<div id="ms-'+ms.attr('id')+'" class="ms-container"></div>'),
             selectableContainer = $('<div class="ms-selectable"></div>'),
@@ -57,37 +56,34 @@
       });
     },
     'select' : function(value, method){
-      if (value != ''){
-        var ms = this,
-            msValues = ((ms.val() && ms.val()[0] != '') ? ms.val() : []),
-            alreadyPresent = $.inArray(value, msValues),
-            text = ms.find('option[value="'+value+'"]').text(),
-            titleAttr = ms.find('option[value="'+value+'"]').attr('title');
+      var ms = this,
+          msValues = ((ms.val() && ms.val()[0] != '') ? ms.val() : []),
+          alreadyPresent = $.inArray(value, msValues),
+          text = ms.find('option[value="'+value+'"]').text(),
+          titleAttr = ms.find('option[value="'+value+'"]').attr('title');
 
-        if(alreadyPresent == -1 || method == 'init'){
-          var selectedLi = $('<li ms-value="'+value+'">'+text+'</li>').detach(),
-              newValues = $.merge(msValues, [value]),
-              selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul'),
-              selectedUl = $('#ms-'+ms.attr('id')+' .ms-selection ul'),
-              selectableLi = selectableUl.children('li[ms-value="'+value+'"]');
+      if(alreadyPresent == -1 || method == 'init'){
+        var selectedLi = $('<li ms-value="'+value+'">'+text+'</li>').detach(),
+            newValues = $.merge(msValues, [value]),
+            selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul'),
+            selectedUl = $('#ms-'+ms.attr('id')+' .ms-selection ul'),
+            selectableLi = selectableUl.children('li[ms-value="'+value+'"]');
 
-          if (!selectableLi.attr('disabled')){
-            selectableLi.hide();
-            ms.val(newValues);
-            if(titleAttr){
-              selectedLi.attr('title', titleAttr)
-            }
-            selectedLi.click(function(){
-              ms.multiSelect('deselect', $(this).attr('ms-value'));
-            });
-            selectedUl.append(selectedLi);
-            if (typeof ms.data('settings').afterSelect == 'function' && method != 'init') {
-              ms.data('settings').afterSelect.call(this, value, text);
-            }
+        if (selectableLi.attr('disabled') == undefined){
+          selectableLi.hide();
+          ms.val(newValues);
+          if(titleAttr){
+            selectedLi.attr('title', titleAttr)
+          }
+          selectedLi.click(function(){
+            ms.multiSelect('deselect', $(this).attr('ms-value'));
+          });
+          selectedUl.append(selectedLi);
+          if (typeof ms.data('settings').afterSelect == 'function' && method != 'init') {
+            ms.data('settings').afterSelect.call(this, value, text);
           }
         }
       }
-
     },
     'deselect' : function(value){
       var ms = this,
