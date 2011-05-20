@@ -25,6 +25,7 @@ body{
   -webkit-border-radius: .5em;
   -moz-border-radius: .5em;
   border-radius: .5em;
+  background: #fff;
   -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
   -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
   box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
@@ -60,6 +61,10 @@ body{
 	background: -webkit-gradient(linear, left top, left bottom, from(#4e7d0e), to(#7db72f));
 	background: -moz-linear-gradient(top,  #4e7d0e,  #7db72f);
 	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#4e7d0e', endColorstr='#7db72f');
+}
+
+.green img{
+  border: none;
 }
 
 a{
