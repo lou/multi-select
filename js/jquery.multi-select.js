@@ -14,7 +14,7 @@
       multiSelects.each(function(){
         var ms = $(this);
         ms.val(null);
-        ms.attr('id', ms.attr('id') != undefined ? ms.attr('id') : 'ms-'+Math.ceil(Math.random()*1000));
+        ms.attr('id', ms.attr('id') ? ms.attr('id') : 'ms-'+Math.ceil(Math.random()*1000));
         var container = $('<div id="ms-'+ms.attr('id')+'" class="ms-container"></div>'),
             selectableContainer = $('<div class="ms-selectable"></div>'),
             selectedContainer = $('<div class="ms-selection"></div>'),
@@ -69,7 +69,7 @@
             selectedUl = $('#ms-'+ms.attr('id')+' .ms-selection ul'),
             selectableLi = selectableUl.children('li[ms-value="'+value+'"]');
 
-        if (selectableLi.attr('disabled') == undefined){
+        if (!selectableLi.attr('disabled')){
           selectableLi.hide();
           ms.val(newValues);
           if(titleAttr){
