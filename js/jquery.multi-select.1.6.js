@@ -15,7 +15,7 @@
 
       multiSelects.each(function(){
         var ms = $(this);
-        ms.val(null);
+
         ms.attr('id', ms.attr('id') ? ms.attr('id') : Math.ceil(Math.random()*1000));
         var container = $('<div id="ms-'+ms.attr('id')+'" class="ms-container"></div>'),
             selectableContainer = $('<div class="ms-selectable"></div>'),
