@@ -4,7 +4,8 @@
     
     'init' : function(options){
       this.settings = {
-        disabledClass : 'disabled'
+        disabledClass : 'disabled',
+        standardBehavior : true
       };
       if(options) {
         this.settings = $.extend(this.settings, options);
@@ -23,7 +24,7 @@
             selectableUl = $('<ul></ul>'),
             selectedUl = $('<ul></ul>');
         
-        if (ms.children("option[value='']").length == 0){
+        if (ms.children("option[value='']").length == 0 && multiSelects.settings.standardBehavior == false){
           ms.prepend("<option value=''></option>");
         }
         ms.data('settings', multiSelects.settings);
@@ -99,7 +100,7 @@
             selectableLi = selectableUl.children('li[ms-value="'+value+'"]'),
             selectedLi = selectedUl.children('li[ms-value="'+value+'"]');
        
-        if (newValues.length == 0){
+        if (newValues.length == 0 && ms.data('settings').standardBehavior == false){
           newValues = [''];
         }
         ms.val(newValues);
