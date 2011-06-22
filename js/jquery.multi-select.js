@@ -79,6 +79,8 @@
             ms.multiSelect('deselect', $(this).attr('ms-value'));
           });
           selectedUl.append(selectedLi);
+          selectedUl.trigger('change');
+          selectableUl.trigger('change');
           if (typeof ms.data('settings').afterSelect == 'function' && method != 'init') {
             ms.data('settings').afterSelect.call(this, value, text);
           }
@@ -103,6 +105,8 @@
         ms.val(newValues);
         selectableLi.show();
         selectedLi.remove();
+        selectedUl.trigger('change');
+        selectableUl.trigger('change');
         if (typeof ms.data('settings').afterDeselect == 'function') {
           ms.data('settings').afterDeselect.call(this, value, selectedLi.text());
         }
