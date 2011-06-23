@@ -71,7 +71,7 @@
 
         if (!selectableLi.attr('disabled')){
           selectableLi.hide();
-          ms.val(newValues);
+          ms.find('option[value="' + value + '"]').attr('selected', 'selected');
           if(titleAttr){
             selectedLi.attr('title', titleAttr)
           }
