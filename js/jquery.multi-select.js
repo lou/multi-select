@@ -2,7 +2,8 @@
   var msMethods = {
     'init' : function(options){
       this.settings = {
-        disabledClass : 'disabled'
+        disabledClass : 'disabled',
+        emptyArray : false
       };
       if(options) {
         this.settings = $.extend(this.settings, options);
@@ -21,8 +22,12 @@
             selectableUl = $('<ul></ul>'),
             selectedUl = $('<ul></ul>');
         
-        if (ms.children("option[value='']").length == 0){
-          ms.prepend("<option value=''></option>");
+        if (multiSelects.settings.emptyArray){
+          if (ms.children("option[value='']").length == 0){
+            ms.prepend("<option value='' selected='selected'></option>");
+          } else {
+            ms.children("option[value='']").attr('selected', 'selected');
+          }
         }
         ms.data('settings', multiSelects.settings);
         ms.children("option:not(option[value=''])").each(function(){
@@ -58,20 +63,20 @@
     'select' : function(value, method){
       var ms = this,
           msValues = ((ms.val() && ms.val()[0] != '') ? ms.val() : []),
-          alreadyPresent = $.inArray(value, msValues),
-          text = ms.find('option[value="'+value+'"]').text(),
-          titleAttr = ms.find('option[value="'+value+'"]').attr('title');
-
-      if(alreadyPresent == -1 || method == 'init'){
+          selectedOption = ms.find('option[value="'+value +'"]'),
+          text = selectedOption.text(),
+          titleAttr = selectedOption.attr('title');
+      
         var selectedLi = $('<li ms-value="'+value+'">'+text+'</li>').detach(),
-            newValues = $.merge(msValues, [value]),
             selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul'),
             selectedUl = $('#ms-'+ms.attr('id')+' .ms-selection ul'),
-            selectableLi = selectableUl.children('li[ms-value="'+value+'"]');
-
-        if (!selectableLi.attr('disabled')){
+            selectableLi = selectableUl.children('li[ms-value="'+value+'"]'),        
+            haveToSelect =  !selectableLi.attr('disabled') && value != '' &&
+                            ((method == 'init' && selectedOption.attr('selected')) ||
+                              (method != 'init' && !selectedOption.attr('selected')))
+        if (haveToSelect ){
           selectableLi.hide();
-          ms.val(newValues);
+          selectedOption.attr('selected', 'selected');
           if(titleAttr){
             selectedLi.attr('title', titleAttr)
           }
@@ -79,32 +84,38 @@
             ms.multiSelect('deselect', $(this).attr('ms-value'));
           });
           selectedUl.append(selectedLi);
-          selectedUl.trigger('change');
-          selectableUl.trigger('change');
-          if (typeof ms.data('settings').afterSelect == 'function' && method != 'init') {
-            ms.data('settings').afterSelect.call(this, value, text);
+          if (ms.children("option[value='']")){
+            ms.children("option[value='']").removeAttr('selected');
           }
+          if(method != 'init'){
+            selectedUl.trigger('change');
+            selectableUl.trigger('change');
+            if (typeof ms.data('settings').afterSelect == 'function' && method != 'init') {
+              ms.data('settings').afterSelect.call(this, value, text);
+            }
         }
       }
     },
     'deselect' : function(value){
       var ms = this,
-          msValues = (ms.val() ? ms.val() : []),
-          present = false,
-          newValues = $.map(msValues, function(e){ if(e != value){ return e; }else{ present = true}});
-
-      if(present){
+          selectedUl = $('#ms-'+ms.attr('id')+' .ms-selection ul'),
+          selectedOption = ms.find('option[value="'+value +'"]'),
+          selectedLi = selectedUl.children('li[ms-value="'+value+'"]');
+      
+      if(selectedLi){
         var selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul'),
             selectedUl = $('#ms-'+ms.attr('id')+' .ms-selection ul'),
             selectableLi = selectableUl.children('li[ms-value="'+value+'"]'),
             selectedLi = selectedUl.children('li[ms-value="'+value+'"]');
        
-        if (newValues.length == 0){
-          newValues = [''];
-        }
-        ms.val(newValues);
+        selectedOption.removeAttr('selected');
         selectableLi.show();
         selectedLi.remove();
+        if (ms.data('settings').emptyArray && selectedUl.children('li').length == 0){
+          if (ms.children("option[value='']")){
+            ms.children("option[value='']").attr('selected', 'selected');
+          }
+        }
         selectedUl.trigger('change');
         selectableUl.trigger('change');
         if (typeof ms.data('settings').afterDeselect == 'function') {
