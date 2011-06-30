@@ -71,9 +71,10 @@
             selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul'),
             selectedUl = $('#ms-'+ms.attr('id')+' .ms-selection ul'),
             selectableLi = selectableUl.children('li[ms-value="'+value+'"]'),        
-            haveToSelect =  !selectableLi.attr('disabled') && value != '' &&
+            haveToSelect =  !selectableLi.hasClass(ms.data('settings').disabledClass) && value != '' &&
                             ((method == 'init' && selectedOption.attr('selected')) ||
                               (method != 'init' && !selectedOption.attr('selected')))
+
         if (haveToSelect ){
           selectableLi.hide();
           selectedOption.attr('selected', 'selected');
