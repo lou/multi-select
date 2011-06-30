@@ -40,6 +40,7 @@
           <li id='multiple'>Multiple</li>
           <li id='headers'>Headers</li>
           <li id='submit-form'>Submit form</li>
+          <li id='empty-form'>Empty array</li>
           <li id='disabled'>Disabled options</li>
         </ul>
         <div id='demos-content'>
@@ -148,6 +149,24 @@
           <div class='submit-form'  style='display:none'>
             <form id='real-form' action='http://localhost:4567/ms' method='post'>
                <select name='countries[]' multiple='multiple' class='multiselect'>
+                 <option value='fr'>France</option>
+                 <option value='ca'>Canada</option>
+                 <option value='ar'>Argentina</option>
+                 <option value='pt'>Portugal</option>
+                 <option value='us'>United States</option>
+                 <option value='gb'>United Kingdom</option>
+                 <option value='au'>Australia</option>
+                 <option value='ao'>Angola</option>
+                 <option value='aq'>Antarctica</option>
+                 <option value='bq'>Burkina Faso</option>
+                 <option value='cn'>China</option>
+               </select>
+               <input type='submit' value='submit' />
+             </form>
+          </div>
+          <div class='empty-form'  style='display:none'>
+            <form id='empty-array-form' action='http://localhost:4567/ms' method='post'>
+               <select name='countries[]' multiple='multiple' id='empty-array-select'>
                  <option value='fr'>France</option>
                  <option value='ca'>Canada</option>
                  <option value='ar'>Argentina</option>

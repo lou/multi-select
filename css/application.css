@@ -128,14 +128,23 @@ table{
 
 th{
   text-align: left;
-  border-bottom: 1px #aaa solid;  
+  border: 1px #eee solid;
+  border-bottom: 1px #ddd solid;
+  padding: 5px 10px;
+  background: -moz-linear-gradient(top,#F9F9f9 0%,#EFEFEF 100%);
+  background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#F9F9F9),color-stop(100%,#EFEFEF));
 }
 
 td{
-  border-bottom: 1px #eee solid;
-  padding: 10px 0px;
+  border: 1px #eee solid;
+  padding: 10px;
   color: #777;
 }
+
+td:first-child{
+  color: #333;
+}
+
 
 #page{
   background-color: #fff;

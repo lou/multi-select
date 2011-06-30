@@ -6,6 +6,8 @@
       selectedHeader : '<h4>Selected Items</h4>'
     });
     
+    $('#empty-array-select').multiSelect({ emptyArray: true})
+    
     $('#callbackCountries').multiSelect({
       afterSelect: function(value, text){
         alert('Select element\nvalue: '+value+'\ntext: '+text);
@@ -45,6 +47,13 @@
     
     $('#real-form').submit(function(){
       var value = $('#real-form').find('select').val();
+      var str = value ? '['+value+']' : value;
+      alert("select value:\n"+str);
+      return false;
+    });
+    
+    $('#empty-array-form').submit(function(){
+      var value = $('#empty-array-form').find('select').val();
       var str = value ? '['+value+']' : value;
       alert("select value:\n"+str);
       return false;
