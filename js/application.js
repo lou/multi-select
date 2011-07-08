@@ -6,6 +6,8 @@
       selectedHeader : '<h4>Selected Items</h4>'
     });
     
+    $('#simpleCountries').multiSelect({});
+
     $('#empty-array-select').multiSelect({ emptyArray: true})
     
     $('#callbackCountries').multiSelect({

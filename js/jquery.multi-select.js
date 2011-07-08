@@ -15,49 +15,51 @@
       multiSelects.each(function(){
         var ms = $(this);
 
-        ms.attr('id', ms.attr('id') ? ms.attr('id') : 'ms-'+Math.ceil(Math.random()*1000));
-        var container = $('<div id="ms-'+ms.attr('id')+'" class="ms-container"></div>'),
-            selectableContainer = $('<div class="ms-selectable"></div>'),
-            selectedContainer = $('<div class="ms-selection"></div>'),
-            selectableUl = $('<ul></ul>'),
-            selectedUl = $('<ul></ul>');
-        
-        if (multiSelects.settings.emptyArray){
-          if (ms.children("option[value='']").length == 0){
-            ms.prepend("<option value='' selected='selected'></option>");
-          } else {
-            ms.children("option[value='']").attr('selected', 'selected');
-          }
-        }
-        ms.data('settings', multiSelects.settings);
-        ms.children("option:not(option[value=''])").each(function(){
-          var selectableLi = $('<li ms-value="'+$(this).val()+'">'+$(this).text()+'</li>');
+        if (ms.next('.ms-container').length == 0){
+          ms.attr('id', ms.attr('id') ? ms.attr('id') : 'ms-'+Math.ceil(Math.random()*1000));
+          var container = $('<div id="ms-'+ms.attr('id')+'" class="ms-container"></div>'),
+              selectableContainer = $('<div class="ms-selectable"></div>'),
+              selectedContainer = $('<div class="ms-selection"></div>'),
+              selectableUl = $('<ul></ul>'),
+              selectedUl = $('<ul></ul>');
           
-          if ($(this).attr('title'))
-            selectableLi.attr('title', $(this).attr('title'));
-          if ($(this).attr('disabled') || ms.attr('disabled')){
-            selectableLi.attr('disabled', 'disabled');
-            selectableLi.addClass(multiSelects.settings.disabledClass)
+          if (multiSelects.settings.emptyArray){
+            if (ms.children("option[value='']").length == 0){
+              ms.prepend("<option value='' selected='selected'></option>");
+            } else {
+              ms.children("option[value='']").attr('selected', 'selected');
+            }
           }
-          selectableLi.click(function(){
-            ms.multiSelect('select', $(this).attr('ms-value'));
+          ms.data('settings', multiSelects.settings);
+          ms.children("option:not(option[value=''])").each(function(){
+            var selectableLi = $('<li ms-value="'+$(this).val()+'">'+$(this).text()+'</li>');
+            
+            if ($(this).attr('title'))
+              selectableLi.attr('title', $(this).attr('title'));
+            if ($(this).attr('disabled') || ms.attr('disabled')){
+              selectableLi.attr('disabled', 'disabled');
+              selectableLi.addClass(multiSelects.settings.disabledClass)
+            }
+            selectableLi.click(function(){
+              ms.multiSelect('select', $(this).attr('ms-value'));
+            });
+            selectableUl.append(selectableLi);
           });
-          selectableUl.append(selectableLi);
-        });
-        if (multiSelects.settings.selectableHeader){
-          selectableContainer.append(multiSelects.settings.selectableHeader);
+          if (multiSelects.settings.selectableHeader){
+            selectableContainer.append(multiSelects.settings.selectableHeader);
+          }
+          selectableContainer.append(selectableUl);
+          if (multiSelects.settings.selectedHeader){
+            selectedContainer.append(multiSelects.settings.selectedHeader);
+          }
+          selectedContainer.append(selectedUl);
+          container.append(selectableContainer);
+          container.append(selectedContainer);
+          ms.after(container);
+          ms.children('option:selected').each(function(){
+            ms.multiSelect('select', $(this).val(), 'init');
+          });
         }
-        selectableContainer.append(selectableUl);
-        if (multiSelects.settings.selectedHeader){
-          selectedContainer.append(multiSelects.settings.selectedHeader);
-        }
-        selectedContainer.append(selectedUl);
-        container.append(selectableContainer);
-        container.append(selectedContainer);
-        ms.after(container);
-        ms.children('option:selected').each(function(){
-          ms.multiSelect('select', $(this).val(), 'init');
-        });
       });
     },
     'select' : function(value, method){
