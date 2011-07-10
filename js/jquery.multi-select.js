@@ -64,7 +64,6 @@
     },
     'select' : function(value, method){
       var ms = this,
-          msValues = ((ms.val() && ms.val()[0] != '') ? ms.val() : []),
           selectedOption = ms.find('option[value="'+value +'"]'),
           text = selectedOption.text(),
           titleAttr = selectedOption.attr('title');
