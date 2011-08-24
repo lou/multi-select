@@ -37,7 +37,7 @@
             if ($(this).is('optgroup')){
               currentOptgroup = $(this).attr('label');
               selectableUl.append($('<li class="ms-optgroup-container" id="ms-optgroup-'+
-                                  $(this).attr('label')+'"><ul class="ms-optroup"><li class="ms-optgroup-label">'+
+                                  $(this).attr('label')+'"><ul class="ms-optgroup"><li class="ms-optgroup-label">'+
                                   $(this).attr('label')+'</li></ul></li>'));
             }
             if ($(this).is("option:not(option[value=''])")){
@@ -52,9 +52,7 @@
               selectableLi.click(function(){
                 ms.multiSelect('select', $(this).attr('ms-value'));
               });
-              console.log(selectableUl.children('#ms-optgroup-'+currentOptgroup+' ul'));
               var container = currentOptgroup ? selectableUl.children('#ms-optgroup-'+currentOptgroup).find('ul').first() : selectableUl;
-              //console.log(container);
               container.append(selectableLi);
             }
           });
