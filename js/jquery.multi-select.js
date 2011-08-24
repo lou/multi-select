@@ -24,14 +24,14 @@
               selectedUl = $('<ul></ul>');
           
           if (multiSelects.settings.emptyArray){
-            if (ms.children("option[value='']").length == 0){
+            if (ms.find("option[value='']").length == 0){
               ms.prepend("<option value='' selected='selected'></option>");
             } else {
-              ms.children("option[value='']").attr('selected', 'selected');
+              ms.find("option[value='']").attr('selected', 'selected');
             }
           }
           ms.data('settings', multiSelects.settings);
-          ms.children("option:not(option[value=''])").each(function(){
+          ms.find("option:not(option[value=''])").each(function(){
             var selectableLi = $('<li ms-value="'+$(this).val()+'">'+$(this).text()+'</li>');
             
             if ($(this).attr('title'))
@@ -56,7 +56,7 @@
           container.append(selectableContainer);
           container.append(selectedContainer);
           ms.after(container);
-          ms.children('option:selected').each(function(){
+          ms.find('option:selected').each(function(){
             ms.multiSelect('select', $(this).val(), 'init');
           });
         }
@@ -86,8 +86,8 @@
             ms.multiSelect('deselect', $(this).attr('ms-value'));
           });
           selectedUl.append(selectedLi);
-          if (ms.children("option[value='']")){
-            ms.children("option[value='']").removeAttr('selected');
+          if (ms.find("option[value='']")){
+            ms.find("option[value='']").removeAttr('selected');
           }
           if(method != 'init'){
             selectedUl.trigger('change');
@@ -114,8 +114,8 @@
         selectableLi.show();
         selectedLi.remove();
         if (ms.data('settings').emptyArray && selectedUl.children('li').length == 0){
-          if (ms.children("option[value='']")){
-            ms.children("option[value='']").attr('selected', 'selected');
+          if (ms.find("option[value='']")){
+            ms.find("option[value='']").attr('selected', 'selected');
           }
         }
         selectedUl.trigger('change');
@@ -126,14 +126,16 @@
       }
     },
     'select_all' : function(){
+      console.time('select_all');
       var ms = this;
-      ms.children("option:not(option[value=''])").each(function(){
+      ms.find("option:not(option[value=''])").each(function(){
         ms.multiSelect('select', $(this).val(), 'select_all');
       });
+      console.timeEnd('select_all');
     },
     'deselect_all' : function(){
       var ms = this;
-      ms.children("option:not(option[value=''])").each(function(){
+      ms.find("option:not(option[value=''])").each(function(){
         ms.multiSelect('deselect', $(this).val(), 'deselect_all');
       });
     }
