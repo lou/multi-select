@@ -52,9 +52,7 @@
               selectableLi.click(function(){
                 ms.multiSelect('select', $(this).attr('ms-value'));
               });
-              console.log(selectableUl.children('#ms-optgroup-'+currentOptgroup+' ul'));
               var container = currentOptgroup ? selectableUl.children('#ms-optgroup-'+currentOptgroup).find('ul').first() : selectableUl;
-              //console.log(container);
               container.append(selectableLi);
             }
           });
@@ -139,12 +137,10 @@
       }
     },
     'select_all' : function(){
-      console.time('select_all');
       var ms = this;
       ms.find("option:not(option[value=''])").each(function(){
         ms.multiSelect('select', $(this).val(), 'select_all');
       });
-      console.timeEnd('select_all');
     },
     'deselect_all' : function(){
       var ms = this;
