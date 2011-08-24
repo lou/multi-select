@@ -20,8 +20,8 @@
           var container = $('<div id="ms-'+ms.attr('id')+'" class="ms-container"></div>'),
               selectableContainer = $('<div class="ms-selectable"></div>'),
               selectedContainer = $('<div class="ms-selection"></div>'),
-              selectableUl = $('<ul></ul>'),
-              selectedUl = $('<ul></ul>');
+              selectableUl = $('<ul class="ms-list"></ul>'),
+              selectedUl = $('<ul class="ms-list"></ul>');
           
           if (multiSelects.settings.emptyArray){
             if (ms.find("option[value='']").length == 0){
@@ -31,19 +31,32 @@
             }
           }
           ms.data('settings', multiSelects.settings);
-          ms.find("option:not(option[value=''])").each(function(){
-            var selectableLi = $('<li ms-value="'+$(this).val()+'">'+$(this).text()+'</li>');
-            
-            if ($(this).attr('title'))
-              selectableLi.attr('title', $(this).attr('title'));
-            if ($(this).attr('disabled') || ms.attr('disabled')){
-              selectableLi.attr('disabled', 'disabled');
-              selectableLi.addClass(multiSelects.settings.disabledClass)
+
+          var currentOptgroup = null;
+          ms.find('optgroup,option').each(function(){
+            if ($(this).is('optgroup')){
+              currentOptgroup = $(this).attr('label');
+              selectableUl.append($('<li class="ms-optgroup-container" id="ms-optgroup-'+
+                                  $(this).attr('label')+'"><ul class="ms-optroup"><li class="ms-optgroup-label">'+
+                                  $(this).attr('label')+'</li></ul></li>'));
             }
-            selectableLi.click(function(){
-              ms.multiSelect('select', $(this).attr('ms-value'));
-            });
-            selectableUl.append(selectableLi);
+            if ($(this).is("option:not(option[value=''])")){
+              var selectableLi = $('<li class="ms-elem-selectable" ms-value="'+$(this).val()+'">'+$(this).text()+'</li>');
+            
+              if ($(this).attr('title'))
+                selectableLi.attr('title', $(this).attr('title'));
+              if ($(this).attr('disabled') || ms.attr('disabled')){
+                selectableLi.attr('disabled', 'disabled');
+                selectableLi.addClass(multiSelects.settings.disabledClass);
+              }
+              selectableLi.click(function(){
+                ms.multiSelect('select', $(this).attr('ms-value'));
+              });
+              console.log(selectableUl.children('#ms-optgroup-'+currentOptgroup+' ul'));
+              var container = currentOptgroup ? selectableUl.children('#ms-optgroup-'+currentOptgroup).find('ul').first() : selectableUl;
+              //console.log(container);
+              container.append(selectableLi);
+            }
           });
           if (multiSelects.settings.selectableHeader){
             selectableContainer.append(multiSelects.settings.selectableHeader);
@@ -68,7 +81,7 @@
           text = selectedOption.text(),
           titleAttr = selectedOption.attr('title');
       
-        var selectedLi = $('<li ms-value="'+value+'">'+text+'</li>').detach(),
+        var selectedLi = $('<li class="ms-elem-selected" ms-value="'+value+'">'+text+'</li>').detach(),
             selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul'),
             selectedUl = $('#ms-'+ms.attr('id')+' .ms-selection ul'),
             selectableLi = selectableUl.children('li[ms-value="'+value+'"]'),        

@@ -21,22 +21,27 @@
 }
 
 .ms-container ul{
+  margin: 0;
+  list-style-type: none;
+}
+
+.ms-container ul.ms-list{
   width: 170px;
   height: 200px;
-  margin: 0;
   padding: 1px 0px;
-  list-style-type: none;
+  
   overflow-y: auto;
 
 }
 
-.ms-container .ms-selectable li, .ms-container .ms-selection li{
+.ms-container .ms-selectable li.ms-elem-selectable,
+.ms-container .ms-selection li.ms-elem-selectable{
   border-bottom: 1px #eee solid;
   padding: 1px 10px;
   color: #555;
 }
 
-.ms-container .ms-selection li{
+.ms-container .ms-selection li.ms-elem-selected{
   padding-left: 22px;
   color: #101010;
 }
@@ -46,7 +51,13 @@
   color: #aaa;
 }
 
-.ms-container li:hover{
+.ms-container .ms-optgroup-label{
+  padding: 5px 0px 0px 5px;
+  color: #999;
+}
+
+.ms-container li.ms-elem-selectable:hover,
+.ms-container .ms-selection li:hover{
   cursor: pointer;
   background-color: #eee;
   color: #000;
