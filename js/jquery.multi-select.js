@@ -137,12 +137,10 @@
       }
     },
     'select_all' : function(){
-      console.time('select_all');
       var ms = this;
       ms.find("option:not(option[value=''])").each(function(){
         ms.multiSelect('select', $(this).val(), 'select_all');
       });
-      console.timeEnd('select_all');
     },
     'deselect_all' : function(){
       var ms = this;
