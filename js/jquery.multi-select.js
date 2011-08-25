@@ -88,6 +88,10 @@
                               (method != 'init' && !selectedOption.attr('selected')))
 
         if (haveToSelect ){
+          var parentOptgroup = selectableLi.parent('.ms-optgroup');
+          if (parentOptgroup.length > 0)
+            if (parentOptgroup.children('.ms-elem-selectable:not(:hidden)').length == 1)
+              parentOptgroup.children('.ms-optgroup-label').hide();
           selectableLi.hide();
           selectedOption.attr('selected', 'selected');
           if(titleAttr){
@@ -121,6 +125,9 @@
             selectableLi = selectableUl.children('li[ms-value="'+value+'"]'),
             selectedLi = selectedUl.children('li[ms-value="'+value+'"]');
        
+        var parentOptgroup = selectableLi.parent('.ms-optgroup');
+        if (parentOptgroup.length > 0)
+          parentOptgroup.children('.ms-optgroup-label').show();
         selectedOption.removeAttr('selected');
         selectableLi.show();
         selectedLi.remove();
