@@ -79,7 +79,7 @@
           text = selectedOption.text(),
           titleAttr = selectedOption.attr('title');
       
-        var selectedLi = $('<li class="ms-elem-selected" ms-value="'+value+'">'+text+'</li>').detach(),
+        var selectedLi = $('<li class="ms-elem-selected" ms-value="'+value+'">'+text+'</li>'),
             selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul'),
             selectedUl = $('#ms-'+ms.attr('id')+' .ms-selection ul'),
             selectableLi = selectableUl.children('li[ms-value="'+value+'"]'),        
