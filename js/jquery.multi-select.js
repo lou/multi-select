@@ -73,6 +73,10 @@
         }
       });
     },
+    'refresh' : function() {
+      $("#ms-"+$(this).attr("id")).remove();
+      $(this).multiSelect("init");
+    },
     'select' : function(value, method){
       var ms = this,
           selectedOption = ms.find('option[value="'+value +'"]'),
