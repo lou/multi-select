@@ -251,6 +251,7 @@ ul#demos-menu li:hover{
 #demos-content{
   float: right;
   width: 788px;
+  min-height: 400px;
   padding: 20px;
   border: 1px #ddd solid;
   background: #eee;

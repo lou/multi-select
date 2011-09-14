@@ -52,8 +52,14 @@
 }
 
 .ms-container .ms-optgroup-label{
-  padding: 5px 0px 0px 5px;
+  padding: 5px 0px 0px 20px;
+  background: transparent url('../img/plus.png') no-repeat 5px 10px;
+  cursor: pointer;
   color: #999;
+}
+
+.ms-container .ms-optgroup-label.collapse{
+  background-image: url('../img/minus.png');
 }
 
 .ms-container li.ms-elem-selectable:hover,
