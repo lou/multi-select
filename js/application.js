@@ -16,7 +16,7 @@
     $('#searchable-form').multiSelect({
       selectableHeader : '<input type="text" id="search" />'
     });
-    $('input#search').quicksearch('#ms-searchable-form li');
+    $('input#search').quicksearch('#ms-searchable-form .ms-selectable li');
 
     $('#multipleHeaders').multiSelect({
       selectableHeader : '<h4>Selectable Items</h4>',
