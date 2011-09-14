@@ -1,6 +1,23 @@
 (function($){
   $(function(){
+
     $('.multiselect').multiSelect({});
+    $('#ms-optgroup .ms-selectable').find('li.ms-elem-selectable').hide();
+    $('.ms-optgroup-label').click(function(){
+      if ($(this).hasClass('collapse')){
+        $(this).nextAll('li').hide();
+        $(this).removeClass('collapse'); 
+      } else {
+        $(this).nextAll('li').show();
+        $(this).addClass('collapse');
+      }
+    });
+  
+    $('#searchable-form').multiSelect({
+      selectableHeader : '<input type="text" id="search" />'
+    });
+    $('input#search').quicksearch('#ms-searchable-form li');
+
     $('#multipleHeaders').multiSelect({
       selectableHeader : '<h4>Selectable Items</h4>',
       selectedHeader : '<h4>Selected Items</h4>'
@@ -24,6 +41,8 @@
       return false;
     });
     
+    $()
+
     $('#deselectAll').click(function(){
       $('#outsideCountries').multiSelect('deselect_all');
       return false;
