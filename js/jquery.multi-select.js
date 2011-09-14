@@ -73,13 +73,17 @@
         }
       });
     },
+    'refresh' : function() {
+      $("#ms-"+$(this).attr("id")).remove();
+      $(this).multiSelect("init");
+    },
     'select' : function(value, method){
       var ms = this,
           selectedOption = ms.find('option[value="'+value +'"]'),
           text = selectedOption.text(),
           titleAttr = selectedOption.attr('title');
       
-        var selectedLi = $('<li class="ms-elem-selected" ms-value="'+value+'">'+text+'</li>').detach(),
+        var selectedLi = $('<li class="ms-elem-selected" ms-value="'+value+'">'+text+'</li>'),
             selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul'),
             selectedUl = $('#ms-'+ms.attr('id')+' .ms-selection ul'),
             selectableLi = selectableUl.children('li[ms-value="'+value+'"]'),        
