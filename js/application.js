@@ -17,7 +17,7 @@
       selectableHeader : '<input type="text" id="search" autocomplete = "off" />'
     });
 
-    $('input#search').quicksearch('#ms-searchable-form .ms-selectable li:not(.ms-disabled)');
+    $('input#search').quicksearch('#ms-searchable-form .ms-selectable li:not(.ms-diselected)');
     $('#searchable-form').multiSelect();
     
 
