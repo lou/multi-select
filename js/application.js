@@ -14,9 +14,12 @@
     });
   
     $('#searchable-form').multiSelect({
-      selectableHeader : '<input type="text" id="search" />'
+      selectableHeader : '<input type="text" id="search" autocomplete = "off" />'
     });
-    $('input#search').quicksearch('#ms-searchable-form .ms-selectable li');
+
+    $('input#search').quicksearch('#ms-searchable-form .ms-selectable li:not(.ms-disabled)');
+    $('#searchable-form').multiSelect();
+    
 
     $('#multipleHeaders').multiSelect({
       selectableHeader : '<h4>Selectable Items</h4>',
