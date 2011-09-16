@@ -32,13 +32,17 @@
           }
           ms.data('settings', multiSelects.settings);
 
-          var currentOptgroup = null;
+          var optgroupLabel = null,
+              optgroupId = null,
+              optgroupCpt = 0;
           ms.find('optgroup,option').each(function(){
             if ($(this).is('optgroup')){
-              currentOptgroup = $(this).attr('label');
-              selectableUl.append($('<li class="ms-optgroup-container" id="ms-optgroup-'+
-                                  $(this).attr('label')+'"><ul class="ms-optgroup"><li class="ms-optgroup-label">'+
-                                  $(this).attr('label')+'</li></ul></li>'));
+              optgroupLabel = $(this).attr('label');
+              optgroupId = 'ms-'+ms.attr('id')+'-optgroup-'+optgroupCpt;
+              selectableUl.append($('<li class="ms-optgroup-container" id="'+
+                                  optgroupId+'"><ul class="ms-optgroup"><li class="ms-optgroup-label">'+
+                                  optgroupLabel+'</li></ul></li>'));
+              optgroupCpt++;
             }
             if ($(this).is("option:not(option[value=''])")){
               var selectableLi = $('<li class="ms-elem-selectable" ms-value="'+$(this).val()+'">'+$(this).text()+'</li>');
@@ -52,7 +56,7 @@
               selectableLi.click(function(){
                 ms.multiSelect('select', $(this).attr('ms-value'));
               });
-              var container = currentOptgroup ? selectableUl.children('#ms-optgroup-'+currentOptgroup).find('ul').first() : selectableUl;
+              var container = optgroupId ? selectableUl.children('#'+optgroupId).find('ul').first() : selectableUl;
               container.append(selectableLi);
             }
           });
