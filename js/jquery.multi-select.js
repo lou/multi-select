@@ -100,6 +100,7 @@
           if (parentOptgroup.length > 0)
             if (parentOptgroup.children('.ms-elem-selectable:not(:hidden)').length == 1)
               parentOptgroup.children('.ms-optgroup-label').hide();
+          selectableLi.addClass('ms-selected');
           selectableLi.hide();
           selectedOption.attr('selected', 'selected');
           if(titleAttr){
@@ -138,6 +139,7 @@
           parentOptgroup.children('.ms-optgroup-label').show();
         selectedOption.removeAttr('selected');
         selectableLi.show();
+        selectableLi.removeClass('ms-selected');
         selectedLi.remove();
         if (ms.data('settings').emptyArray && selectedUl.children('li').length == 0){
           if (ms.find("option[value='']")){

@@ -16,6 +16,9 @@
   -khtml-border-radius:  4px;
 }
 
+.ms-selected{
+  display:none;
+}
 .ms-container .ms-selectable{
   margin-right: 40px;
 }
