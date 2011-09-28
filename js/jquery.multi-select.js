@@ -1,3 +1,13 @@
+/*
+* MultiSelect v0.1
+* Copyright (c) 2011 Louis Cuny
+*
+* Dual licensed under the MIT and GPL licenses:
+*    http://www.opensource.org/licenses/mit-license.php
+*    http://www.gnu.org/licenses/gpl.html
+*
+*/
+
 (function($){
   var msMethods = {
     'init' : function(options){
