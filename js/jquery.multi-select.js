@@ -117,7 +117,7 @@
 
             var getIndexOf = function(value) {
               return($.inArray(value, 
-                $.map($("#ms-simpleCountries .ms-elem-selectable"), function(e, i){ 
+                $.map(selectableUl.children('.ms-elem-selectable'), function(e, i){ 
                   return($(e).attr("ms-value"))
                 }
               )));
