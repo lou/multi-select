@@ -28,6 +28,8 @@
     
     $('#simpleCountries').multiSelect({});
 
+    $('#ikeeporder').multiSelect({ keepOrder: true });
+
     $('#empty-array-select').multiSelect({ emptyArray: true})
     
     $('#callbackCountries').multiSelect({
