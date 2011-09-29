@@ -10,11 +10,6 @@
         this.settings = $.extend(this.settings, options);
       }
 
-      if (this.settings.keepOrder) {
-        console.log(this.settings.keepOrder);
-        console.log(this);
-      }
-
       var multiSelects = this;
       multiSelects.hide();
 
@@ -117,7 +112,6 @@
           });
 
           var selectedUlLis = selectedUl.children('.ms-elem-selected');
-          console.log(ms.data('settings').keepOrder);
           if (method != 'init' && ms.data('settings').keepOrder &&
             selectedUlLis.length > 0) {
 
