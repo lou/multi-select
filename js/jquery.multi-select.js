@@ -3,7 +3,8 @@
     'init' : function(options){
       this.settings = {
         disabledClass : 'disabled',
-        emptyArray : false
+        emptyArray : false,
+        callbackOnInit: false
       };
       if(options) {
         this.settings = $.extend(this.settings, options);
@@ -113,10 +114,11 @@
           if (ms.find("option[value='']")){
             ms.find("option[value='']").removeAttr('selected');
           }
-          if(method != 'init'){
+          if(method != 'init' || ms.data('settings').callbackOnInit){
             selectedUl.trigger('change');
             selectableUl.trigger('change');
-            if (typeof ms.data('settings').afterSelect == 'function' && method != 'init') {
+            if (typeof ms.data('settings').afterSelect == 'function' &&
+                (method != 'init' || ms.data('settings').callbackOnInit)) {
               ms.data('settings').afterSelect.call(this, value, text);
             }
         }
