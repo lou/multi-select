@@ -116,14 +116,11 @@
             selectedUlLis.length > 0) {
 
             var getIndexOf = function(value) {
-              return($.inArray(value, 
-                $.map(selectableUl.children('.ms-elem-selectable'), function(e, i){ 
-                  return($(e).attr("ms-value"))
-                }
-              )));
+              elems = selectableUl.children('.ms-elem-selectable');
+              return(elems.index(elems.closest('[ms-value="'+value+'"]')));
             }
+            
             var index = getIndexOf(selectedLi.attr('ms-value'));
-
             if (index == 0)
               selectedUl.prepend(selectedLi);
             else {
