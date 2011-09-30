@@ -112,8 +112,7 @@
           });
 
           var selectedUlLis = selectedUl.children('.ms-elem-selected');
-          if (method != 'init' && ms.data('settings').keepOrder &&
-            selectedUlLis.length > 0) {
+          if (method != 'init' && ms.data('settings').keepOrder && selectedUlLis.length > 0) {
 
             var getIndexOf = function(value) {
               elems = selectableUl.children('.ms-elem-selectable');
