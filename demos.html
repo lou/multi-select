@@ -35,6 +35,7 @@
       <div id='demos-container'>
         <ul id='demos-menu'>
           <li id='simple' class='active'>Simple</li>
+          <li id='keeporder'>Keep Order</li>
           <li id='optgroup'>Optgroup</li>
           <li id='callbacks'>Callbacks</li>
           <li id='outside'>Outside call</li>
@@ -49,6 +50,23 @@
           <div class='simple'>
              <form>
                 <select multiple='multiple' class='multiselect' id='simpleCountries'>
+                 <option value='fr'>France</option>
+                 <option value='ca' selected='selected'>Canada</option>
+                 <option value='ar' selected='selected'>Argentina</option>
+                 <option value='pt'>Portugal</option>
+                 <option value='us'>United States</option>
+                 <option value='gb'>United Kingdom</option>
+                 <option value='au'>Australia</option>
+                 <option value='ao'>Angola</option>
+                 <option value='aq'>Antarctica</option>
+                 <option value='bq'>Burkina Faso</option>
+                 <option value='cn'>China</option>
+                </select>
+              </form>
+          </div>
+          <div class='keeporder' style='display:none'>
+             <form>
+                <select multiple='multiple' id='ikeeporder'>
                  <option value='fr'>France</option>
                  <option value='ca' selected='selected'>Canada</option>
                  <option value='ar' selected='selected'>Argentina</option>
