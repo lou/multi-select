@@ -20,7 +20,6 @@
       if(options) {
         this.settings = $.extend(this.settings, options);
       }
-
       var multiSelects = this;
       multiSelects.hide();
 
