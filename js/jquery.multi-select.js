@@ -1,3 +1,13 @@
+/*
+* MultiSelect v0.2
+* Copyright (c) 2011 Louis Cuny
+*
+* Dual licensed under the MIT and GPL licenses:
+*    http://www.opensource.org/licenses/mit-license.php
+*    http://www.gnu.org/licenses/gpl.html
+*
+*/
+
 (function($){
   var msMethods = {
     'init' : function(options){
@@ -5,6 +15,7 @@
         disabledClass : 'disabled',
         emptyArray : false,
         callbackOnInit: false
+        keepOrder : false
       };
       if(options) {
         this.settings = $.extend(this.settings, options);
@@ -110,7 +121,30 @@
           selectedLi.click(function(){
             ms.multiSelect('deselect', $(this).attr('ms-value'));
           });
-          selectedUl.append(selectedLi);
+
+          var selectedUlLis = selectedUl.children('.ms-elem-selected');
+          if (method != 'init' && ms.data('settings').keepOrder && selectedUlLis.length > 0) {
+
+            var getIndexOf = function(value) {
+              elems = selectableUl.children('.ms-elem-selectable');
+              return(elems.index(elems.closest('[ms-value="'+value+'"]')));
+            }
+            
+            var index = getIndexOf(selectedLi.attr('ms-value'));
+            if (index == 0)
+              selectedUl.prepend(selectedLi);
+            else {
+              for (i = index - 1; i >= 0; i--){
+                if (selectedUlLis[i] && getIndexOf($(selectedUlLis[i]).attr('ms-value')) < index) {
+                  $(selectedUlLis[i]).after(selectedLi);
+                  break;
+                }
+              }
+            }
+          } else {
+            selectedUl.append(selectedLi);
+          }
+
           if (ms.find("option[value='']")){
             ms.find("option[value='']").removeAttr('selected');
           }
