@@ -14,7 +14,7 @@
       this.settings = {
         disabledClass : 'disabled',
         emptyArray : false,
-        callbackOnInit: false
+        callbackOnInit: false,
         keepOrder : false
       };
       if(options) {
