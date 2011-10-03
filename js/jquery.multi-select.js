@@ -1,5 +1,5 @@
 /*
-* MultiSelect v0.1
+* MultiSelect v0.2
 * Copyright (c) 2011 Louis Cuny
 *
 * Dual licensed under the MIT and GPL licenses:
@@ -14,12 +14,12 @@
       this.settings = {
         disabledClass : 'disabled',
         emptyArray : false,
+        callbackOnInit: false
         keepOrder : false
       };
       if(options) {
         this.settings = $.extend(this.settings, options);
       }
-
       var multiSelects = this;
       multiSelects.hide();
 
@@ -147,10 +147,11 @@
           if (ms.find("option[value='']")){
             ms.find("option[value='']").removeAttr('selected');
           }
-          if(method != 'init'){
+          if(method != 'init' || ms.data('settings').callbackOnInit){
             selectedUl.trigger('change');
             selectableUl.trigger('change');
-            if (typeof ms.data('settings').afterSelect == 'function' && method != 'init') {
+            if (typeof ms.data('settings').afterSelect == 'function' &&
+                (method != 'init' || ms.data('settings').callbackOnInit)) {
               ms.data('settings').afterSelect.call(this, value, text);
             }
         }
