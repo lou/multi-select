@@ -137,6 +137,8 @@
                 if (selectedUlLis[i] && getIndexOf($(selectedUlLis[i]).attr('ms-value')) < index) {
                   $(selectedUlLis[i]).after(selectedLi);
                   break;
+                } else if (i == 0) {
+                  $(selectedUlLis[i]).before(selectedLi);
                 }
               }
             }
