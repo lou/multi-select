@@ -56,7 +56,7 @@
               optgroupCpt++;
             }
             if ($(this).is("option:not(option[value=''])")){
-              var selectableLi = $('<li class="ms-elem-selectable" ms-value="'+$(this).val()+'">'+$(this).text()+'</li>');
+              var selectableLi = $('<li class="ms-elem-selectable '+$(this).attr('class')+'" ms-value="'+$(this).val()+'">'+$(this).text()+'</li>');
             
               if ($(this).attr('title'))
                 selectableLi.attr('title', $(this).attr('title'));
@@ -96,9 +96,10 @@
       var ms = this,
           selectedOption = ms.find('option[value="'+value +'"]'),
           text = selectedOption.text(),
+          klass = selectedOption.attr('class'),
           titleAttr = selectedOption.attr('title');
       
-        var selectedLi = $('<li class="ms-elem-selected" ms-value="'+value+'">'+text+'</li>'),
+        var selectedLi = $('<li class="ms-elem-selected '+klass+'" ms-value="'+value+'">'+text+'</li>'),
             selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul'),
             selectedUl = $('#ms-'+ms.attr('id')+' .ms-selection ul'),
             selectableLi = selectableUl.children('li[ms-value="'+value+'"]'),        
