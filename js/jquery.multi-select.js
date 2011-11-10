@@ -13,7 +13,6 @@
     'init' : function(options){
       this.settings = {
         disabledClass : 'disabled',
-        emptyArray : false,
         callbackOnInit: false,
         keepOrder : false
       };
@@ -34,13 +33,6 @@
               selectableUl = $('<ul class="ms-list"></ul>'),
               selectedUl = $('<ul class="ms-list"></ul>');
           
-          if (multiSelects.settings.emptyArray){
-            if (ms.find("option[value='']").length == 0){
-              ms.prepend("<option value='' selected='selected'></option>");
-            } else {
-              ms.find("option[value='']").attr('selected', 'selected');
-            }
-          }
           ms.data('settings', multiSelects.settings);
 
           var optgroupLabel = null,
@@ -176,11 +168,6 @@
         selectableLi.show();
         selectableLi.removeClass('ms-selected');
         selectedLi.remove();
-        if (ms.data('settings').emptyArray && selectedUl.children('li').length == 0){
-          if (ms.find("option[value='']")){
-            ms.find("option[value='']").attr('selected', 'selected');
-          }
-        }
         selectedUl.trigger('change');
         selectableUl.trigger('change');
         if (typeof ms.data('settings').afterDeselect == 'function') {
