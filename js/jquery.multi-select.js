@@ -150,6 +150,9 @@
           if (ms.find("option[value='']")){
             ms.find("option[value='']").removeAttr('selected');
           }
+          if (method == "select_all" && parentOptgroup.children('.ms-elem-selectable').length > 0){
+            parentOptgroup.children('.ms-optgroup-label').hide();
+          }
           if(method != 'init' || ms.data('settings').callbackOnInit){
             selectedUl.trigger('change');
             selectableUl.trigger('change');
@@ -173,8 +176,10 @@
             selectedLi = selectedUl.children('li[ms-value="'+value+'"]');
        
         var parentOptgroup = selectableLi.parent('.ms-optgroup');
-        if (parentOptgroup.length > 0)
-          parentOptgroup.children('.ms-optgroup-label').show();
+        if (parentOptgroup.length > 0){
+          parentOptgroup.children('.ms-optgroup-label').addClass('collapse').show();
+          parentOptgroup.children('.ms-elem-selectable:not(.ms-selected)').show();
+        }
         selectedOption.removeAttr('selected');
         selectableLi.show();
         selectableLi.removeClass('ms-selected');
