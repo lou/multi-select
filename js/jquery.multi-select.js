@@ -150,6 +150,9 @@
           if (ms.find("option[value='']")){
             ms.find("option[value='']").removeAttr('selected');
           }
+          if (method == "select_all" && parentOptgroup.children('.ms-elem-selectable').length > 0){
+            parentOptgroup.children('.ms-optgroup-label').hide();
+          }
           if(method != 'init' || ms.data('settings').callbackOnInit){
             selectedUl.trigger('change');
             selectableUl.trigger('change');
