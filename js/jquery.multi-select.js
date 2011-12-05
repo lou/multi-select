@@ -195,7 +195,6 @@
     },
     'select_all' : function(){
       var ms = this;
-      console.log(ms);
       ms.find("option:not(option[value=''])").each(function(){
         ms.multiSelect('select', $(this).val(), 'select_all');
       });
