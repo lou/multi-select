@@ -8,7 +8,7 @@
         $(this).nextAll('li').hide();
         $(this).removeClass('collapse'); 
       } else {
-        $(this).nextAll('li').show();
+        $(this).nextAll('li:not(.ms-selected)').show();
         $(this).addClass('collapse');
       }
     });

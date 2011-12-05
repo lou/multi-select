@@ -173,8 +173,10 @@
             selectedLi = selectedUl.children('li[ms-value="'+value+'"]');
        
         var parentOptgroup = selectableLi.parent('.ms-optgroup');
-        if (parentOptgroup.length > 0)
-          parentOptgroup.children('.ms-optgroup-label').show();
+        if (parentOptgroup.length > 0){
+          parentOptgroup.children('.ms-optgroup-label').addClass('collapse').show();
+          parentOptgroup.children('.ms-elem-selectable:not(.ms-selected)').show();
+        }
         selectedOption.removeAttr('selected');
         selectableLi.show();
         selectableLi.removeClass('ms-selected');
@@ -193,6 +195,7 @@
     },
     'select_all' : function(){
       var ms = this;
+      console.log(ms);
       ms.find("option:not(option[value=''])").each(function(){
         ms.multiSelect('select', $(this).val(), 'select_all');
       });
