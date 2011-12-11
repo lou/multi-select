@@ -56,7 +56,8 @@
               optgroupCpt++;
             }
             if ($(this).is("option:not(option[value=''])")){
-              var selectableLi = $('<li class="ms-elem-selectable '+$(this).attr('class')+'" ms-value="'+$(this).val()+'">'+$(this).text()+'</li>');
+              var klass = $(this).attr('class') ? ' '+$(this).attr('class') : '';
+              var selectableLi = $('<li class="ms-elem-selectable'+klass+'" ms-value="'+$(this).val()+'">'+$(this).text()+'</li>');
             
               if ($(this).attr('title'))
                 selectableLi.attr('title', $(this).attr('title'));
@@ -99,7 +100,7 @@
           klass = selectedOption.attr('class'),
           titleAttr = selectedOption.attr('title');
       
-        var selectedLi = $('<li class="ms-elem-selected '+klass+'" ms-value="'+value+'">'+text+'</li>'),
+        var selectedLi = $('<li class="ms-elem-selected'+(klass ? ' '+klass : '')+'" ms-value="'+value+'">'+text+'</li>'),
             selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul'),
             selectedUl = $('#ms-'+ms.attr('id')+' .ms-selection ul'),
             selectableLi = selectableUl.children('li[ms-value="'+value+'"]'),        
