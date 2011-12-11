@@ -2,13 +2,13 @@
   $(function(){
 
     $('.multiselect').multiSelect({});
-    $('#ms-optgroup .ms-selectable').find('li.ms-elem-selectable').hide();
+    $('#ms-optgroup .ms-selectable, #ms-outsideCountries .ms-selectable').find('li.ms-elem-selectable').hide();
     $('.ms-optgroup-label').click(function(){
       if ($(this).hasClass('collapse')){
         $(this).nextAll('li').hide();
         $(this).removeClass('collapse'); 
       } else {
-        $(this).nextAll('li').show();
+        $(this).nextAll('li:not(.ms-selected)').show();
         $(this).addClass('collapse');
       }
     });
