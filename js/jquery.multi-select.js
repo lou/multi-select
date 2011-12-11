@@ -90,7 +90,7 @@
     },
     'refresh' : function() {
       $("#ms-"+$(this).attr("id")).remove();
-      $(this).multiSelect("init");
+      $(this).multiSelect("init", $(this).data("settings"));
     },
     'select' : function(value, method){
       var ms = this,
