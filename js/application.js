@@ -45,8 +45,6 @@
       $('#outsideCountries').multiSelect('select_all');
       return false;
     });
-    
-    $()
 
     $('#deselectAll').click(function(){
       $('#outsideCountries').multiSelect('deselect_all');

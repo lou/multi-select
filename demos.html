@@ -43,7 +43,7 @@
           <li id='headers'>Headers</li>
           <li id='submit-form'>Submit form</li>
           <li id='empty-form'>Empty array</li>
-          <li id='disabled'>Disabled options</li>
+          <li id='disabled-select'>Disabled options</li>
           <li id='searchable'>Searchable</li>
         </ul>
         <div id='demos-content'>
@@ -249,13 +249,13 @@
                <input type='submit' value='submit' />
              </form>
           </div>
-          <div class='disabled'  style='display:none'>
+          <div class='disabled-select'  style='display:none'>
             <form>
                <select multiple='multiple' id='disabled-options' class='multiselect'>
                  <option value='fr' disabled='disabled'>France</option>
                  <option value='ca'>Canada</option>
                  <option value='ar'>Argentina</option>
-                 <option value='pt'>Portugal</option>
+                 <option value='pt' disabled='disabled' selected='selected'>Portugal</option>
                  <option value='us'>United States</option>
                  <option value='gb'>United Kingdom</option>
                  <option value='au'>Australia</option>
@@ -269,7 +269,7 @@
                 <select multiple='multiple' id='disabled-select' disabled='disabled' class='multiselect'>
                   <option value='fr'>France</option>
                   <option value='ca'>Canada</option>
-                  <option value='ar'>Argentina</option>
+                  <option value='ar' selected='selected'>Argentina</option>
                   <option value='pt'>Portugal</option>
                   <option value='us'>United States</option>
                   <option value='gb'>United Kingdom</option>
