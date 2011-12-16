@@ -49,7 +49,8 @@
   color: #101010;
 }
 
-.ms-container .ms-selectable li.disabled{
+.ms-container .ms-selectable li.disabled,
+.ms-container .ms-selection li.disabled{
   background-color: #eee;
   color: #aaa;
 }
@@ -65,13 +66,13 @@
   background-image: url('../img/minus.png');
 }
 
-.ms-container li.ms-elem-selectable:hover,
-.ms-container .ms-selection li:hover{
+.ms-container li.ms-elem-selectable:not(.disabled):hover,
+.ms-container .ms-selection li:not(.disabled):hover{
   cursor: pointer;
   background-color: #eee;
   color: #000;
 }
 
-.ms-container .ms-selection li:hover{
+.ms-container .ms-selection li:not(.disabled):hover{
   background: #eee url('../img/delete.png') no-repeat 3px 3px;
 }
