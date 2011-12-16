@@ -203,10 +203,20 @@
         }
       }
     },
-    'select_all' : function(){
-      var ms = this;
+    'select_all' : function(visible){
+      var ms = this,
+          selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul');
+
       ms.find("option:not(option[value=''])").each(function(){
-        ms.multiSelect('select', $(this).val(), 'select_all');
+        var value = $(this).val();
+        if (visible){
+          var selectableLi = selectableUl.children('li[ms-value="'+value+'"]');
+          if (selectableLi.filter(':visible').length > 0){
+            ms.multiSelect('select', value, 'select_all');
+          }
+        } else {
+          ms.multiSelect('select', value, 'select_all'); 
+        }
       });
     },
     'deselect_all' : function(){
