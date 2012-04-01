@@ -38,7 +38,7 @@
 }
 
 .ms-container .ms-selectable li.ms-elem-selectable,
-.ms-container .ms-selection li.ms-elem-selectable{
+.ms-container .ms-selection li.ms-elem-selected{
   border-bottom: 1px #eee solid;
   padding: 1px 10px;
   color: #555;
