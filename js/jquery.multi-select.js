@@ -233,7 +233,7 @@
           selectedUl.append(selectedLi);
         }
         selectedLi.hover(function(){
-          $('li', container).removeClass('ms-hover');
+          $('li', selectedUl).removeClass('ms-hover');
           $(this).toggleClass('ms-hover');
         })
         if (ms.find("option[value='']")){
