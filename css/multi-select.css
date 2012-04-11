@@ -23,6 +23,14 @@
   margin-right: 40px;
 }
 
+.ms-container .ms-selectable.ms-focused{
+  box-shadow: 0px 0px 1px 2px #649DDC;
+}
+
+.ms-container .ms-selection.ms-focused{
+  box-shadow: 0px 0px 1px 2px #649DDC;
+}
+
 .ms-container ul{
   margin: 0;
   list-style-type: none;
@@ -66,13 +74,13 @@
   background-image: url('../img/minus.png');
 }
 
-.ms-container li.ms-elem-selectable:not(.disabled):hover,
-.ms-container .ms-selection li:not(.disabled):hover{
+.ms-container li.ms-elem-selectable:not(.disabled).ms-hover,
+.ms-container .ms-selection li:not(.disabled).ms-hover{
   cursor: pointer;
   background-color: #eee;
   color: #000;
 }
 
-.ms-container .ms-selection li:not(.disabled):hover{
+.ms-container .ms-selection li:not(.disabled).ms-hover{
   background: #eee url('../img/delete.png') no-repeat 3px 3px;
 }
