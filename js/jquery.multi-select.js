@@ -243,6 +243,7 @@
           parentOptgroup.children('.ms-optgroup-label').hide();
         }
         if(method != 'init' || ms.data('settings').callbackOnInit){
+          ms.trigger('change');
           selectedUl.trigger('change');
           selectableUl.trigger('change');
           if (typeof ms.data('settings').afterSelect == 'function' &&
@@ -276,6 +277,7 @@
         selectedLi.remove();
         selectedUl.trigger('change');
         selectableUl.trigger('change');
+        ms.trigger('change');
         if (typeof ms.data('settings').afterDeselect == 'function') {
           ms.data('settings').afterDeselect.call(this, value, selectedLi.text());
         }
