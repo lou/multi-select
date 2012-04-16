@@ -13,11 +13,13 @@
       }
     });
   
-    $('#searchable-form').multiSelect({
-      selectableHeader : '<input type="text" id="search" autocomplete = "off" />'
-    });
+    $('#searchable-form').multiSelect({});
 
-    $('input#search').quicksearch('#ms-searchable-form .ms-selectable li');
+    $('input#search').quicksearch('#ms-searchable-form .ms-selectable li').on('keydown', function(e){
+      if (e.keyCode == 40){
+        $('#searchable-select').focus();
+      }
+    });
     $('#searchable-form').multiSelect();
     
 
