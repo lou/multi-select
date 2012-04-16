@@ -184,11 +184,11 @@
           haveToSelect = null;
 
       if (method == 'init'){
-        haveToSelect = selectableLi.hasClass(ms.data('settings').disabledClass) && value != '' && selectedOption.attr('selected');
+        haveToSelect = selectableLi.hasClass(ms.data('settings').disabledClass) && selectedOption.attr('selected');
       } else {
-        haveToSelect = !(selectableLi.hasClass(ms.data('settings').disabledClass)) && value != '';
+        haveToSelect = !(selectableLi.hasClass(ms.data('settings').disabledClass));
       }
-      if (haveToSelect ){
+      if (haveToSelect && value && value != '' && selectedUl.children('li[ms-value="'+value+'"]').length == 0){
         ms.focus();
         var parentOptgroup = selectableLi.parent('.ms-optgroup');
         if (parentOptgroup.length > 0)

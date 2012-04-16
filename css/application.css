@@ -266,3 +266,8 @@ form{
   float: left;
   margin: 20px 0px;
 }
+
+#search{
+  width: 165px;
+  font-size: 14px;
+}
