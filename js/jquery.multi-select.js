@@ -1,6 +1,6 @@
 /*
-* MultiSelect v0.4
-* Copyright (c) 2011 Louis Cuny
+* MultiSelect v0.5
+* Copyright (c) 2012 Louis Cuny
 *
 * Dual licensed under the MIT and GPL licenses:
 *    http://www.opensource.org/licenses/mit-license.php
@@ -20,7 +20,6 @@
         this.settings = $.extend(this.settings, options);
       }
       var multiSelects = this;
-      //multiSelects.hide();
       multiSelects.css('position', 'absolute').css('left', '-9999px');
       multiSelects.each(function(){
         var ms = $(this);
@@ -81,9 +80,9 @@
             ms.multiSelect('select', $(this).val(), 'init');
           });
 
-          $('.ms-elem-selectable', container).hover(function(){
+          $('.ms-elem-selectable', container).on('hover', function(){
             $('li', container).removeClass('ms-hover');
-            $(this).toggleClass('ms-hover');
+            $(this).addClass('ms-hover');
           });
 
           selectableContainer.on('focusin', function(){
@@ -125,6 +124,7 @@
             if (e.keyCode == 32){ // space
               var method = keyContainer == 'ms-selectable' ? 'select' : 'deselect';
               ms.multiSelect(method, selectableFocused.first().attr('ms-value'));
+
             } else if (e.keyCode == 40){ // Down
               var nextIndex = (selectableFocusedIndex+1 != selectablesLength) ? selectableFocusedIndex+1 : 0,
                   nextSelectableLi = selectables.eq(nextIndex);
@@ -232,9 +232,9 @@
         } else {
           selectedUl.append(selectedLi);
         }
-        selectedLi.hover(function(){
+        selectedLi.on('hover', function(){
           $('li', selectedUl).removeClass('ms-hover');
-          $(this).toggleClass('ms-hover');
+          $(this).addClass('ms-hover');
         })
         if (ms.find("option[value='']")){
           ms.find("option[value='']").removeAttr('selected');
