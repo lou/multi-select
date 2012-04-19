@@ -32,7 +32,7 @@
   width: 170px;
   height: 200px;
   padding: 1px 0px;
-  
+
   overflow-y: auto;
 
 }
@@ -62,7 +62,7 @@
   color: #999;
 }
 
-.ms-container .ms-optgroup-label.collapse{
+.ms-container .ms-optgroup-label.ms-collapse{
   background-image: url('../img/minus.png');
 }
 
