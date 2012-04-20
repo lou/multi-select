@@ -184,7 +184,7 @@
        
         var parentOptgroup = selectableLi.parent('.ms-optgroup');
         if (parentOptgroup.length > 0){
-          parentOptgroup.children('.ms-optgroup-label').addClass('collapse').show();
+          parentOptgroup.children('.ms-optgroup-label').addClass('ms-collapse').show();
           parentOptgroup.children('.ms-elem-selectable:not(.ms-selected)').show();
         }
         selectedOption.removeAttr('selected');
