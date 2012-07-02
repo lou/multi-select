@@ -187,9 +187,9 @@
           haveToSelect = null;
 
       if (method == 'init'){
-        haveToSelect = selectableLi.hasClass(ms.data('settings').disabledClass) && selectedOption.attr('selected');
+        haveToSelect = !selectableLi.hasClass(ms.data('settings').disabledClass) && selectedOption.attr('selected');
       } else {
-        haveToSelect = !(selectableLi.hasClass(ms.data('settings').disabledClass));
+        haveToSelect = !selectableLi.hasClass(ms.data('settings').disabledClass);
       }
       if (haveToSelect && value && value != '' && selectedUl.children('li[ms-value="'+value+'"]').length == 0){
         ms.focus();
@@ -273,7 +273,7 @@
        
         var parentOptgroup = selectableLi.parent('.ms-optgroup');
         if (parentOptgroup.length > 0){
-          parentOptgroup.children('.ms-optgroup-label').addClass('collapse').show();
+          parentOptgroup.children('.ms-optgroup-label').addClass('ms-collapse').show();
           parentOptgroup.children('.ms-elem-selectable:not(.ms-selected)').show();
         }
         selectedOption.removeAttr('selected');
