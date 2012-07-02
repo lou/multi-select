@@ -1,6 +1,6 @@
 /*
-* MultiSelect v0.2
-* Copyright (c) 2011 Louis Cuny
+* MultiSelect v0.6
+* Copyright (c) 2012 Louis Cuny
 *
 * Dual licensed under the MIT and GPL licenses:
 *    http://www.opensource.org/licenses/mit-license.php
@@ -13,7 +13,6 @@
     'init' : function(options){
       this.settings = {
         disabledClass : 'disabled',
-        emptyArray : false,
         callbackOnInit: false,
         keepOrder : false
       };
@@ -21,8 +20,7 @@
         this.settings = $.extend(this.settings, options);
       }
       var multiSelects = this;
-      multiSelects.hide();
-
+      multiSelects.css('position', 'absolute').css('left', '-9999px');
       multiSelects.each(function(){
         var ms = $(this);
 
@@ -34,18 +32,12 @@
               selectableUl = $('<ul class="ms-list"></ul>'),
               selectedUl = $('<ul class="ms-list"></ul>');
           
-          if (multiSelects.settings.emptyArray){
-            if (ms.find("option[value='']").length == 0){
-              ms.prepend("<option value='' selected='selected'></option>");
-            } else {
-              ms.find("option[value='']").attr('selected', 'selected');
-            }
-          }
           ms.data('settings', multiSelects.settings);
 
           var optgroupLabel = null,
               optgroupId = null,
-              optgroupCpt = 0;
+              optgroupCpt = 0,
+              scroll = 0;
           ms.find('optgroup,option').each(function(){
             if ($(this).is('optgroup')){
               optgroupLabel = $(this).attr('label');
@@ -86,6 +78,94 @@
           ms.find('option:selected').each(function(){
             ms.multiSelect('select', $(this).val(), 'init');
           });
+
+          $('.ms-elem-selectable', container).on('mouseenter', function(){
+            $('li', container).removeClass('ms-hover');
+            $(this).addClass('ms-hover');
+          }).on('mouseout', function(){
+            $('li', container).removeClass('ms-hover');
+          });
+
+
+
+          selectableContainer.on('focusin', function(){
+            $(this).addClass('ms-focused');
+            selectedContainer.focusout();
+          }).on('focusout', function(){
+            $(this).removeClass('ms-focused');
+            $('li', container).removeClass('ms-hover');
+          });
+
+          selectedContainer.on('focusin', function(){
+            $(this).addClass('ms-focused');
+            selectableContainer.focusout();
+          }).on('focusout', function(){
+            $(this).removeClass('ms-focused');
+            $('li', container).removeClass('ms-hover');
+          });
+
+          ms.on('focusin', function(){
+            ms.data('ms-focused', true);
+            selectableContainer.focusin();
+
+          }).on('focusout', function(){
+            ms.data('ms-focused', null);
+            selectableContainer.focusout();
+          });
+
+          ms.onKeyDown = function(e, keyContainer){
+            var selectables = $('.'+keyContainer+' li:visible', container),
+                selectablesLength = selectables.length,
+                selectableFocused = $('.'+keyContainer+' li.ms-hover', container),
+                selectableFocusedIndex = $('.'+keyContainer+' li:visible', container).index(selectableFocused),
+                liHeight = selectables.first().outerHeight(),
+                numberOfItemsDisplayed = Math.ceil(container.outerHeight()/liHeight),
+                scrollStart = Math.ceil(numberOfItemsDisplayed/4);
+
+            selectables.removeClass('ms-hover');
+            if (e.keyCode == 32){ // space
+              var method = keyContainer == 'ms-selectable' ? 'select' : 'deselect';
+              ms.multiSelect(method, selectableFocused.first().attr('ms-value'));
+
+            } else if (e.keyCode == 40){ // Down
+              var nextIndex = (selectableFocusedIndex+1 != selectablesLength) ? selectableFocusedIndex+1 : 0,
+                  nextSelectableLi = selectables.eq(nextIndex);
+
+              nextSelectableLi.addClass('ms-hover');
+              if (nextIndex > scrollStart){
+                scroll += liHeight;
+              } else if (nextIndex == 0){
+                scroll = 0;
+              }
+              $('.'+keyContainer+' ul', container).scrollTop(scroll);
+            } else if (e.keyCode == 38){ // Up
+              var prevIndex = (selectableFocusedIndex-1 >= 0) ? selectableFocusedIndex-1 : selectablesLength-1,
+                  prevSelectableLi = selectables.eq(prevIndex);
+              selectables.removeClass('ms-hover');
+              prevSelectableLi.addClass('ms-hover');
+              if (selectablesLength-prevIndex+1 < scrollStart){
+                scroll = liHeight*(selectablesLength-scrollStart);
+              } else {
+                scroll -= liHeight;
+              }
+              $('.'+keyContainer+' ul').scrollTop(scroll);
+            } else if (e.keyCode == 37 || e.keyCode == 39){ // Right and Left
+              if (selectableContainer.hasClass('ms-focused')){
+                selectableContainer.focusout();
+                selectedContainer.focusin();
+              } else {
+                selectableContainer.focusin();
+                selectedContainer.focusout();
+              }
+            }
+          }
+
+          ms.on('keydown', function(e){
+            if (ms.data('ms-focused')){
+              var keyContainer = selectableContainer.hasClass('ms-focused') ? 'ms-selectable' : 'ms-selection';
+              ms.onKeyDown(e, keyContainer);
+            }
+          });
         }
       });
     },
@@ -99,18 +179,20 @@
           text = selectedOption.text(),
           klass = selectedOption.attr('class'),
           titleAttr = selectedOption.attr('title');
-      
+
       var selectedLi = $('<li class="ms-elem-selected'+(klass ? ' '+klass : '')+'" ms-value="'+value+'">'+text+'</li>'),
           selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul'),
           selectedUl = $('#ms-'+ms.attr('id')+' .ms-selection ul'),
-          selectableLi = selectableUl.children('li[ms-value="'+value+'"]'),        
-          haveToSelect =  ((!selectableLi.hasClass(ms.data('settings').disabledClass)) || 
-                          (selectableLi.hasClass(ms.data('settings').disabledClass) && method == 'init')) &&
-                          value != '' &&
-                          ((method == 'init' && selectedOption.attr('selected')) ||
-                            (method != 'init' && !selectedOption.attr('selected')))
+          selectableLi = selectableUl.children('li[ms-value="'+value+'"]'),  
+          haveToSelect = null;
 
-      if (haveToSelect ){
+      if (method == 'init'){
+        haveToSelect = !selectableLi.hasClass(ms.data('settings').disabledClass) && selectedOption.attr('selected');
+      } else {
+        haveToSelect = !selectableLi.hasClass(ms.data('settings').disabledClass);
+      }
+      if (haveToSelect && value && value != '' && selectedUl.children('li[ms-value="'+value+'"]').length == 0){
+        ms.focus();
         var parentOptgroup = selectableLi.parent('.ms-optgroup');
         if (parentOptgroup.length > 0)
           if (parentOptgroup.children('.ms-elem-selectable:not(:hidden)').length == 1)
@@ -153,7 +235,12 @@
         } else {
           selectedUl.append(selectedLi);
         }
-
+        selectedLi.on('mouseenter', function(){
+          $('li', selectedUl).removeClass('ms-hover');
+          $(this).addClass('ms-hover');
+        }).on('mouseout', function(){
+          $('li', selectedUl).removeClass('ms-hover');
+        });
         if (ms.find("option[value='']")){
           ms.find("option[value='']").removeAttr('selected');
         }
@@ -161,6 +248,7 @@
           parentOptgroup.children('.ms-optgroup-label').hide();
         }
         if(method != 'init' || ms.data('settings').callbackOnInit){
+          ms.trigger('change');
           selectedUl.trigger('change');
           selectableUl.trigger('change');
           if (typeof ms.data('settings').afterSelect == 'function' &&
@@ -177,6 +265,7 @@
           selectedLi = selectedUl.children('li[ms-value="'+value+'"]');
       
       if(selectedLi){
+        selectedUl.focusin();
         var selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul'),
             selectedUl = $('#ms-'+ms.attr('id')+' .ms-selection ul'),
             selectableLi = selectableUl.children('li[ms-value="'+value+'"]'),
@@ -191,13 +280,9 @@
         selectableLi.show();
         selectableLi.removeClass('ms-selected');
         selectedLi.remove();
-        if (ms.data('settings').emptyArray && selectedUl.children('li').length == 0){
-          if (ms.find("option[value='']")){
-            ms.find("option[value='']").attr('selected', 'selected');
-          }
-        }
         selectedUl.trigger('change');
         selectableUl.trigger('change');
+        ms.trigger('change');
         if (typeof ms.data('settings').afterDeselect == 'function') {
           ms.data('settings').afterDeselect.call(this, value, selectedLi.text());
         }
