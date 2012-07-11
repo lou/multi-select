@@ -111,6 +111,7 @@
           }).on('focusout', function(){
             ms.data('ms-focused', null);
             selectableContainer.focusout();
+            selectedContainer.focusout();
           });
 
           ms.onKeyDown = function(e, keyContainer){
