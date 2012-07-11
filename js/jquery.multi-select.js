@@ -14,6 +14,7 @@
       this.settings = {
         disabledClass : 'disabled',
         callbackOnInit: false,
+		enableGroupSelect: false,
         keepOrder : false
       };
       if(options) {
@@ -42,10 +43,18 @@
             if ($(this).is('optgroup')){
               optgroupLabel = $(this).attr('label');
               optgroupId = 'ms-'+ms.attr('id')+'-optgroup-'+optgroupCpt;
-              selectableUl.append($('<li class="ms-optgroup-container" id="'+
-                                  optgroupId+'"><ul class="ms-optgroup"><li class="ms-optgroup-label">'+
-                                  optgroupLabel+'</li></ul></li>'));
+			  var groupLiParent = $('<li class="ms-optgroup-container" id="'+optgroupId+'"><ul class="ms-optgroup"></ul></li>');
+              var groupLi = $('<li class="ms-optgroup-label">'+optgroupLabel+'</li>');			  
               optgroupCpt++;
+			  if (multiSelects.settings.enableGroupSelect) {
+				groupLi.click(function(){
+				  $(this).nextAll().each(function(){
+					ms.multiSelect('select', $(this).attr('ms-value'));
+				  });
+				});
+			  }
+			  groupLiParent.children(':first').append(groupLi);
+              selectableUl.append(groupLiParent);
             }
             if ($(this).is("option:not(option[value=''])")){
               var klass = $(this).attr('class') ? ' '+$(this).attr('class') : '';
