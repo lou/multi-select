@@ -115,10 +115,10 @@
           });
 
           ms.onKeyDown = function(e, keyContainer){
-            var selectables = $('.'+keyContainer+' li:visible', container),
+            var selectables = $('.'+keyContainer+' li:visible:not(.ms-optgroup-label, .ms-optgroup-container)', container),
                 selectablesLength = selectables.length,
                 selectableFocused = $('.'+keyContainer+' li.ms-hover', container),
-                selectableFocusedIndex = $('.'+keyContainer+' li:visible', container).index(selectableFocused),
+                selectableFocusedIndex = $('.'+keyContainer+' li:visible:not(.ms-optgroup-label, .ms-optgroup-container)', container).index(selectableFocused),
                 liHeight = selectables.first().outerHeight(),
                 numberOfItemsDisplayed = Math.ceil(container.outerHeight()/liHeight),
                 scrollStart = Math.ceil(numberOfItemsDisplayed/4);
