@@ -88,30 +88,25 @@
 
 
 
-          selectableContainer.on('focusin', function(){
-            $(this).addClass('ms-focused');
-            selectedContainer.focusout();
+          selectableUl.on('focusin', function(){
+            $(this).addClass('ms-focus');
           }).on('focusout', function(){
-            $(this).removeClass('ms-focused');
+            $(this).removeClass('ms-focus');
             $('li', container).removeClass('ms-hover');
           });
 
-          selectedContainer.on('focusin', function(){
-            $(this).addClass('ms-focused');
-            selectableContainer.focusout();
+          selectedUl.on('focusin', function(){
+            $(this).addClass('ms-focus');
           }).on('focusout', function(){
-            $(this).removeClass('ms-focused');
+            $(this).removeClass('ms-focus');
             $('li', container).removeClass('ms-hover');
           });
 
           ms.on('focusin', function(){
-            ms.data('ms-focused', true);
-            selectableContainer.focusin();
-
+            selectableUl.focus();
           }).on('focusout', function(){
-            ms.data('ms-focused', null);
-            selectableContainer.focusout();
-            selectedContainer.focusout();
+            selectableUl.removeClass('ms-focus');
+            selectedUl.removeClass('ms-focus');
           });
 
           ms.onKeyDown = function(e, keyContainer){
@@ -151,19 +146,19 @@
               }
               $('.'+keyContainer+' ul').scrollTop(scroll);
             } else if (e.keyCode == 37 || e.keyCode == 39){ // Right and Left
-              if (selectableContainer.hasClass('ms-focused')){
-                selectableContainer.focusout();
-                selectedContainer.focusin();
+              if (selectableUl.hasClass('ms-focus')){
+                selectableUl.focusout();
+                selectedUl.focusin();
               } else {
-                selectableContainer.focusin();
-                selectedContainer.focusout();
+                selectableUl.focusin();
+                selectedUl.focusout();
               }
             }
           }
 
           ms.on('keydown', function(e){
-            if (ms.data('ms-focused')){
-              var keyContainer = selectableContainer.hasClass('ms-focused') ? 'ms-selectable' : 'ms-selection';
+            if (ms.is(':focus')){
+              var keyContainer = selectableUl.hasClass('ms-focus') ? 'ms-selectable' : 'ms-selection';
               ms.onKeyDown(e, keyContainer);
             }
           });
