@@ -309,6 +309,14 @@
       ms.find("option:not(option[value=''])").each(function(){
         ms.multiSelect('deselect', $(this).val(), 'deselect_all');
       });
+    },
+    'selection' : function(){
+        var ms = this;
+        var selection = [];
+        ms.find('option[selected="selected"]').each(function(index, option){
+            selection.push($(option).val());
+        });
+        return selection;
     }
   };
 
