@@ -13,7 +13,7 @@
     'init' : function(options){
       this.settings = {
         disabledClass : 'disabled',
-        callbackOnInit: false,
+        selectCallbackOnInit: false,
         keepOrder : false
       };
       if(options) {
@@ -243,12 +243,12 @@
         if (method == "select_all" && parentOptgroup.children('.ms-elem-selectable').length > 0){
           parentOptgroup.children('.ms-optgroup-label').hide();
         }
-        if(method != 'init' || ms.data('settings').callbackOnInit){
+        if(method != 'init' || ms.data('settings').selectCallbackOnInit){
           ms.trigger('change');
           selectedUl.trigger('change');
           selectableUl.trigger('change');
           if (typeof ms.data('settings').afterSelect == 'function' &&
-              (method != 'init' || ms.data('settings').callbackOnInit)) {
+              (method != 'init' || ms.data('settings').selectCallbackOnInit)) {
             ms.data('settings').afterSelect.call(this, value, text);
           }
         }
