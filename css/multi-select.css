@@ -7,6 +7,13 @@
 }
 
 .ms-container .ms-selectable, .ms-container .ms-selection{
+
+  background: #fff;
+  color: #555555;
+  float: left;
+}
+
+.ms-container .ms-list{
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
@@ -15,14 +22,12 @@
   -ms-transition: border linear 0.2s, box-shadow linear 0.2s;
   -o-transition: border linear 0.2s, box-shadow linear 0.2s;
   transition: border linear 0.2s, box-shadow linear 0.2s;
-  background: #fff;
-  color: #555555;
-  border: 1px solid #cccccc;
+    border: 1px solid #cccccc;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  float: left;
 }
+
 
 .ms-selected{
   display:none;
@@ -31,7 +36,7 @@
   margin-right: 40px;
 }
 
-.ms-container .ms-selectable.ms-focused, .ms-container .ms-selection.ms-focused{
+.ms-container .ms-list.ms-focus{
   border-color: rgba(82, 168, 236, 0.8);
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
