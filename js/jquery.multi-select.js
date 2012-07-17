@@ -1,5 +1,5 @@
 /*
-* MultiSelect v0.6
+* MultiSelect v0.7
 * Copyright (c) 2012 Louis Cuny
 *
 * Dual licensed under the MIT and GPL licenses:
@@ -79,7 +79,7 @@
             ms.multiSelect('select', $(this).val(), 'init');
           });
 
-          $('.ms-elem-selectable', container).on('mouseenter', function(){
+          $('.ms-elem-selectable', selectableUl).on('mouseenter', function(){
             $('li', container).removeClass('ms-hover');
             $(this).addClass('ms-hover');
           }).on('mouseout', function(){
@@ -144,7 +144,7 @@
               } else {
                 scroll -= liHeight;
               }
-              $('.'+keyContainer+' ul').scrollTop(scroll);
+              $('.'+keyContainer+' ul', container).scrollTop(scroll);
             } else if (e.keyCode == 37 || e.keyCode == 39){ // Right and Left
               if (selectableUl.hasClass('ms-focus')){
                 selectableUl.focusout();
