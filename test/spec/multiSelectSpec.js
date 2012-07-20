@@ -47,6 +47,7 @@ describe("multiSelect", function() {
 
     beforeEach(function(){
       clickedItem = $('.ms-selectable ul.ms-list li').first();
+      spyOnEvent(select, 'change');
       clickedItem.trigger('click');
     });
 
@@ -60,6 +61,10 @@ describe("multiSelect", function() {
 
     it('should populate the selection ul with the rigth item', function(){
       expect($('.ms-selection ul.ms-list li').first()).toBe('li.ms-elem-selected[ms-value="value1"]');
+    });
+
+    it('should trigger the standard select change event', function(){
+      expect('change').toHaveBeenTriggeredOn("#multi-select");
     });
   });
 
