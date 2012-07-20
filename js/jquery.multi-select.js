@@ -90,6 +90,7 @@
 
           selectableUl.on('focusin', function(){
             $(this).addClass('ms-focus');
+            selectedUl.focusout();
           }).on('focusout', function(){
             $(this).removeClass('ms-focus');
             $('li', container).removeClass('ms-hover');
