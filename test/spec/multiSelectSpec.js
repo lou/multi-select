@@ -13,6 +13,12 @@ describe("multiSelect", function() {
   });
 
   describe('init', function(){
+
+    it('should hide the standard select', function(){
+      expect(select.css('position')).toBe('absolute');
+      expect(select.css('left')).toBe('-9999px');
+    });
+
     it('should create a container', function(){
       expect(msContainer).toBe('div.ms-container');
     });
