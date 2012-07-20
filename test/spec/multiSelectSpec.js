@@ -51,8 +51,12 @@ describe("multiSelect", function() {
       clickedItem.trigger('click');
     });
 
-    it('should hide select item', function(){
+    it('should hide selected item', function(){
       expect(clickedItem).toBeHidden();
+    });
+
+    it('should add the .ms-selected to the selected item', function(){
+      expect(clickedItem).toBe('.ms-selected');
     });
 
     it('should select corresponding option', function(){
