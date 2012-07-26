@@ -184,7 +184,7 @@
           haveToSelect = null;
 
       if (method == 'init'){
-        haveToSelect = !selectableLi.hasClass(ms.data('settings').disabledClass) && selectedOption.attr('selected');
+        haveToSelect = !selectableLi.hasClass(ms.data('settings').disabledClass) && selectedOption.prop('selected');
       } else {
         haveToSelect = !selectableLi.hasClass(ms.data('settings').disabledClass);
         ms.focus();
@@ -196,7 +196,7 @@
             parentOptgroup.children('.ms-optgroup-label').hide();
         selectableLi.addClass('ms-selected');
         selectableLi.hide();
-        selectedOption.attr('selected', 'selected');
+        selectedOption.prop('selected', true);
         if(titleAttr){
           selectedLi.attr('title', titleAttr)
         }
@@ -239,7 +239,7 @@
           $('li', selectedUl).removeClass('ms-hover');
         });
         if (ms.find("option[value='']")){
-          ms.find("option[value='']").removeAttr('selected');
+          ms.find("option[value='']").prop('selected', false);
         }
         if (method == "select_all" && parentOptgroup.children('.ms-elem-selectable').length > 0){
           parentOptgroup.children('.ms-optgroup-label').hide();
@@ -273,7 +273,7 @@
           parentOptgroup.children('.ms-optgroup-label').addClass('ms-collapse').show();
           parentOptgroup.children('.ms-elem-selectable:not(.ms-selected)').show();
         }
-        selectedOption.removeAttr('selected');
+        selectedOption.prop('selected', false);
         selectableLi.show();
         selectableLi.removeClass('ms-selected');
         selectedLi.remove();
