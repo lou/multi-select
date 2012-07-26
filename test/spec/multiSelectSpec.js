@@ -96,6 +96,7 @@ describe("multiSelect", function() {
       $('#multi-select').multiSelect();
       clickedItem = $('.ms-selectable ul.ms-list li').first();
       spyOnEvent(select, 'change');
+      spyOnEvent(select, 'focus');
       clickedItem.trigger('click');
     });
 
@@ -117,6 +118,10 @@ describe("multiSelect", function() {
 
     it('should trigger the standard select change event', function(){
       expect('change').toHaveBeenTriggeredOn("#multi-select");
+    });
+
+    it('should focus the original select', function(){
+      expect('focus').toHaveBeenTriggeredOn("#multi-select");
     });
 
     afterEach(function(){
