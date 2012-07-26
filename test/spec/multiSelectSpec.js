@@ -22,7 +22,7 @@ describe("multiSelect", function() {
       msContainer = select.next();
     });
 
-    it('should hide the standard select', function(){
+    it('should hide the original select', function(){
       expect(select.css('position')).toBe('absolute');
       expect(select.css('left')).toBe('-9999px');
     });
@@ -116,11 +116,11 @@ describe("multiSelect", function() {
       expect($('.ms-selection ul.ms-list li').first()).toBe('li.ms-elem-selected[ms-value="value1"]');
     });
 
-    it('should trigger the standard select change event', function(){
+    it('should trigger the original select change event', function(){
       expect('change').toHaveBeenTriggeredOn("#multi-select");
     });
 
-    it('should focus the original select', function(){
+    it('should trigger the original select focus event', function(){
       expect('focus').toHaveBeenTriggeredOn("#multi-select");
     });
 
