@@ -48,22 +48,20 @@
                                   optgroupLabel+'</li></ul></li>'));
               optgroupCpt++;
             }
-            if ($(this).is("option:not(option[value=''])")){
-              var klass = $(this).attr('class') ? ' '+$(this).attr('class') : '';
-              var selectableLi = $('<li class="ms-elem-selectable'+klass+'" ms-value="'+$(this).val()+'">'+$(this).text()+'</li>');
-            
-              if ($(this).attr('title'))
-                selectableLi.attr('title', $(this).attr('title'));
-              if ($(this).attr('disabled') || ms.attr('disabled')){
-                selectableLi.attr('disabled', 'disabled');
-                selectableLi.addClass(multiSelects.settings.disabledClass);
-              }
-              selectableLi.click(function(){
-                ms.multiSelect('select', $(this).attr('ms-value'));
-              });
-              var container = optgroupId ? selectableUl.children('#'+optgroupId).find('ul').first() : selectableUl;
-              container.append(selectableLi);
+            var klass = $(this).attr('class') ? ' '+$(this).attr('class') : '';
+            var selectableLi = $('<li class="ms-elem-selectable'+klass+'" ms-value="'+$(this).val()+'">'+$(this).text()+'</li>');
+
+            if ($(this).attr('title'))
+              selectableLi.attr('title', $(this).attr('title'));
+            if ($(this).attr('disabled') || ms.attr('disabled')){
+              selectableLi.attr('disabled', 'disabled');
+              selectableLi.addClass(multiSelects.settings.disabledClass);
             }
+            selectableLi.click(function(){
+              ms.multiSelect('select', $(this).attr('ms-value'));
+            });
+            var container = optgroupId ? selectableUl.children('#'+optgroupId).find('ul').first() : selectableUl;
+            container.append(selectableLi);
           });
           if (multiSelects.settings.selectableHeader){
             selectableContainer.append(multiSelects.settings.selectableHeader);
@@ -190,7 +188,7 @@
         haveToSelect = !selectableLi.hasClass(ms.data('settings').disabledClass);
         ms.focus();
       }
-      if (haveToSelect && value && value != '' && selectedUl.children('li[ms-value="'+value+'"]').length == 0){
+      if (haveToSelect && selectedUl.children('li[ms-value="'+value+'"]').length == 0){
         var parentOptgroup = selectableLi.parent('.ms-optgroup');
         if (parentOptgroup.length > 0)
           if (parentOptgroup.children('.ms-elem-selectable:not(:hidden)').length == 1)
@@ -239,9 +237,6 @@
         }).on('mouseout', function(){
           $('li', selectedUl).removeClass('ms-hover');
         });
-        if (ms.find("option[value='']")){
-          ms.find("option[value='']").prop('selected', false);
-        }
         if (method == "select_all" && parentOptgroup.children('.ms-elem-selectable').length > 0){
           parentOptgroup.children('.ms-optgroup-label').hide();
         }
@@ -290,7 +285,7 @@
       var ms = this,
           selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul');
 
-      ms.find("option:not(option[value=''])").each(function(){
+      ms.find("option:not(:selected)").each(function(){
         var value = $(this).val();
         if (visible){
           var selectableLi = selectableUl.children('li[ms-value="'+value+'"]');
@@ -303,8 +298,10 @@
       });
     },
     'deselect_all' : function(){
-      var ms = this;
-      ms.find("option:not(option[value=''])").each(function(){
+      var ms = this,
+          selectedUl = $('#ms-'+ms.attr('id')+' .ms-selection ul');
+
+      ms.find("option:selected").each(function(){
         ms.multiSelect('deselect', $(this).val(), 'deselect_all');
       });
     }
