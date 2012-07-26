@@ -21,7 +21,7 @@
       }
       var multiSelects = this;
       multiSelects.css('position', 'absolute').css('left', '-9999px');
-      multiSelects.each(function(){
+      return multiSelects.each(function(){
         var ms = $(this);
 
         if (ms.next('.ms-container').length == 0){
