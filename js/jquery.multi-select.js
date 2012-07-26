@@ -1,5 +1,5 @@
 /*
-* MultiSelect v0.7
+* MultiSelect v0.8
 * Copyright (c) 2012 Louis Cuny
 *
 * Dual licensed under the MIT and GPL licenses:
