@@ -47,21 +47,22 @@
                                   optgroupId+'"><ul class="ms-optgroup"><li class="ms-optgroup-label">'+
                                   optgroupLabel+'</li></ul></li>'));
               optgroupCpt++;
-            }
-            var klass = $(this).attr('class') ? ' '+$(this).attr('class') : '';
-            var selectableLi = $('<li class="ms-elem-selectable'+klass+'" ms-value="'+$(this).val()+'">'+$(this).text()+'</li>');
+            } else {
+              var klass = $(this).attr('class') ? ' '+$(this).attr('class') : '';
+              var selectableLi = $('<li class="ms-elem-selectable'+klass+'" ms-value="'+$(this).val()+'">'+$(this).text()+'</li>');
 
-            if ($(this).attr('title'))
-              selectableLi.attr('title', $(this).attr('title'));
-            if ($(this).attr('disabled') || ms.attr('disabled')){
-              selectableLi.attr('disabled', 'disabled');
-              selectableLi.addClass(multiSelects.settings.disabledClass);
+              if ($(this).attr('title'))
+                selectableLi.attr('title', $(this).attr('title'));
+              if ($(this).attr('disabled') || ms.attr('disabled')){
+                selectableLi.attr('disabled', 'disabled');
+                selectableLi.addClass(multiSelects.settings.disabledClass);
+              }
+              selectableLi.click(function(){
+                ms.multiSelect('select', $(this).attr('ms-value'));
+              });
+              var container = optgroupId ? selectableUl.children('#'+optgroupId).find('ul').first() : selectableUl;
+              container.append(selectableLi);
             }
-            selectableLi.click(function(){
-              ms.multiSelect('select', $(this).attr('ms-value'));
-            });
-            var container = optgroupId ? selectableUl.children('#'+optgroupId).find('ul').first() : selectableUl;
-            container.append(selectableLi);
           });
           if (multiSelects.settings.selectableHeader){
             selectableContainer.append(multiSelects.settings.selectableHeader);
