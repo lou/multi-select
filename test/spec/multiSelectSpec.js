@@ -10,13 +10,11 @@ describe("multiSelect", function() {
     select = $("#multi-select");
   });
 
-  it ('should be chainable', function(){
-    select.multiSelect().addClass('chainable');
-    expect(select.hasClass('chainable')).toBeTruthy();
-  });
-
-
   describe('init', function(){
+    it ('should be chainable', function(){
+      select.multiSelect().addClass('chainable');
+      expect(select.hasClass('chainable')).toBeTruthy();
+    });
     describe('without options', function(){
 
       beforeEach(function() {
