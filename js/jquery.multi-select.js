@@ -57,9 +57,15 @@
                 selectableLi.attr('disabled', 'disabled');
                 selectableLi.addClass(multiSelects.settings.disabledClass);
               }
-              selectableLi.click(function(){
-                ms.multiSelect('select', $(this).attr('ms-value'));
-              });
+              if(multiSelects.settings.dblClick) {
+                selectableLi.dblclick(function(){
+                  ms.multiSelect('select', $(this).attr('ms-value'));
+                });
+              } else {
+                selectableLi.click(function(){
+                  ms.multiSelect('select', $(this).attr('ms-value'));
+                });
+              }
               var container = optgroupId ? selectableUl.children('#'+optgroupId).find('ul').first() : selectableUl;
               container.append(selectableLi);
             }
@@ -203,9 +209,15 @@
         if (selectableLi.hasClass(ms.data('settings').disabledClass)){
           selectedLi.addClass(ms.data('settings').disabledClass);
         } else {
-          selectedLi.click(function(){
-            ms.multiSelect('deselect', $(this).attr('ms-value'));
-          });
+          if(multiSelects.settings.dblClick) {
+            selectableLi.dblclick(function(){
+              ms.multiSelect('deselect', $(this).attr('ms-value'));
+            });
+          } else {
+            selectableLi.click(function(){
+              ms.multiSelect('deselect', $(this).attr('ms-value'));
+            });
+          }
         }
 
         var selectedUlLis = selectedUl.children('.ms-elem-selected');
