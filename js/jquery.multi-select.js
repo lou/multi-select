@@ -211,11 +211,11 @@
           selectedLi.addClass(ms.data('settings').disabledClass);
         } else {
           if(ms.data('settings').dblClick) {
-            selectableLi.dblclick(function(){
+            selectedLi.dblclick(function(){
               ms.multiSelect('deselect', $(this).attr('ms-value'));
             });
           } else {
-            selectableLi.click(function(){
+            selectedLi.click(function(){
               ms.multiSelect('deselect', $(this).attr('ms-value'));
             });
           }
