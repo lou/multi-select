@@ -49,8 +49,13 @@
                                   optgroupLabel+'</li></ul></li>'));
               optgroupCpt++;
             } else {
+
+              $(this).val($(this).val().split('"').join('&quot;'));
+              $(this).val($(this).val().split("'").join('&#39;'));
+              $(this).val($(this).val().replace(/"/gi,'&quot;'));
+
               var klass = $(this).attr('class') ? ' '+$(this).attr('class') : '';
-              var selectableLi = $('<li class="ms-elem-selectable'+klass+'" ms-value="'+$(this).val()+'">'+$(this).text()+'</li>');
+              var selectableLi = $('<li class="ms-elem-selectable'+klass+'" ms-value="'+escapeQuotes($(this).val())+'">'+$(this).text()+'</li>');
 
               if ($(this).attr('title'))
                 selectableLi.attr('title', $(this).attr('title'));
@@ -178,13 +183,18 @@
       $(this).multiSelect("init", $(this).data("settings"));
     },
     'select' : function(value, method){
+
+      value = value.split('"').join('&quot;');
+      value = value.split("'").join('&#39;');
+      value = value.replace(/"/gi,'&quot;');
+
       var ms = this,
           selectedOption = ms.find('option[value="'+value +'"]'),
           text = selectedOption.text(),
           klass = selectedOption.attr('class'),
           titleAttr = selectedOption.attr('title');
 
-      var selectedLi = $('<li class="ms-elem-selected'+(klass ? ' '+klass : '')+'" ms-value="'+value+'">'+text+'</li>'),
+      var selectedLi = $('<li class="ms-elem-selected'+(klass ? ' '+klass : '')+'" ms-value="'+escapeQuotes(value)+'">'+text+'</li>'),
           selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul'),
           selectedUl = $('#ms-'+ms.attr('id')+' .ms-selection ul'),
           selectableLi = selectableUl.children('li[ms-value="'+value+'"]'),
