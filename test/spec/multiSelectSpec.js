@@ -1,14 +1,4 @@
 describe("multiSelect", function() {
-  var select;
-  var msContainer;
-
-  beforeEach(function() {
-    $('<select id="multi-select" multiple="multiple" name="test[]"></select>').appendTo('body');
-    for (var i=1; i <= 10; i++) {
-      $('<option value="value'+i+'">text'+i+'</option>').appendTo($("#multi-select"));
-    };
-    select = $("#multi-select");
-  });
 
   describe('init', function(){
     it ('should be chainable', function(){
@@ -43,8 +33,8 @@ describe("multiSelect", function() {
         expect($('.ms-selectable ul.ms-list li').length).toEqual(10);
       });
 
-      it ('should not populate the selection list if none of the option is selected', function(){
-        expect($('.ms-selection ul.ms-list li').length).toEqual(0);
+      it ('should populate the selection list', function(){
+        expect($('.ms-selectable ul.ms-list li').length).toEqual(10);
       });
 
     });
@@ -90,11 +80,12 @@ describe("multiSelect", function() {
 
   describe('select', function(){
     describe("on click", function(){
-      var clickedItem;
+      var clickedItem, value;
 
       beforeEach(function() {
         $('#multi-select').multiSelect();
         clickedItem = $('.ms-selectable ul.ms-list li').first();
+        value = clickedItem.attr('ms-value');
         spyOnEvent(select, 'change');
         spyOnEvent(select, 'focus');
         clickedItem.trigger('click');
@@ -109,11 +100,11 @@ describe("multiSelect", function() {
       });
 
       it('should select corresponding option', function(){
-        expect(select.children().first()).toBeSelected();
+        expect(select.find('option[value="'+value+'"]')).toBeSelected();
       });
 
-      it('should populate the selection ul with the rigth item', function(){
-        expect($('.ms-selection ul.ms-list li').first()).toBe('li.ms-elem-selected[ms-value="value1"]');
+      it('should show the associated selected item', function(){
+        expect($('.ms-selection ul.ms-list li[ms-value="'+value+'"]')).toBe(':visible');
       });
 
       it('should trigger the original select change event', function(){
@@ -132,7 +123,7 @@ describe("multiSelect", function() {
 
   describe('deselect', function(){
     describe("on click", function(){
-      var clickedItem;
+      var clickedItem, value;
       var correspondingSelectableItem;
 
       beforeEach(function() {
@@ -140,14 +131,15 @@ describe("multiSelect", function() {
         $('#multi-select').multiSelect();
 
         clickedItem = $('.ms-selection ul.ms-list li').first();
+        value = clickedItem.attr('ms-value');
         correspondingSelectableItem = $('.ms-selection ul.ms-list li').first();
         spyOnEvent(select, 'change');
         spyOnEvent(select, 'focus');
         clickedItem.trigger('click');
       });
 
-      it('should remove selected item from the selection list', function(){
-        expect($('.ms-selection ul.ms-list li').length).toEqual(0);
+      it('should show associated selectable item', function(){
+        expect($('.ms-selectable ul.ms-list li[ms-value="'+value+'"]')).toBe(':visible');
       });
 
       it('should remove the .ms-selected class to the corresponding selectable item', function(){
@@ -155,7 +147,7 @@ describe("multiSelect", function() {
       });
 
       it('should deselect corresponding option', function(){
-        expect(select.children().first()).not.toBeSelected();
+        expect(select.find('option[value="'+value+'"]')).not.toBeSelected();
       });
 
       it('should trigger the original select change event', function(){
@@ -166,9 +158,5 @@ describe("multiSelect", function() {
         select.multiSelect('deselect_all');
       });
     });
-  });
-
-  afterEach(function () {
-    $("#multi-select, .ms-container").remove();
   });
 });
