@@ -60,22 +60,6 @@ describe("multiSelect", function() {
         expect($('.ms-selectable ul.ms-list li.ms-selected').length).toEqual(2);
       });
     });
-
-    describe('with keepOrder option activated', function(){
-      beforeEach(function() {
-        $('#multi-select').multiSelect({ keepOrder: true });
-        msContainer = select.next();
-        firstItem = $('.ms-selectable ul.ms-list li').first()
-        lastItem = $('.ms-selectable ul.ms-list li').last();
-        lastItem.trigger('click');
-        firstItem.trigger('click');
-      });
-
-      it('should keep order on selection list', function(){
-        expect($('.ms-selection li', msContainer).first().attr('ms-value')).toBe('value1');
-        expect($('.ms-selection li', msContainer).last().attr('ms-value')).toBe('value10');
-      });
-    });
   });
 
   describe('select', function(){
