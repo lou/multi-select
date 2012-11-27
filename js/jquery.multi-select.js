@@ -42,13 +42,7 @@
           var optgroupLabel = null,
               optgroupId = null,
               optgroupCpt = 0,
-              scroll = 0,
-              optgroupContainer =
-                $('<li class="ms-optgroup-container" id="'+optgroupId+'">\
-                    <ul class="ms-optgroup">\
-                      <li class="ms-optgroup-label">'+optgroupLabel+'</li>\
-                      </ul>\
-                    </li>');
+              scroll = 0;
 
 
           ms.find('optgroup, option').each(function(){
@@ -56,8 +50,18 @@
               optgroupLabel = $(this).attr('label');
               optgroupId = 'ms-'+ms.attr('id')+'-optgroup-'+optgroupCpt;
 
-              selectableUl.append(optgroupContainer);
-              selectionUl.append(optgroupContainer.clone());
+              selectableUl.append(
+                '<li class="ms-optgroup-container" id="'+optgroupId+'-selectable">\
+                  <ul class="ms-optgroup">\
+                    <li class="ms-optgroup-label">'+optgroupLabel+'</li>\
+                  </ul>\
+                </li>');
+              selectionUl.append(
+                '<li class="ms-optgroup-container" id="'+optgroupId+'-selection">\
+                  <ul class="ms-optgroup">\
+                    <li class="ms-optgroup-label">'+optgroupLabel+'</li>\
+                  </ul>\
+                </li>');
               optgroupCpt++;
             } else {
               var klass = $(this).attr('class') ? $(this).attr('class') : '',
@@ -76,8 +80,8 @@
               }
 
               if (optgroupId){
-                selectableUl.children('#'+optgroupId).find('ul').first().append(selectableLi);
-                selectionUl.children('#'+optgroupId).find('ul').first().append(selectionUl);
+                selectableUl.children('#'+optgroupId+'-selectable').find('ul').first().append(selectableLi);
+                selectionUl.children('#'+optgroupId+'-selection').find('ul').first().append(selectedLi);
               } else {
                 selectableUl.append(selectableLi);
                 selectionUl.append(selectedLi);
@@ -97,6 +101,7 @@
 
           container.append(selectableContainer);
           container.append(selectionContainer);
+
           ms.after(container);
 
           ms.find('option:selected').each(function(){
