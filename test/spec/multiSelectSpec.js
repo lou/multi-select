@@ -122,6 +122,10 @@ describe("multiSelect", function() {
         clickedItem.trigger('click');
       });
 
+      it ('should hide clicked item', function(){
+        expect(clickedItem).toBe(':hidden');
+      });
+
       it('should show associated selectable item', function(){
         expect($('.ms-selectable ul.ms-list li[ms-value="'+value+'"]')).toBe(':visible');
       });
