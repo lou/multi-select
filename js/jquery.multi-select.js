@@ -42,77 +42,63 @@
           var optgroupLabel = null,
               optgroupId = null,
               optgroupCpt = 0,
-              scroll = 0;
+              scroll = 0,
+              optgroupContainer =
+                $('<li class="ms-optgroup-container" id="'+optgroupId+'">\
+                    <ul class="ms-optgroup">\
+                      <li class="ms-optgroup-label">'+optgroupLabel+'</li>\
+                      </ul>\
+                    </li>');
+
 
           ms.find('optgroup, option').each(function(){
             if ($(this).is('optgroup')){
               optgroupLabel = $(this).attr('label');
               optgroupId = 'ms-'+ms.attr('id')+'-optgroup-'+optgroupCpt;
-              var optgroupContainerTpl = '<li class="ms-optgroup-container" id="'+
-                  optgroupId+'"><ul class="ms-optgroup"><li class="ms-optgroup-label">'+
-                  optgroupLabel+'</li></ul></li>';
 
-              selectableUl.append($(optgroupContainerTpl));
-              selectionUl.append($(optgroupContainerTpl));
+              selectableUl.append(optgroupContainer);
+              selectionUl.append(optgroupContainer.clone());
               optgroupCpt++;
             } else {
               var klass = $(this).attr('class') ? $(this).attr('class') : '',
                   title = $(this).attr('title') ? $(this).attr('title') : '',
                   value = $(this).val(),
-                  text = $(this).text(),
-                  selectableLi = $('<li class="'+klass+'" ms-value="'+value+'" title="'+title+'">'+text+'</li>'),
-                  selectedLi = $('<li class="'+klass+'" ms-value="'+value+'" title="'+title+'">'+text+'</li>');
+                  selectableLi = $('<li class="'+klass+'" ms-value="'+value+'" title="'+title+'">'+$(this).text()+'</li>'),
+                  selectedLi = selectableLi.clone();
 
               selectableLi.addClass('ms-elem-selectable');
               selectedLi.addClass('ms-elem-selection').hide();
               selectionUl.find('.ms-optgroup').hide();
 
-              if ($(this).attr('disabled') || ms.attr('disabled')){
+              if ($(this).prop('disabled') || ms.prop('disabled')){
                 selectableLi.prop('disabled', true);
                 selectableLi.addClass(multiSelects.settings.disabledClass);
               }
 
-              if(multiSelects.settings.dblClick) {
-                selectableLi.dblclick(function(){
-                  ms.multiSelect('select', $(this).attr('ms-value'));
-                });
-                selectedLi.dblclick(function(){
-                  ms.multiSelect('deselect', $(this).attr('ms-value'));
-                });
-              } else {
-                selectableLi.click(function(){
-                  ms.multiSelect('select', $(this).attr('ms-value'));
-                });
-                selectedLi.click(function(){
-                  ms.multiSelect('deselect', $(this).attr('ms-value'));
-                });
-              }
-
-              var selectableElemContainer, selectedElemContainer;
-
               if (optgroupId){
-                selectableElemContainer = selectableUl.children('#'+optgroupId).find('ul').first();
-                selectedElemContainer = selectionUl.children('#'+optgroupId).find('ul').first();
+                selectableUl.children('#'+optgroupId).find('ul').first().append(selectableLi);
+                selectionUl.children('#'+optgroupId).find('ul').first().append(selectionUl);
               } else {
-                selectableElemContainer = selectableUl;
-                selectedElemContainer = selectionUl;
+                selectableUl.append(selectableLi);
+                selectionUl.append(selectedLi);
               }
-
-              selectableElemContainer.append(selectableLi);
-              selectedElemContainer.append(selectedLi);
             }
           });
+
           if (multiSelects.settings.selectableHeader){
             selectableContainer.append(multiSelects.settings.selectableHeader);
           }
           selectableContainer.append(selectableUl);
+          
           if (multiSelects.settings.selectedHeader){
             selectionContainer.append(multiSelects.settings.selectedHeader);
           }
           selectionContainer.append(selectionUl);
+
           container.append(selectableContainer);
           container.append(selectionContainer);
           ms.after(container);
+
           ms.find('option:selected').each(function(){
             ms.multiSelect('select', $(this).val(), 'init');
           });
@@ -123,6 +109,22 @@
           }).on('mouseout', function(){
             $('li', container).removeClass('ms-hover');
           });
+
+          if(multiSelects.settings.dblClick) {
+            $('.ms-elem-selectable', selectableUl).on('dblclick', function(){
+              ms.multiSelect('select', $(this).attr('ms-value'));
+            });
+            $('.ms-elem-selection', selectionUl).on('dblclick', function(){
+              ms.multiSelect('deselect', $(this).attr('ms-value'));
+            });
+          } else {
+            $('.ms-elem-selectable', selectableUl).on('click', function(){
+              ms.multiSelect('select', $(this).attr('ms-value'));
+            });
+            $('.ms-elem-selection', selectionUl).on('click', function(){
+              ms.multiSelect('deselect', $(this).attr('ms-value'));
+            });
+          }
 
           $('.ms-elem-selection', selectionUl).on('mouseenter', function(){
             $('li', selectionUl).removeClass('ms-hover');
@@ -153,59 +155,59 @@
             selectionUl.removeClass('ms-focus');
           });
 
-          // ms.onKeyDown = function(e, keyContainer){
-          //   var selectables = $('.'+keyContainer+' li:visible:not(.ms-optgroup-label, .ms-optgroup-container)', container),
-          //       selectablesLength = selectables.length,
-          //       selectableFocused = $('.'+keyContainer+' li.ms-hover', container),
-          //       selectableFocusedIndex = $('.'+keyContainer+' li:visible:not(.ms-optgroup-label, .ms-optgroup-container)', container).index(selectableFocused),
-          //       liHeight = selectables.first().outerHeight(),
-          //       numberOfItemsDisplayed = Math.ceil(container.outerHeight()/liHeight),
-          //       scrollStart = Math.ceil(numberOfItemsDisplayed/4);
+          ms.onKeyDown = function(e, keyContainer){
+            var selectables = $('.'+keyContainer+' li:visible:not(.ms-optgroup-label, .ms-optgroup-container)', container),
+                selectablesLength = selectables.length,
+                selectableFocused = $('.'+keyContainer+' li.ms-hover', container),
+                selectableFocusedIndex = $('.'+keyContainer+' li:visible:not(.ms-optgroup-label, .ms-optgroup-container)', container).index(selectableFocused),
+                liHeight = selectables.first().outerHeight(),
+                numberOfItemsDisplayed = Math.ceil(container.outerHeight()/liHeight),
+                scrollStart = Math.ceil(numberOfItemsDisplayed/4);
 
-          //   selectables.removeClass('ms-hover');
-          //   if (e.keyCode == 32){ // space
-          //     var method = keyContainer == 'ms-selectable' ? 'select' : 'deselect';
-          //     ms.multiSelect(method, selectableFocused.first().attr('ms-value'));
+            selectables.removeClass('ms-hover');
+            if (e.keyCode == 32){ // space
+              var method = keyContainer == 'ms-selectable' ? 'select' : 'deselect';
+              ms.multiSelect(method, selectableFocused.first().attr('ms-value'));
 
-          //   } else if (e.keyCode == 40){ // Down
-          //     var nextIndex = (selectableFocusedIndex+1 != selectablesLength) ? selectableFocusedIndex+1 : 0,
-          //         nextSelectableLi = selectables.eq(nextIndex);
+            } else if (e.keyCode == 40){ // Down
+              var nextIndex = (selectableFocusedIndex+1 != selectablesLength) ? selectableFocusedIndex+1 : 0,
+                  nextSelectableLi = selectables.eq(nextIndex);
 
-          //     nextSelectableLi.addClass('ms-hover');
-          //     if (nextIndex > scrollStart){
-          //       scroll += liHeight;
-          //     } else if (nextIndex == 0){
-          //       scroll = 0;
-          //     }
-          //     $('.'+keyContainer+' ul', container).scrollTop(scroll);
-          //   } else if (e.keyCode == 38){ // Up
-          //     var prevIndex = (selectableFocusedIndex-1 >= 0) ? selectableFocusedIndex-1 : selectablesLength-1,
-          //         prevSelectableLi = selectables.eq(prevIndex);
-          //     selectables.removeClass('ms-hover');
-          //     prevSelectableLi.addClass('ms-hover');
-          //     if (selectablesLength-prevIndex+1 < scrollStart){
-          //       scroll = liHeight*(selectablesLength-scrollStart);
-          //     } else {
-          //       scroll -= liHeight;
-          //     }
-          //     $('.'+keyContainer+' ul', container).scrollTop(scroll);
-          //   } else if (e.keyCode == 37 || e.keyCode == 39){ // Right and Left
-          //     if (selectableUl.hasClass('ms-focus')){
-          //       selectableUl.focusout();
-          //       selectionUl.focusin();
-          //     } else {
-          //       selectableUl.focusin();
-          //       selectionUl.focusout();
-          //     }
-          //   }
-          // }
+              nextSelectableLi.addClass('ms-hover');
+              if (nextIndex > scrollStart){
+                scroll += liHeight;
+              } else if (nextIndex == 0){
+                scroll = 0;
+              }
+              $('.'+keyContainer+' ul', container).scrollTop(scroll);
+            } else if (e.keyCode == 38){ // Up
+              var prevIndex = (selectableFocusedIndex-1 >= 0) ? selectableFocusedIndex-1 : selectablesLength-1,
+                  prevSelectableLi = selectables.eq(prevIndex);
+              selectables.removeClass('ms-hover');
+              prevSelectableLi.addClass('ms-hover');
+              if (selectablesLength-prevIndex+1 < scrollStart){
+                scroll = liHeight*(selectablesLength-scrollStart);
+              } else {
+                scroll -= liHeight;
+              }
+              $('.'+keyContainer+' ul', container).scrollTop(scroll);
+            } else if (e.keyCode == 37 || e.keyCode == 39){ // Right and Left
+              if (selectableUl.hasClass('ms-focus')){
+                selectableUl.focusout();
+                selectionUl.focusin();
+              } else {
+                selectableUl.focusin();
+                selectionUl.focusout();
+              }
+            }
+          }
 
-          // ms.on('keydown', function(e){
-          //   if (ms.is(':focus')){
-          //     var keyContainer = selectableUl.hasClass('ms-focus') ? 'ms-selectable' : 'ms-selection';
-          //     ms.onKeyDown(e, keyContainer);
-          //   }
-          // });
+          ms.on('keydown', function(e){
+            if (ms.is(':focus')){
+              var keyContainer = selectableUl.hasClass('ms-focus') ? 'ms-selectable' : 'ms-selection';
+              ms.onKeyDown(e, keyContainer);
+            }
+          });
         }
       });
     },
@@ -216,51 +218,38 @@
     'select' : function(value, method){
       var ms = this,
           selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul'),
-          selectionUl = $('#ms-'+ms.attr('id')+' .ms-selection ul');
+          selectionUl = $('#ms-'+ms.attr('id')+' .ms-selection ul'),
+          selectedOption = ms.find('option[value="'+value +'"]'),
+          selectedLi = selectionUl.children('li[ms-value="'+value+'"]'),
+          selectableLi = selectableUl.children('li[ms-value="'+value+'"]');
 
-      if (typeof value == 'string'){
-        var selectedOption = ms.find('option[value="'+value +'"]'),
-            selectedLi = selectionUl.children('li[ms-value="'+value+'"]'),
-            selectableLi = selectableUl.children('li[ms-value="'+value+'"]');
+      if (method == 'init'){
+        haveToSelect = !selectableLi.hasClass(ms.data('settings').disabledClass) && selectedOption.prop('selected');
+      } else {
+        haveToSelect = !selectableLi.hasClass(ms.data('settings').disabledClass);
+        ms.focus();
+      }
 
-        if (method == 'init'){
-          haveToSelect = !selectableLi.hasClass(ms.data('settings').disabledClass) && selectedOption.prop('selected');
-        } else {
-          haveToSelect = !selectableLi.hasClass(ms.data('settings').disabledClass);
-          ms.focus();
+      if (haveToSelect && selectedLi.is(':hidden')){
+
+        var selectableOptgroup = selectableLi.parent('.ms-optgroup');
+        if (selectableOptgroup.length > 0)
+          if (selectableOptgroup.children('.ms-elem-selectable:not(:hidden)').length == 1)
+            selectableOptgroup.children('.ms-optgroup-label').hide();
+
+        if (selectedLi.parent('.ms-optgroup').length > 0){
+          selectedLi.parent('.ms-optgroup').show();
         }
 
-        if (haveToSelect && selectedLi.is(':hidden')){
-
-          var selectableOptgroup = selectableLi.parent('.ms-optgroup');
-          if (selectableOptgroup.length > 0)
-            if (selectableOptgroup.children('.ms-elem-selectable:not(:hidden)').length == 1)
-              selectableOptgroup.children('.ms-optgroup-label').hide();
-
-          if (selectedLi.parent('.ms-optgroup').length > 0){
-            selectedLi.parent('.ms-optgroup').show();
+        selectedOption.prop('selected', true);
+        selectableLi.addClass('ms-selected');
+        selectableLi.hide(); 
+        selectedLi.show();
+        if (method != 'init'){
+          ms.trigger('change');
+          if (typeof ms.data('settings').afterSelect == 'function') {
+            ms.data('settings').afterSelect.call(this, value, selectedOption.text());
           }
-
-          selectedOption.prop('selected', true);
-          selectableLi.addClass('ms-selected');
-          selectableLi.hide(); 
-          selectedLi.show();
-          if (method != 'init'){
-            ms.trigger('change');
-            if (typeof ms.data('settings').afterSelect == 'function') {
-              ms.data('settings').afterSelect.call(this, value, selectedOption.text());
-            }
-          }
-        }
-      } else if (typeof value == 'object'){ // Is an array
-        for (var cpt = 0; cpt < value.length; cpt++){
-          var selectedOption = ms.find('option[value="'+value[cpt]+'"]'),
-            selectedLi = selectionUl.children('li[ms-value="'+value[cpt]+'"]'),
-            selectableLi = selectableUl.children('li[ms-value="'+value[cpt]+'"]');
-          selectedOption.prop('selected', true);
-          selectableLi.addClass('ms-selected');
-          selectableLi.hide();
-          selectedLi.show();       
         }
       }
     },
@@ -271,32 +260,38 @@
           selectedOption = ms.find('option[value="'+value +'"]'),
           selectedLi = selectionUl.children('li[ms-value="'+value+'"]');
 
-      if (selectedLi){
-        selectionUl.focusin();
-        var selectableLi = selectableUl.children('li[ms-value="'+value+'"]'),
-            selectedLi = selectionUl.children('li[ms-value="'+value+'"]');
+      if (typeof value == 'string'){
+        if (selectedLi){
+          selectionUl.focusin();
+          var selectableLi = selectableUl.children('li[ms-value="'+value+'"]'),
+              selectedLi = selectionUl.children('li[ms-value="'+value+'"]');
 
-        var selectableOptgroup = selectableLi.parent('.ms-optgroup');
-        if (selectableOptgroup.length > 0){
-          selectableOptgroup.children('.ms-optgroup-label').addClass('ms-collapse').show();
-          selectableOptgroup.children('.ms-elem-selectable:not(.ms-selected)').show();
+          var selectableOptgroup = selectableLi.parent('.ms-optgroup');
+          if (selectableOptgroup.length > 0){
+            selectableOptgroup.children('.ms-optgroup-label').addClass('ms-collapse').show();
+            selectableOptgroup.children('.ms-elem-selectable:not(.ms-selected)').show();
+          }
+
+          selectedOption.prop('selected', false);
+          selectableLi.show();
+          selectableLi.removeClass('ms-selected');
+          selectedLi.hide();
+
+          var selectionOptgroup = selectedLi.parent('.ms-optgroup');
+          
+          if (selectionOptgroup.children(':visible').length == 1){
+            selectionOptgroup.hide(); 
+          }
+
+          ms.trigger('change');
+          
+          if (typeof ms.data('settings').afterDeselect == 'function') {
+            ms.data('settings').afterDeselect.call(this, value, selectedLi.text());
+          }
         }
-
-        selectedOption.prop('selected', false);
-        selectableLi.show();
-        selectableLi.removeClass('ms-selected');
-        selectedLi.hide();
-
-        var selectionOptgroup = selectedLi.parent('.ms-optgroup');
-        
-        if (selectionOptgroup.children(':visible').length == 1){
-          selectionOptgroup.hide(); 
-        }
-
-        ms.trigger('change');
-        
-        if (typeof ms.data('settings').afterDeselect == 'function') {
-          ms.data('settings').afterDeselect.call(this, value, selectedLi.text());
+      } else if (typeof value == 'object'){ // Is an array
+        for (var cpt = 0; cpt < value.length; cpt++){
+          ms.multiSelect('deselect', value[cpt]);  
         }
       }
     },
