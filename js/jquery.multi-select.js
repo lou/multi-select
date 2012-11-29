@@ -230,73 +230,91 @@
       $(this).multiSelect("init", $(this).data("settings"));
     },
     'select' : function(value, method){
-      var ms = this,
-          selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul.ms-list'),
-          selectionUl = $('#ms-'+ms.attr('id')+' .ms-selection ul.ms-list'),
-          selectedOption = ms.find('option[value="'+value +'"]'),
-          selectedLi = selectionUl.find('li[ms-value="'+value+'"]'),
-          selectableLi = selectableUl.find('li[ms-value="'+value+'"]');
+      var ms = this;
 
-      if (method == 'init'){
-        haveToSelect = !selectableLi.hasClass(ms.data('settings').disabledClass) && selectedOption.prop('selected');
-      } else {
-        haveToSelect = !selectableLi.hasClass(ms.data('settings').disabledClass);
-        ms.focus();
-      }
+      if (typeof value == 'string'){
+        var selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul.ms-list'),
+            selectionUl = $('#ms-'+ms.attr('id')+' .ms-selection ul.ms-list'),
+            selectedOption = ms.find('option[value="'+value +'"]'),
+            selectedLi = selectionUl.find('li[ms-value="'+value+'"]'),
+            selectableLi = selectableUl.find('li[ms-value="'+value+'"]');
 
-      if (haveToSelect && selectedLi.is(':hidden')){
-        var selectableOptgroup = selectableLi.parent('.ms-optgroup');
-
-        if (selectableOptgroup.length > 0)
-          if (selectableOptgroup.children('.ms-elem-selectable:not(:hidden)').length == 1)
-            selectableOptgroup.children('.ms-optgroup-label').hide();
-
-        if (selectedLi.parent('.ms-optgroup').length > 0){
-          selectedLi.prevAll('.ms-optgroup-label').show();
+        if (method == 'init'){
+          haveToSelect = !selectableLi.hasClass(ms.data('settings').disabledClass) && selectedOption.prop('selected');
+        } else {
+          haveToSelect = !selectableLi.hasClass(ms.data('settings').disabledClass);
+          ms.focus();
         }
 
-        selectedOption.prop('selected', true);
-        selectableLi.addClass('ms-selected').hide();
-        selectedLi.addClass('ms-selected').show();
-        if (method != 'init'){
-          ms.trigger('change');
-          if (typeof ms.data('settings').afterSelect == 'function') {
-            ms.data('settings').afterSelect.call(this, value, selectedOption.text());
+        if (haveToSelect && selectedLi.is(':hidden')){
+          var selectableOptgroup = selectableLi.parent('.ms-optgroup');
+
+          if (selectableOptgroup.length > 0)
+            if (selectableOptgroup.children('.ms-elem-selectable:not(:hidden)').length == 1)
+              selectableOptgroup.children('.ms-optgroup-label').hide();
+
+          if (selectedLi.parent('.ms-optgroup').length > 0){
+            selectedLi.prevAll('.ms-optgroup-label').show();
           }
+
+          selectedOption.prop('selected', true);
+          selectableLi.addClass('ms-selected').hide();
+          selectedLi.addClass('ms-selected').show();
+          if (method != 'init'){
+            ms.trigger('change');
+            if (typeof ms.data('settings').afterSelect == 'function') {
+              ms.data('settings').afterSelect.call(this, value, selectedOption.text());
+            }
+          }
+        }
+      } else { // Array
+        var ms = this;
+
+        for (var cpt = 0; cpt < value.length; cpt++){
+          ms.multiSelect('select', value[cpt]);
         }
       }
     },
     'deselect' : function(value){
-      var ms = this,
-          selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul.ms-list'),
-          selectionUl = $('#ms-'+ms.attr('id')+' .ms-selection ul.ms-list'),
-          selectedOption = ms.find('option[value="'+value +'"]'),
-          selectedLi = selectionUl.find('li[ms-value="'+value+'"]');
+      var ms = this;
+
+      if (typeof value == 'string'){
+        var selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul.ms-list'),
+            selectionUl = $('#ms-'+ms.attr('id')+' .ms-selection ul.ms-list'),
+            selectedOption = ms.find('option[value="'+value +'"]'),
+            selectedLi = selectionUl.find('li[ms-value="'+value+'"]');
 
       if (selectedLi){
-        selectionUl.focusin();
-        var selectableLi = selectableUl.find('li[ms-value="'+value+'"]');
+          selectionUl.focusin();
+          var selectableLi = selectableUl.find('li[ms-value="'+value+'"]');
 
-        var selectableOptgroup = selectableLi.parent('.ms-optgroup');
-        if (selectableOptgroup.length > 0){
-          selectableOptgroup.children('.ms-optgroup-label').show();
-          selectableOptgroup.children('.ms-elem-selectable:not(.ms-selected)').show();
+          var selectableOptgroup = selectableLi.parent('.ms-optgroup');
+          if (selectableOptgroup.length > 0){
+            selectableOptgroup.children('.ms-optgroup-label').show();
+            selectableOptgroup.children('.ms-elem-selectable:not(.ms-selected)').show();
+          }
+
+          selectedOption.prop('selected', false);
+          selectableLi.removeClass('ms-selected').show();
+          selectedLi.removeClass('ms-selected').hide();
+
+          var selectionOptgroup = selectedLi.parent('.ms-optgroup');
+
+          if (selectionOptgroup.children(':visible').length == 1){
+            selectionOptgroup.children('.ms-optgroup-label').hide();
+          }
+
+          ms.trigger('change');
+
+          if (typeof ms.data('settings').afterDeselect == 'function') {
+            ms.data('settings').afterDeselect.call(this, value, selectedLi.text());
+          }
         }
+      } else { // Array
+        var ms = this;
 
-        selectedOption.prop('selected', false);
-        selectableLi.removeClass('ms-selected').show();
-        selectedLi.removeClass('ms-selected').hide();
-
-        var selectionOptgroup = selectedLi.parent('.ms-optgroup');
-
-        if (selectionOptgroup.children(':visible').length == 1){
-          selectionOptgroup.children('.ms-optgroup-label').hide();
-        }
-
-        ms.trigger('change');
-
-        if (typeof ms.data('settings').afterDeselect == 'function') {
-          ms.data('settings').afterDeselect.call(this, value, selectedLi.text());
+        for (var cpt = 0; cpt < value.length; cpt++){
+          ms.multiSelect('deselect', value[cpt]);
         }
       }
     },
