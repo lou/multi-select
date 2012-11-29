@@ -231,11 +231,11 @@
     },
     'select' : function(value, method){
       var ms = this,
-          selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul'),
-          selectionUl = $('#ms-'+ms.attr('id')+' .ms-selection ul'),
+          selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul.ms-list'),
+          selectionUl = $('#ms-'+ms.attr('id')+' .ms-selection ul.ms-list'),
           selectedOption = ms.find('option[value="'+value +'"]'),
-          selectedLi = selectionUl.children('li[ms-value="'+value+'"]'),
-          selectableLi = selectableUl.children('li[ms-value="'+value+'"]');
+          selectedLi = selectionUl.find('li[ms-value="'+value+'"]'),
+          selectableLi = selectableUl.find('li[ms-value="'+value+'"]');
 
       if (method == 'init'){
         haveToSelect = !selectableLi.hasClass(ms.data('settings').disabledClass) && selectedOption.prop('selected');
@@ -245,8 +245,8 @@
       }
 
       if (haveToSelect && selectedLi.is(':hidden')){
-
         var selectableOptgroup = selectableLi.parent('.ms-optgroup');
+
         if (selectableOptgroup.length > 0)
           if (selectableOptgroup.children('.ms-elem-selectable:not(:hidden)').length == 1)
             selectableOptgroup.children('.ms-optgroup-label').hide();
