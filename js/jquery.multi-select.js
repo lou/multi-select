@@ -114,7 +114,7 @@
             ms.multiSelect('select', $(this).val(), 'init');
           });
 
-          $('.ms-elem-selectable', selectableUl).on('mouseenter', function(){
+          selectableUl.on('mouseenter', '.ms-elem-selectable', function(){
             $('li', container).removeClass('ms-hover');
             $(this).addClass('ms-hover');
           }).on('mouseout', function(){
@@ -122,22 +122,22 @@
           });
 
           if(multiSelects.settings.dblClick) {
-            $('.ms-elem-selectable', selectableUl).on('dblclick', function(){
+            selectableUl.on('dblclick', '.ms-elem-selectable', function(){
               ms.multiSelect('select', $(this).attr('ms-value'));
             });
-            $('.ms-elem-selection', selectionUl).on('dblclick', function(){
+            selectionUl.on('dblclick', '.ms-elem-selection', function(){
               ms.multiSelect('deselect', $(this).attr('ms-value'));
             });
           } else {
-            $('.ms-elem-selectable', selectableUl).on('click', function(){
+            selectableUl.on('click', '.ms-elem-selectable', function(){
               ms.multiSelect('select', $(this).attr('ms-value'));
             });
-            $('.ms-elem-selection', selectionUl).on('click', function(){
+            selectionUl.on('click', '.ms-elem-selection', function(){
               ms.multiSelect('deselect', $(this).attr('ms-value'));
             });
           }
 
-          $('.ms-elem-selection', selectionUl).on('mouseenter', function(){
+          selectionUl.on('mouseenter', '.ms-elem-selection', function(){
             $('li', selectionUl).removeClass('ms-hover');
             $(this).addClass('ms-hover');
           }).on('mouseout', function(){
