@@ -220,6 +220,9 @@
             }
           });
         }
+        if (typeof ms.data('settings').afterInit == 'function') {
+          ms.data('settings').afterInit.call(this, container);
+        }
       });
     },
     'refresh' : function() {
