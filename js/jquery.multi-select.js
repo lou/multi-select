@@ -268,50 +268,42 @@
     },
     'deselect' : function(value){
       var ms = this,
-          selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul'),
-          selectionUl = $('#ms-'+ms.attr('id')+' .ms-selection ul'),
+          selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul.ms-list'),
+          selectionUl = $('#ms-'+ms.attr('id')+' .ms-selection ul.ms-list'),
           selectedOption = ms.find('option[value="'+value +'"]'),
-          selectedLi = selectionUl.children('li[ms-value="'+value+'"]');
+          selectedLi = selectionUl.find('li[ms-value="'+value+'"]');
 
-      if (typeof value == 'string'){
-        if (selectedLi){
-          selectionUl.focusin();
-          var selectableLi = selectableUl.children('li[ms-value="'+value+'"]'),
-              selectedLi = selectionUl.children('li[ms-value="'+value+'"]');
+      if (selectedLi){
+        selectionUl.focusin();
+        var selectableLi = selectableUl.find('li[ms-value="'+value+'"]');
 
-          var selectableOptgroup = selectableLi.parent('.ms-optgroup');
-          if (selectableOptgroup.length > 0){
-            selectableOptgroup.children('.ms-optgroup-label').show();
-            selectableOptgroup.children('.ms-elem-selectable:not(.ms-selected)').show();
-          }
-
-          selectedOption.prop('selected', false);
-          selectableLi.show();
-          selectableLi.removeClass('ms-selected');
-          selectedLi.hide();
-
-          var selectionOptgroup = selectedLi.parent('.ms-optgroup');
-          
-          if (selectionOptgroup.children(':visible').length == 1){
-            selectionOptgroup.children('.ms-optgroup-label').hide();
-          }
-
-          ms.trigger('change');
-          
-          if (typeof ms.data('settings').afterDeselect == 'function') {
-            ms.data('settings').afterDeselect.call(this, value, selectedLi.text());
-          }
+        var selectableOptgroup = selectableLi.parent('.ms-optgroup');
+        if (selectableOptgroup.length > 0){
+          selectableOptgroup.children('.ms-optgroup-label').show();
+          selectableOptgroup.children('.ms-elem-selectable:not(.ms-selected)').show();
         }
-      } else if (typeof value == 'object'){ // Is an array
-        for (var cpt = 0; cpt < value.length; cpt++){
-          ms.multiSelect('deselect', value[cpt]);  
+
+        selectedOption.prop('selected', false);
+        selectableLi.removeClass('ms-selected').show();
+        selectedLi.removeClass('ms-selected').hide();
+
+        var selectionOptgroup = selectedLi.parent('.ms-optgroup');
+
+        if (selectionOptgroup.children(':visible').length == 1){
+          selectionOptgroup.children('.ms-optgroup-label').hide();
+        }
+
+        ms.trigger('change');
+
+        if (typeof ms.data('settings').afterDeselect == 'function') {
+          ms.data('settings').afterDeselect.call(this, value, selectedLi.text());
         }
       }
     },
     'select_all' : function(visible){
       var ms = this,
-          selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul'),
-          selectionUl = $('#ms-'+ms.attr('id')+' .ms-selection ul');
+          selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul.ms-list'),
+          selectionUl = $('#ms-'+ms.attr('id')+' .ms-selection ul.ms-list');
 
       ms.find('option').prop('selected', true);
       selectableUl.find('.ms-elem-selectable').addClass('ms-selected').hide();
