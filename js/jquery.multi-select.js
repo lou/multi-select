@@ -53,13 +53,13 @@
               selectableUl.append(
                 '<li class="ms-optgroup-container" id="'+optgroupId+'-selectable">\
                   <ul class="ms-optgroup">\
-                    <li class="ms-optgroup-label">'+optgroupLabel+'</li>\
+                    <li class="ms-optgroup-label"><span>'+optgroupLabel+'</span></li>\
                   </ul>\
                 </li>');
               selectionUl.append(
                 '<li class="ms-optgroup-container" id="'+optgroupId+'-selection">\
                   <ul class="ms-optgroup">\
-                    <li class="ms-optgroup-label">'+optgroupLabel+'</li>\
+                    <li class="ms-optgroup-label"><span>'+optgroupLabel+'</span></li>\
                   </ul>\
                 </li>');
               optgroupCpt++;
@@ -73,7 +73,7 @@
 
                 attributes += name+'="'+attr.value+'" ';
               }
-              var selectableLi = $('<li '+attributes+'><div>'+$(this).text()+'</div></li>'),
+              var selectableLi = $('<li '+attributes+'><span>'+$(this).text()+'</span></li>'),
                   selectedLi = selectableLi.clone();
 
               selectableLi.addClass('ms-elem-selectable');
