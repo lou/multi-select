@@ -64,10 +64,16 @@
                 </li>');
               optgroupCpt++;
             } else {
-              var klass = $(this).attr('class') ? $(this).attr('class') : '',
-                  title = $(this).attr('title') ? $(this).attr('title') : '',
-                  value = $(this).val(),
-                  selectableLi = $('<li class="'+klass+'" ms-value="'+value+'" title="'+title+'"><div>'+$(this).text()+'</div></li>'),
+
+              var attributes = "";
+
+              for (var cpt = 0; cpt < this.attributes.length; cpt++){
+                var attr = this.attributes[cpt],
+                    name = (attr.name == 'value') ? 'ms-value' : attr.name;
+
+                attributes += name+'="'+attr.value+'" ';
+              }
+              var selectableLi = $('<li '+attributes+'><div>'+$(this).text()+'</div></li>'),
                   selectedLi = selectableLi.clone();
 
               selectableLi.addClass('ms-elem-selectable');
