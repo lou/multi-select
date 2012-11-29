@@ -250,7 +250,7 @@
           var selectableOptgroup = selectableLi.parent('.ms-optgroup');
 
           if (selectableOptgroup.length > 0)
-            if (selectableOptgroup.children('.ms-elem-selectable:not(:hidden)').length == 1)
+            if (selectableOptgroup.children('.ms-elem-selectable:not(.ms-selected)').length == 1)
               selectableOptgroup.children('.ms-optgroup-label').hide();
 
           if (selectedLi.parent('.ms-optgroup').length > 0){
@@ -300,7 +300,7 @@
 
           var selectionOptgroup = selectedLi.parent('.ms-optgroup');
 
-          if (selectionOptgroup.children(':visible').length == 1){
+          if (selectionOptgroup.children('.ms-selected').length == 0){
             selectionOptgroup.children('.ms-optgroup-label').hide();
           }
 
