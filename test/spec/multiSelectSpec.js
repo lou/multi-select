@@ -55,7 +55,7 @@ describe("multiSelect", function() {
 
       it ('should select the pre-selected options', function(){
         $.each(selectedValues, function(index, value){
-          expect($('.ms-selectable ul.ms-list li[ms-value="'+value+'"]')).toBe('.ms-selected');
+          expect($('.ms-selectable ul.ms-list li#'+value+'-selectable')).toBe('.ms-selected');
         });
         expect($('.ms-selectable ul.ms-list li.ms-selected').length).toEqual(2);
       });
@@ -69,7 +69,7 @@ describe("multiSelect", function() {
       beforeEach(function() {
         $('#multi-select').multiSelect();
         clickedItem = $('.ms-selectable ul.ms-list li').first();
-        value = clickedItem.attr('ms-value');
+        value = clickedItem.attr('id').replace('-selectable', '');
         spyOnEvent(select, 'change');
         spyOnEvent(select, 'focus');
         clickedItem.trigger('click');
@@ -88,7 +88,7 @@ describe("multiSelect", function() {
       });
 
       it('should show the associated selected item', function(){
-        expect($('.ms-selection ul.ms-list li[ms-value="'+value+'"]')).toBe(':visible');
+        expect($('#'+value+'-selection')).toBe(':visible');
       });
 
       it('should trigger the original select change event', function(){
@@ -115,7 +115,7 @@ describe("multiSelect", function() {
         $('#multi-select').multiSelect();
 
         clickedItem = $('.ms-selection ul.ms-list li').first();
-        value = clickedItem.attr('ms-value');
+        value = clickedItem.attr('id').replace('-selection', '');
         correspondingSelectableItem = $('.ms-selection ul.ms-list li').first();
         spyOnEvent(select, 'change');
         spyOnEvent(select, 'focus');
@@ -127,7 +127,7 @@ describe("multiSelect", function() {
       });
 
       it('should show associated selectable item', function(){
-        expect($('.ms-selectable ul.ms-list li[ms-value="'+value+'"]')).toBe(':visible');
+        expect($('#'+value+'-selectable')).toBe(':visible');
       });
 
       it('should remove the .ms-selected class to the corresponding selectable item', function(){

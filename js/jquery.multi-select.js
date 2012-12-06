@@ -117,22 +117,19 @@
           $('li', that.$container).removeClass('ms-hover');
         });
 
-        var selectableValue = $(this).attr('id').replace(/-selectable/, ''),
-            selectionValue = $(this).attr('id').replace(/-selection/, '');
-
         if(that.options.dblClick) {
           that.$selectableUl.on('dblclick', '.ms-elem-selectable', function(){
-            that.select(selectableValue);
+            that.select($(this).attr('id').replace(/-selectable/, ''));
           });
           that.$selectionUl.on('dblclick', '.ms-elem-selection', function(){
-            that.deselect(selectionValue);
+            that.deselect($(this).attr('id').replace(/-selection/, ''));
           });
         } else {
           that.$selectableUl.on('click', '.ms-elem-selectable', function(){
-            that.select(selectableValue);
+            that.select($(this).attr('id').replace(/-selectable/, ''));
           });
           that.$selectionUl.on('click', '.ms-elem-selection', function(){
-            that.deselect(selectionValue);
+            that.deselect($(this).attr('id').replace(/-selection/, ''));
           });
         }
 
@@ -242,7 +239,7 @@
       var that = this,
           ms = this.$element,
           selectables = this.$selectableUl.find('#' + value.join('-selectable, #')+'-selectable').filter(':not(.'+that.options.disabledClass+')'),
-          selections = this.$selectionUl.find('#' + value.join('-selection, #')+'-selection'),
+          selections = this.$selectionUl.find('#' + value.join('-selection, #') + '-selection'),
           options = ms.find('option:val('+value +')');
 
       if (selectables.length > 0){
