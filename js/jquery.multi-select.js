@@ -347,12 +347,15 @@
     
     return this.each(function () {
       var $this = $(this),
-          options = $.extend({}, $.fn.multiSelect.defaults, $this.data(), typeof option == 'object' && option),
-          data = new MultiSelect(this, options);
-    
+          data = $this.data('multiselect'),
+          options = $.extend({}, $.fn.multiSelect.defaults, $this.data(), typeof option == 'object' && option);
+
+      if (!data) $this.data('multiselect', (data = new MultiSelect(this, options)))
 
       if (typeof option == 'string'){
         data[option](args[1])
+      } else {
+        data.init();
       }
     })
   }
