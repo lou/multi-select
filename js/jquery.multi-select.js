@@ -116,7 +116,7 @@
         }).on('mouseout', function(){
           $('li', that.$container).removeClass('ms-hover');
         });
-        
+
         var selectableValue = $(this).attr('id').replace(/-selectable/, ''),
             selectionValue = $(this).attr('id').replace(/-selection/, '');
 
@@ -237,94 +237,80 @@
       this.init(this.options);
     },
     'select' : function(value, method){
+      if (typeof value == 'string')
+        value = [value]
       var that = this,
-          ms = this.$element;
+          ms = this.$element,
+          selectables = this.$selectableUl.find('#' + value.join('-selectable, #')+'-selectable').filter(':not(.'+that.options.disabledClass+')'),
+          selections = this.$selectionUl.find('#' + value.join('-selection, #')+'-selection'),
+          options = ms.find('option:val('+value +')');
 
-      if (typeof value == 'string'){
-        var selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul.ms-list'),
-            selectionUl = $('#ms-'+ms.attr('id')+' .ms-selection ul.ms-list'),
-            selectedOption = ms.find('option[value="'+value +'"]'),
-            selectedLi = selectionUl.find('li[ms-value="'+value+'"]'),
-            selectableLi = selectableUl.find('li[ms-value="'+value+'"]'),
-            haveToSelect;
+      if (selectables.length > 0){
+        selectables.addClass('ms-selected').hide();
+        selections.addClass('ms-selected').show();
+        options.prop('selected', true);
 
-        if (method == 'init'){
-          haveToSelect = !selectableLi.hasClass(that.options.disabledClass) && selectedOption.prop('selected');
-        } else {
-          haveToSelect = !selectableLi.hasClass(that.options.disabledClass);
-          ms.focus();
-        }
-
-        if (haveToSelect && selectedLi.is(':hidden')){
-          var selectableOptgroup = selectableLi.parent('.ms-optgroup');
-
-          if (selectableOptgroup.length > 0)
-            if (selectableOptgroup.children('.ms-elem-selectable:not(.ms-selected)').length == 1)
-              selectableOptgroup.children('.ms-optgroup-label').hide();
-
-          if (selectedLi.parent('.ms-optgroup').length > 0){
-            selectedLi.prevAll('.ms-optgroup-label').show();
-          }
-
-          selectedOption.prop('selected', true);
-          selectableLi.addClass('ms-selected').hide();
-          selectedLi.addClass('ms-selected').show();
-          if (method != 'init'){
-            ms.trigger('change');
-            if (typeof that.options.afterSelect == 'function') {
-              that.options.afterSelect.call(this, value, selectedOption.text());
+        var selectableOptgroups = that.$selectableUl.children('.ms-optgroup-container');
+        if (selectableOptgroups.length > 0){
+          selectableOptgroups.each(function(){
+            var selectablesLi = $(this).find('.ms-elem-selectable');
+            if (selectablesLi.length == selectablesLi.filter('.ms-selected').length){
+              $(this).find('.ms-optgroup-label').hide();
             }
-          }
-        }
-      } else { // Array
-        var ms = this;
+          });
 
-        for (var cpt = 0; cpt < value.length; cpt++){
-          that.select(value[cpt]);
+          var selectionOptgroups = that.$selectionUl.children('.ms-optgroup-container');
+          selectionOptgroups.each(function(){
+            var selectionsLi = $(this).find('.ms-elem-selection');
+            if (selectionsLi.filter('.ms-selected').length > 0){
+              $(this).find('.ms-optgroup-label').show();
+            }
+          });
+        }
+        if (method != 'init'){
+          ms.focus();
+          ms.trigger('change');
+          if (typeof that.options.afterSelect == 'function') {
+            that.options.afterSelect.call(this, value);
+          }
         }
       }
     },
     'deselect' : function(value){
+      if (typeof value == 'string')
+        value = [value]
       var that = this,
-          ms = this.$element;
+          ms = this.$element,
+          selectables = this.$selectableUl.find('#' + value.join('-selectable, #')+'-selectable'),
+          selections = this.$selectionUl.find('#' + value.join('-selection, #')+'-selection').filter('.ms-selected'),
+          options = ms.find('option:val('+value +')');
 
-      if (typeof value == 'string'){
-        var selectableUl = $('#ms-'+ms.attr('id')+' .ms-selectable ul.ms-list'),
-            selectionUl = $('#ms-'+ms.attr('id')+' .ms-selection ul.ms-list'),
-            selectedOption = ms.find('option[value="'+value +'"]'),
-            selectedLi = selectionUl.find('li[ms-value="'+value+'"]');
+      if (selections.length > 0){
+        selectables.removeClass('ms-selected').show();
+        selections.removeClass('ms-selected').hide();
+        options.prop('selected', false);
 
-      if (selectedLi){
-          selectionUl.focusin();
-          var selectableLi = selectableUl.find('li[ms-value="'+value+'"]');
+        var selectableOptgroups = that.$selectableUl.children('.ms-optgroup-container');
+        if (selectableOptgroups.length > 0){
+          selectableOptgroups.each(function(){
+            var selectablesLi = $(this).find('.ms-elem-selectable');
+            if (selectablesLi.filter(':not(.ms-selected)').length > 0){
+              $(this).find('.ms-optgroup-label').show();
+            }
+          });
 
-          var selectableOptgroup = selectableLi.parent('.ms-optgroup');
-          if (selectableOptgroup.length > 0){
-            selectableOptgroup.children('.ms-optgroup-label').show();
-            selectableOptgroup.children('.ms-elem-selectable:not(.ms-selected)').show();
-          }
-
-          selectedOption.prop('selected', false);
-          selectableLi.removeClass('ms-selected').show();
-          selectedLi.removeClass('ms-selected').hide();
-
-          var selectionOptgroup = selectedLi.parent('.ms-optgroup');
-
-          if (selectionOptgroup.children('.ms-selected').length == 0){
-            selectionOptgroup.children('.ms-optgroup-label').hide();
-          }
-
-          ms.trigger('change');
-
-          if (typeof that.options.afterDeselect == 'function') {
-            that.options.afterDeselect.call(this, value, selectedLi.text());
-          }
+          var selectionOptgroups = that.$selectionUl.children('.ms-optgroup-container');
+          selectionOptgroups.each(function(){
+            var selectionsLi = $(this).find('.ms-elem-selection');
+            if (selectionsLi.filter('.ms-selected').length == 0){
+              $(this).find('.ms-optgroup-label').hide();
+            }
+          });
         }
-      } else { // Array
-        var ms = this;
-
-        for (var cpt = 0; cpt < value.length; cpt++){
-          that.deselect(value[cpt]);
+        this.$selectionUl.focusin();
+        ms.trigger('change');
+        if (typeof that.options.afterDeselect == 'function') {
+          that.options.afterDeselect.call(this, value);
         }
       }
     },
@@ -377,5 +363,11 @@
   }
 
   $.fn.multiSelect.Constructor = MultiSelect
+
+  $.extend($.expr[':'], {
+     val: function(elem, i, attr) {
+       return elem.value === attr[3];
+     }
+  });
 
 }(window.jQuery);
