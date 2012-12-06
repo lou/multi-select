@@ -176,9 +176,9 @@
           if (e.keyCode == 32){ // space
             var method = keyContainer == 'ms-selectable' ? 'select' : 'deselect';
             if (keyContainer == 'ms-selectable'){
-              that.select(selectableFocused.first().attr('id'));
+              that.select(selectableFocused.first().attr('id').replace('-selectable', ''));
             } else {
-              that.deselect(selectableFocused.first().attr('id'));
+              that.deselect(selectableFocused.first().attr('id').replace('-selection', ''));
             }
 
           } else if (e.keyCode == 40){ // Down
