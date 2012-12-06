@@ -69,10 +69,9 @@
             var attributes = "";
 
             for (var cpt = 0; cpt < this.attributes.length; cpt++){
-              var attr = this.attributes[cpt],
-                  name = (attr.name == 'value') ? 'ms-value' : attr.name;
+              var attr = this.attributes[cpt];
 
-              attributes += name+'="'+attr.value+'" ';
+              attributes += attr.name+'="'+attr.value+'" ';
             }
             var selectableLi = $('<li '+attributes+'><span>'+$(this).text()+'</span></li>'),
                 selectedLi = selectableLi.clone();
