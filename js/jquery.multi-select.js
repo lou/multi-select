@@ -113,7 +113,7 @@
         that.$selectableUl.on('mouseenter', '.ms-elem-selectable', function(){
           $('li', that.$container).removeClass('ms-hover');
           $(this).addClass('ms-hover');
-        }).on('mouseout', function(){
+        }).on('mouseleave', function(){
           $('li', that.$container).removeClass('ms-hover');
         });
 
@@ -137,7 +137,7 @@
         that.$selectionUl.on('mouseenter', '.ms-elem-selection', function(){
           $('li', that.$selectionUl).removeClass('ms-hover');
           $(this).addClass('ms-hover');
-        }).on('mouseout', function(){
+        }).on('mouseleave', function(){
           $('li', that.$selectionUl).removeClass('ms-hover');
         });
 
