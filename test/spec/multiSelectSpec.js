@@ -95,10 +95,6 @@ describe("multiSelect", function() {
         expect('change').toHaveBeenTriggeredOn("#multi-select");
       });
 
-      it('should trigger the original select focus event', function(){
-        expect('focus').toHaveBeenTriggeredOn("#multi-select");
-      });
-
       afterEach(function(){
         select.multiSelect('deselect_all');
       });
