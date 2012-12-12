@@ -257,7 +257,7 @@
           ms = this.$element,
           selectables = this.$selectableUl.find('#' + value.join('-selectable, #')+'-selectable').filter(':not(.'+that.options.disabledClass+')'),
           selections = this.$selectionUl.find('#' + value.join('-selection, #') + '-selection'),
-          options = ms.find('option:val('+value +')');
+          options = ms.find('option').filter(function(index){ return($.inArray(this.value, value) > -1) });
 
       if (selectables.length > 0){
         selectables.addClass('ms-selected').hide();
@@ -298,7 +298,7 @@
           ms = this.$element,
           selectables = this.$selectableUl.find('#' + value.join('-selectable, #')+'-selectable'),
           selections = this.$selectionUl.find('#' + value.join('-selection, #')+'-selection').filter('.ms-selected'),
-          options = ms.find('option:val('+value +')');
+          options = ms.find('option').filter(function(index){ return($.inArray(this.value, value) > -1) });
 
       if (selections.length > 0){
         selectables.removeClass('ms-selected').show();
@@ -384,11 +384,5 @@
   }
 
   $.fn.multiSelect.Constructor = MultiSelect
-
-  $.extend($.expr[':'], {
-     val: function(elem, i, attr) {
-       return elem.value === attr[3];
-     }
-  });
 
 }(window.jQuery);
