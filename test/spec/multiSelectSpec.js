@@ -63,6 +63,32 @@ describe("multiSelect", function() {
   });
 
   describe('select', function(){
+
+    describe('multiple values (Array)', function(){
+      var values = ['value1', 'value2', 'value7'];
+      beforeEach(function(){
+        $('#multi-select').multiSelect();
+        $('#multi-select').multiSelect('select', values);
+      });
+      
+      it('should select corresponding option', function(){
+        expect(select.val()).toEqual(values);
+      });
+    });
+
+    describe('single value (String)', function(){
+      var value = 'value1';
+
+      beforeEach(function(){
+        $('#multi-select').multiSelect();
+        $('#multi-select').multiSelect('select', value);
+      });
+
+      it('should select corresponding option', function(){
+        expect($.inArray(value, select.val()) > -1).toBeTruthy();
+      });
+    });
+
     describe("on click", function(){
       var clickedItem, value;
 
@@ -102,6 +128,35 @@ describe("multiSelect", function() {
   });
 
   describe('deselect', function(){
+    describe('multiple values (Array)', function(){
+      var selectedValues = ['value1', 'value2', 'value7'],
+          deselectValues = ['value1', 'value2'];
+      beforeEach(function(){
+        $('#multi-select').multiSelect();
+        $('#multi-select').multiSelect('select', selectedValues);
+        $('#multi-select').multiSelect('deselect', deselectValues);
+      });
+      
+      it('should select corresponding option', function(){
+        expect(select.val()).toEqual(['value7']);
+      });
+    });
+
+    describe('single value (String)', function(){
+      var selectedValues = ['value1', 'value2', 'value7'],
+          deselectValue = 'value2';
+
+      beforeEach(function(){
+        $('#multi-select').multiSelect();
+        $('#multi-select').multiSelect('select', selectedValues);
+        $('#multi-select').multiSelect('deselect', deselectValue);
+      });
+
+      it('should select corresponding option', function(){
+        expect($.inArray(deselectValue, select.val()) > -1).toBeFalsy();
+      });
+    });
+
     describe("on click", function(){
       var clickedItem, value;
       var correspondingSelectableItem;
