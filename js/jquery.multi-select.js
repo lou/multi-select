@@ -1,5 +1,5 @@
 /*
-* MultiSelect v0.9
+* MultiSelect v0.9.1
 * Copyright (c) 2012 Louis Cuny
 *
 * This program is free software. It comes without any warranty, to
@@ -72,7 +72,9 @@
             for (var cpt = 0; cpt < this.attributes.length; cpt++){
               var attr = this.attributes[cpt];
 
-              attributes += attr.name+'="'+attr.value+'" ';
+              if(that.isDomNode(attr.name)){
+                attributes += attr.name+'="'+attr.value+'" ';
+              }
             }
             var selectableLi = $('<li '+attributes+'><span>'+$(this).text()+'</span></li>'),
                 selectedLi = selectableLi.clone();
@@ -353,6 +355,14 @@
       this.$selectableUl.focusin();
       this.$selectionUl.focusout();
       ms.trigger('change');
+    },
+    isDomNode: function (attr){
+      return (
+        attr &&
+        typeof attr === "object" &&
+        typeof attr.nodeType === "number" &&
+        typeof attr.nodeName === "string"
+      );
     }
   }
 
