@@ -10,5 +10,5 @@ beforeEach(function() {
 });
 
 afterEach(function () {
-  $("#multi-select, .ms-container").remove();
+  $("#multi-select, #multi-select-optgroup, .ms-container").remove();
 });

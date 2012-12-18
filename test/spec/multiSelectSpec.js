@@ -62,6 +62,58 @@ describe("multiSelect", function() {
     });
   });
 
+  describe('optgroup', function(){
+    var optgroupMsContainer, optgroupSelect, optgroupLabels;
+
+    beforeEach(function() {
+      $('<select id="multi-select-optgroup" multiple="multiple" name="testy[]"></select>').appendTo('body');
+      for (var o=1; o <= 10; o++) {
+        var optgroup = $('<optgroup label="opgroup'+o+'"></optgroup>')
+        for (var i=1; i <= 10; i++) {
+          var value = i + (o * 10);
+          $('<option value="value'+value+'">text'+value+'</option>').appendTo(optgroup);
+        };
+        optgroup.appendTo($("#multi-select-optgroup"));
+      }
+      optgroupSelect = $("#multi-select-optgroup");
+    });
+
+    describe('init', function(){
+      describe('with selectableOptgroup option set to false', function(){
+        beforeEach(function(){
+          optgroupSelect.multiSelect({ selectableOptgroup: false });
+          optgroupMsContainer = optgroupSelect.next();
+          optgroupLabels = optgroupMsContainer.find('.ms-selectable .ms-optgroup-label');
+        });
+
+        it ('sould display all optgroups', function(){
+          expect(optgroupLabels.length).toEqual(10);
+        });
+
+        it ('should do nothing when clicking on optgroup', function(){
+          var clickedOptGroupLabel = optgroupLabels.first();
+          clickedOptGroupLabel.trigger('click');
+          expect(optgroupSelect.val()).toBeNull();
+        });
+      });
+
+      describe('with selectableOptgroup option set to true', function(){
+        beforeEach(function(){
+          optgroupSelect.multiSelect({ selectableOptgroup: true });
+          optgroupMsContainer = optgroupSelect.next();
+          optgroupLabels = optgroupMsContainer.find('.ms-selectable .ms-optgroup-label');
+        });
+
+        it ('should do select all nested options when clicking on optgroup', function(){
+          var clickedOptGroupLabel = optgroupLabels.first();
+          clickedOptGroupLabel.trigger('click');
+          expect(optgroupSelect.val().length).toBe(10);
+        });
+      });
+    });
+
+  });
+
   describe('select', function(){
 
     describe('multiple values (Array)', function(){

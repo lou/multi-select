@@ -1,5 +1,5 @@
 /*
-* MultiSelect v0.9.1
+* MultiSelect v0.9.2
 * Copyright (c) 2012 Louis Cuny
 *
 * This program is free software. It comes without any warranty, to
@@ -44,27 +44,52 @@
         var optgroupLabel = null,
             optgroupId = null,
             optgroupCpt = 0,
-            scroll = 0;
-
+            scroll = 0,
+            optgroupContainerTemplate = '<li class="ms-optgroup-container"></li>',
+            optgroupUlTemplate = '<ul class="ms-optgroup"></ul>',
+            optgroupLiTemplate = '<li class="ms-optgroup-label"><span></span></li>';
 
         ms.find('optgroup, option').each(function(){
           if ($(this).is('optgroup')){
-            optgroupLabel = $(this).attr('label');
+            optgroupLabel = '<span>'+$(this).attr('label')+'</span>';
             optgroupId = 'ms-'+ms.attr('id')+'-optgroup-'+optgroupCpt;
 
-            that.$selectableUl.append(
-              '<li class="ms-optgroup-container" id="'+optgroupId+'-selectable">\
-                <ul class="ms-optgroup">\
-                  <li class="ms-optgroup-label"><span>'+optgroupLabel+'</span></li>\
-                </ul>\
-              </li>');
-            that.$selectionUl.append(
-              '<li class="ms-optgroup-container" id="'+optgroupId+'-selection">\
-                <ul class="ms-optgroup">\
-                  <li class="ms-optgroup-label"><span>'+optgroupLabel+'</span></li>\
-                </ul>\
-              </li>');
+            var optgroup = $(this),
+                optgroupSelectable = $(optgroupContainerTemplate),
+                optgroupSelection = $(optgroupContainerTemplate),
+                optgroupSelectionLi = $(optgroupLiTemplate),
+                optgroupSelectableLi = $(optgroupLiTemplate);
+
+            if (that.options.selectableOptgroup){
+              optgroupSelectableLi.on('click', function(){
+                var values = optgroup.children(':not(:selected)').map(function(){ return $(this).val() }).get();
+                that.select(values);
+              });
+
+              optgroupSelectionLi.on('click', function(){
+                var values = optgroup.children(':selected').map(function(){ return $(this).val() }).get();
+                that.deselect(values);
+              });
+            }
+
+            optgroupSelectableLi.html(optgroupLabel);
+
+            optgroupSelectable.attr('id', optgroupId+'-selectable')
+              .append($(optgroupUlTemplate)
+                .append(optgroupSelectableLi));
+
+            that.$selectableUl.append(optgroupSelectable);
+
+            optgroupSelectionLi.html(optgroupLabel);
+
+            optgroupSelection.attr('id', optgroupId+'-selection')
+              .append($(optgroupUlTemplate)
+                .append(optgroupSelectionLi));
+
+            that.$selectionUl.append(optgroupSelection);
+
             optgroupCpt++;
+
           } else {
 
             var attributes = "";
@@ -389,6 +414,7 @@
   }
 
   $.fn.multiSelect.defaults = {
+    selectableOptgroup: false,
     disabledClass : 'disabled',
     dblClick : false
   }
