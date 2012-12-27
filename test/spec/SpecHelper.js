@@ -12,3 +12,7 @@ beforeEach(function() {
 afterEach(function () {
   $("#multi-select, #multi-select-optgroup, .ms-container").remove();
 });
+
+sanitize = function(value){
+  return(value.replace(/[^A-Za-z0-9]*/gi, '_'));
+}

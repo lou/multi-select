@@ -55,7 +55,7 @@ describe("multiSelect", function() {
 
       it ('should select the pre-selected options', function(){
         $.each(selectedValues, function(index, value){
-          expect($('.ms-selectable ul.ms-list li#'+value+'-selectable')).toBe('.ms-selected');
+          expect($('.ms-selectable ul.ms-list li#'+sanitize(value)+'-selectable')).toBe('.ms-selected');
         });
         expect($('.ms-selectable ul.ms-list li.ms-selected').length).toEqual(2);
       });
@@ -104,7 +104,7 @@ describe("multiSelect", function() {
           optgroupLabels = optgroupMsContainer.find('.ms-selectable .ms-optgroup-label');
         });
 
-        it ('should do select all nested options when clicking on optgroup', function(){
+        it ('should select all nested options when clicking on optgroup', function(){
           var clickedOptGroupLabel = optgroupLabels.first();
           clickedOptGroupLabel.trigger('click');
           expect(optgroupSelect.val().length).toBe(10);
@@ -147,7 +147,7 @@ describe("multiSelect", function() {
       beforeEach(function() {
         $('#multi-select').multiSelect();
         clickedItem = $('.ms-selectable ul.ms-list li').first();
-        value = clickedItem.attr('id').replace('-selectable', '');
+        value = clickedItem.data('ms-value');
         spyOnEvent(select, 'change');
         spyOnEvent(select, 'focus');
         clickedItem.trigger('click');
@@ -166,7 +166,7 @@ describe("multiSelect", function() {
       });
 
       it('should show the associated selected item', function(){
-        expect($('#'+value+'-selection')).toBe(':visible');
+        expect($('#'+sanitize(value)+'-selection')).toBe(':visible');
       });
 
       it('should trigger the original select change event', function(){
