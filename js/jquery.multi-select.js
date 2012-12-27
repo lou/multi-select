@@ -135,15 +135,17 @@
           }
         });
 
-        if (that.options.selectableHeader){
+        if (that.options.selectableHeader)
           that.$selectableContainer.append(that.options.selectableHeader);
-        }
         that.$selectableContainer.append(that.$selectableUl);
-        
-        if (that.options.selectionHeader){
+        if (that.options.selectableFooter)
+          that.$selectableContainer.append(that.options.selectableFooter);
+
+        if (that.options.selectionHeader)
           that.$selectionContainer.append(that.options.selectionHeader);
-        }
-        this.$selectionContainer.append(that.$selectionUl);
+        that.$selectionContainer.append(that.$selectionUl);
+        if (that.options.selectionFooter)
+          that.$selectionContainer.append(that.options.selectionFooter);
 
         that.$container.append(that.$selectableContainer);
         that.$container.append(that.$selectionContainer);
