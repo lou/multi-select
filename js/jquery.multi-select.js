@@ -218,9 +218,9 @@
             if (liFocused.length >0){
               var method = keyContainer == 'ms-selectable' ? 'select' : 'deselect';
               if (keyContainer == 'ms-selectable'){
-                that.select(liFocused.attr('id').replace('-selectable', ''));
+                that.select(liFocused.data('ms-value'));
               } else {
-                that.deselect(liFocused.attr('id').replace('-selection', ''));
+                that.deselect(liFocused.data('ms-value'));
               }
               lis.removeClass('ms-hover');
               that.scrollTo = 0;
