@@ -121,8 +121,13 @@
             that.$selectionUl.find('.ms-optgroup-label').hide();
 
             if ($(this).prop('disabled') || ms.prop('disabled')){
-              selectableLi.prop('disabled', true);
-              selectableLi.addClass(that.options.disabledClass);
+              if (this.selected) {
+                selectedLi.prop('disabled', true);
+                selectedLi.addClass(that.options.disabledClass);
+              } else {
+                selectableLi.prop('disabled', true);
+                selectableLi.addClass(that.options.disabledClass);
+              }
             }
 
             if (optgroupId){
@@ -266,7 +271,7 @@
             } else {
               that.$selectableUl.focusin();
               that.$selectionUl.focusout();
-            }        
+            }
           }
         }
 
@@ -421,7 +426,7 @@
   $.fn.multiSelect = function () {
     var option = arguments[0],
         args = arguments;
-    
+
     return this.each(function () {
       var $this = $(this),
           data = $this.data('multiselect'),
