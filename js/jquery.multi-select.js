@@ -1,5 +1,5 @@
 /*
-* MultiSelect v0.9.3
+* MultiSelect v0.9.4
 * Copyright (c) 2012 Louis Cuny
 *
 * This program is free software. It comes without any warranty, to
