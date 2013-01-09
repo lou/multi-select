@@ -381,7 +381,8 @@
     },
 
     'select_all' : function(){
-      var ms = this.$element;
+      var ms = this.$element,
+          values = ms.val();
 
       ms.find('option').prop('selected', true);
       this.$selectableUl.find('.ms-elem-selectable').addClass('ms-selected').hide();
@@ -391,10 +392,17 @@
       this.$selectionUl.focusin();
       this.$selectableUl.focusout();
       ms.trigger('change');
+      if (typeof this.options.afterSelect == 'function') {
+        var selectedValues = $.grep(ms.val(), function(item){
+          return $.inArray(item, values) < 0;
+        });
+        this.options.afterSelect.call(this, selectedValues);
+      }
     },
 
     'deselect_all' : function(){
-      var ms = this.$element;
+      var ms = this.$element,
+          values = ms.val();
 
       ms.find('option').prop('selected', false);
       this.$selectableUl.find('.ms-elem-selectable').removeClass('ms-selected').show();
@@ -404,6 +412,9 @@
       this.$selectableUl.focusin();
       this.$selectionUl.focusout();
       ms.trigger('change');
+      if (typeof this.options.afterDeselect == 'function') {
+        this.options.afterDeselect.call(this, values);
+      }
     },
 
     isDomNode: function (attr){
