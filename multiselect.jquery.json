@@ -1,0 +1,34 @@
+{
+  "name": "multiselect",
+  "title": "jQuery multiselect",
+  "description": "This is a tiny jQuery plugin which aims to be a drop-in replacement for the standard &lt;select&gt; element with multiple attribute activated.",
+  "keywords": [
+    "multiselect",
+    "form"
+  ],
+  "version": "0.9.4",
+  "author": {
+    "name": "lou",
+    "url": "https://github.com/lou"
+  },
+  "maintainers": [
+    {
+      "name": "Louis CUNY",
+      "email": "louiscuny@gmail.com",
+      "url": "https://github.com/lou"
+    }
+  ],
+  "licenses": [
+    {
+      "type": "wtfpl",
+      "url": "http://sam.zoy.org/wtfpl/COPYING"
+    }
+  ],
+  "bugs": "https://github.com/lou/multi-select/issues",
+  "homepage": "http://loudev.com/",
+  "docs": "http://loudev.com/",
+  "download": "https://github.com/lou/multi-select/archive/master.zip",
+  "dependencies": {
+    "jquery": ">= 1.8"
+  }
+}
