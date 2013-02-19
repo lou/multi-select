@@ -51,6 +51,9 @@
             optgroupUlTemplate = '<ul class="ms-optgroup"></ul>',
             optgroupLiTemplate = '<li class="ms-optgroup-label"><span></span></li>';
 
+        that.$selectableUl.html('');
+        that.$selectionUl.html('');
+
         ms.find('optgroup, option').each(function(){
           if ($(this).is('optgroup')){
             optgroupLabel = '<span>'+$(this).attr('label')+'</span>';
