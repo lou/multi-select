@@ -26,6 +26,7 @@
     this.$selectableUl = $('<ul class="ms-list"></ul>');
     this.$selectionUl = $('<ul class="ms-list"></ul>');
     this.scrollTo = 0;
+    this.sanitizeRegexp = new RegExp("\\W+", 'gi');
   }
 
   MultiSelect.prototype = {
@@ -38,8 +39,6 @@
       if (ms.next('.ms-container').length == 0){
         ms.css({ position: 'absolute', left: '-9999px' });
         ms.attr('id', ms.attr('id') ? ms.attr('id') : 'ms-'+Math.ceil(Math.random()*1000));
-
-
 
         var optgroupLabel = null,
             optgroupId = null,
@@ -105,7 +104,7 @@
                 selectedLi = selectableLi.clone();
 
             var value = $(this).val(),
-                msId = that.sanitize(value);
+                msId = that.sanitize(value, that.sanitizeRegexp);
 
             selectableLi
               .data('ms-value', value)
@@ -305,7 +304,7 @@
         value = [value]
       var that = this,
           ms = this.$element,
-          msIds = $.map(value, function(val, index){ return(that.sanitize(val)) }),
+          msIds = $.map(value, function(val, index){ return(that.sanitize(val, that.sanitizeRegexp)) }),
           selectables = this.$selectableUl.find('#' + msIds.join('-selectable, #')+'-selectable').filter(':not(.'+that.options.disabledClass+')'),
           selections = this.$selectionUl.find('#' + msIds.join('-selection, #') + '-selection'),
           options = ms.find('option').filter(function(index){ return($.inArray(this.value, value) > -1) });
@@ -348,7 +347,7 @@
         value = [value]
       var that = this,
           ms = this.$element,
-          msIds = $.map(value, function(val, index){ return(that.sanitize(val)) }),
+          msIds = $.map(value, function(val, index){ return(that.sanitize(val, that.sanitizeRegexp)) }),
           selectables = this.$selectableUl.find('#' + msIds.join('-selectable, #')+'-selectable'),
           selections = this.$selectionUl.find('#' + msIds.join('-selection, #')+'-selection').filter('.ms-selected'),
           options = ms.find('option').filter(function(index){ return($.inArray(this.value, value) > -1) });
@@ -430,8 +429,8 @@
       );
     },
 
-    sanitize: function(value){
-      return(value.replace(/[^A-Za-z0-9]*/gi, '_'));
+    sanitize: function(value, reg){
+      return(value.replace(reg, '_'));
     }
   }
 
