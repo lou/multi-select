@@ -161,21 +161,14 @@
           $('li', that.$container).removeClass('ms-hover');
         });
 
-        if(that.options.dblClick) {
-          that.$selectableUl.on('dblclick', '.ms-elem-selectable', function(){
-            that.select($(this).data('ms-value'));
-          });
-          that.$selectionUl.on('dblclick', '.ms-elem-selection', function(){
-            that.deselect($(this).data('ms-value'));
-          });
-        } else {
-          that.$selectableUl.on('click', '.ms-elem-selectable', function(){
-            that.select($(this).data('ms-value'));
-          });
-          that.$selectionUl.on('click', '.ms-elem-selection', function(){
-            that.deselect($(this).data('ms-value'));
-          });
-        }
+        var action = that.options.dblClick ? 'dblclick' : 'click';
+
+        that.$selectableUl.on(action, '.ms-elem-selectable', function(){
+          that.select($(this).data('ms-value'));
+        });
+        that.$selectionUl.on(action, '.ms-elem-selection', function(){
+          that.deselect($(this).data('ms-value'));
+        });
 
 
         that.$selectionUl.on('mouseenter', '.ms-elem-selection', function(){
