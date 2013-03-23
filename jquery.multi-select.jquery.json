@@ -1,6 +1,6 @@
 {
   "name": "multi-select",
-  "title": "  multiselect",
+  "title": "multiselect",
   "description": "This is a tiny jQuery plugin which aims to be a drop-in replacement for the standard &lt;select&gt; with multiple attribute activated.",
   "keywords": [
     "multiselect",
