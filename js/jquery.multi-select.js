@@ -293,6 +293,10 @@
 
     'refresh' : function() {
       $("#ms-"+this.$element.attr("id")).remove();
+      this.$selectableContainer.empty();
+      this.$selectableUl.empty();
+      this.$selectionContainer.empty();
+      this.$selectionUl.empty();
       this.init(this.options);
     },
 
