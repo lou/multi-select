@@ -25,6 +25,10 @@
     this.$selectionContainer = $('<div class="ms-selection"></div>');
     this.$selectableUl = $('<ul class="ms-list"></ul>');
     this.$selectionUl = $('<ul class="ms-list"></ul>');
+    this.$selectableHeader = $('<div class="ms-header ms-selectable-header"></div>');
+    this.$selectionHeader = $('<div class="ms-header ms-selection-header"></div>');
+    this.$selectableFooter = $('<div class="ms-footer ms-selectable-footer"></div>');
+    this.$selectionFooter = $('<div class="ms-footer ms-selection-footer"></div>');
     this.scrollTo = 0;
   }
 
@@ -39,8 +43,6 @@
         ms.css({ position: 'absolute', left: '-9999px' });
         ms.attr('id', ms.attr('id') ? ms.attr('id') : 'ms-'+Math.ceil(Math.random()*1000));
 
-
-
         var optgroupLabel = null,
             optgroupId = null,
             optgroupCpt = 0,
@@ -48,6 +50,9 @@
             optgroupContainerTemplate = '<li class="ms-optgroup-container"></li>',
             optgroupUlTemplate = '<ul class="ms-optgroup"></ul>',
             optgroupLiTemplate = '<li class="ms-optgroup-label"><span></span></li>';
+
+        that.$selectableUl.html('');
+        that.$selectionUl.html('');
 
         ms.find('optgroup, option').each(function(){
           if ($(this).is('optgroup')){
@@ -140,17 +145,28 @@
           }
         });
 
-        if (that.options.selectableHeader)
-          that.$selectableContainer.append(that.options.selectableHeader);
-        that.$selectableContainer.append(that.$selectableUl);
-        if (that.options.selectableFooter)
-          that.$selectableContainer.append(that.options.selectableFooter);
+        if (that.options.selectableHeader) {
+          that.$selectableContainer.append(that.$selectableHeader);
+          that.$selectableHeader.html(that.options.selectableHeader);
+        }
 
-        if (that.options.selectionHeader)
-          that.$selectionContainer.append(that.options.selectionHeader);
+        that.$selectableContainer.append(that.$selectableUl);
+
+        if (that.options.selectableFooter) {
+          that.$selectableContainer.append(that.$selectableFooter);
+          that.$selectableFooter.html(that.options.selectableFooter);
+        }
+
+        if (that.options.selectionHeader) {
+          that.$selectionContainer.append(that.$selectionHeader);
+          that.$selectionHeader.html(that.options.selectionHeader);
+        }
+
         that.$selectionContainer.append(that.$selectionUl);
-        if (that.options.selectionFooter)
-          that.$selectionContainer.append(that.options.selectionFooter);
+        if (that.options.selectionFooter) {
+          that.$selectionContainer.append(that.$selectionFooter);
+          that.$selectionFooter.html(that.options.selectionFooter);
+        }
 
         that.$container.append(that.$selectableContainer);
         that.$container.append(that.$selectionContainer);
