@@ -33,11 +33,11 @@
     });
 
     $('#callbacks').multiSelect({
-      afterSelect: function(value, text){
-        alert("Select value: "+value);
+      afterSelect: function(values){
+        alert("Select value: "+values);
       },
-      afterDeselect: function(value, text){
-        alert("Deselect value: "+value);
+      afterDeselect: function(values){
+        alert("Deselect value: "+values);
       }
     });
 
