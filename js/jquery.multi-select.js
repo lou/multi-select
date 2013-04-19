@@ -20,11 +20,14 @@
   var MultiSelect = function (element, options) {
     this.options = options;
     this.$element = $(element);
-    this.$container = $('<div id="ms-'+this.$element.attr('id')+'" class="ms-container"></div>');
-    this.$selectableContainer = $('<div class="ms-selectable"></div>');
-    this.$selectionContainer = $('<div class="ms-selection"></div>');
-    this.$selectableUl = $('<ul class="ms-list"></ul>');
-    this.$selectionUl = $('<ul class="ms-list"></ul>');
+
+    var id = this.$element.attr('id');
+
+    this.$container = $('<div/>', { 'id': "ms-"+id, 'class': "ms-container" });
+    this.$selectableContainer = $('<div/>', { 'class': 'ms-selectable' });
+    this.$selectionContainer = $('<div/>', { 'class': 'ms-selection' });
+    this.$selectableUl = $('<ul/>', { 'class': "ms-list" });
+    this.$selectionUl = $('<ul/>', { 'class': "ms-list" });
     this.scrollTo = 0;
     this.sanitizeRegexp = new RegExp("\\W+", 'gi');
   }
@@ -285,10 +288,6 @@
 
     'refresh' : function() {
       $("#ms-"+this.$element.attr("id")).remove();
-      this.$selectableContainer.empty();
-      this.$selectableUl.empty();
-      this.$selectionContainer.empty();
-      this.$selectionUl.empty();
       this.init(this.options);
     },
 

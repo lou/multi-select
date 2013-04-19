@@ -1,0 +1,1948 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>multiselect.js</title>
+    <meta content="This is a tiny jQuery plugin which aims to be a drop-in replacement for the standard &amp;lt;select&amp;gt; element with multiple attribute activated. It's free, open source and it works in an unobstrusive fashion." name='description' />
+    <link href="css/bootstrap.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="css/multi-select.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="css/theme.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="css/application.css" media="screen" rel="stylesheet" type="text/css" />
+    <script type='text/javascript'>
+      //<![CDATA[
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-23068623-1']);
+        _gaq.push(['_trackPageview']);
+        
+        (function() {
+          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+      //]]>
+    </script>
+  </head>
+  <body data-spy='scroll'>
+    <div class='navbar navbar-fixed-top' id='navbar'>
+      <div class='navbar-inner'>
+        <div class='container'>
+          <a id='brand' class="brand" href="#home">multiselect.js</a>
+
+          <div class='nav'>
+            <ul class='nav'>
+              <li><a href="#home">Home</a></li>
+              <li><a href="#usage">Usage</a></li>
+              <li><a href="#demos">Demos</a></li>
+              <li><a href="#project">Project</a></li>
+            </ul>
+          </div>
+          <div class='nav pull-right'>
+            <iframe allowtransparency='allowtransparency' frameborder='0' height='20' scrolling='0' src='http://ghbtns.com/github-btn.html?user=lou&amp;repo=multi-select&amp;type=watch&amp;count=true' width='102'></iframe>
+            <a class="btn btn-primary" href="https://github.com/lou/multi-select/zipball/master">Download</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class='container'>
+      <div class='hero-unit' id='home'>
+        <h1>Multiselect</h1>
+        <p>
+          This plugin is a drop-in replacement for the standard &lt;select&gt; element with multiple attribute activated.
+        </p>
+        <div class='row'>
+          <ul class='describe'>
+            <li>
+              <strong>Free</strong>
+              (under
+              <a href="http://sam.zoy.org/wtfpl/COPYING">WTFPL</a>
+              license)
+            </li>
+            <li>
+              Works in an
+              <strong>unobtrusive</strong>
+              fashion
+            </li>
+            <li>
+              Fully
+              <strong>open sourced</strong>
+            </li>
+            <li>
+              <strong>Keyboard</strong>
+              support
+            </li>
+            <li>
+              Provides some
+              <strong>callbacks</strong>
+            </li>
+            <li>
+              Fully customizable via
+              <strong>CSS</strong>
+            </li>
+            <li>
+              Depends on
+              <strong>jQuery 1.8+</strong>
+            </li>
+            <li>
+              Tiny code
+              <strong>~8kb</strong>
+              minified
+            </li>
+          </ul>
+          <div class='hero-multiselect'>
+            <select multiple class="multiselect" id="aloha" name="test[]">
+            <option value="elem_1">elem 1</option>
+            <option value="elem_2">elem 2</option>
+            <option value="elem_3">elem 3</option>
+            <option value="elem_4">elem 4</option>
+            <option value="elem_5">elem 5</option>
+            <option value="elem_6">elem 6</option>
+            <option value="elem_7">elem 7</option>
+            <option value="elem_8">elem 8</option>
+            <option value="elem_9">elem 9</option>
+            <option value="elem_10">elem 10</option>
+            <option value="elem_11">elem 11</option>
+            <option value="elem_12">elem 12</option>
+            <option value="elem_13">elem 13</option>
+            <option value="elem_14">elem 14</option>
+            <option value="elem_15">elem 15</option>
+            <option value="elem_16">elem 16</option>
+            <option value="elem_17">elem 17</option>
+            <option value="elem_18">elem 18</option>
+            <option value="elem_19">elem 19</option>
+            <option value="elem_20">elem 20</option></select>
+          </div>
+        </div>
+      </div>
+      <div class='page-header' id='usage'>
+        <h2>Usage</h2>
+      </div>
+      <h3>HTML</h3>
+      <pre><code data-language='html'>&lt;html&gt;&#x000A;  &lt;head&gt;&#x000A;    &lt;link href=&quot;path/to/multiselect.css&quot; media=&quot;screen&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;&gt;&#x000A;  &lt;/head&gt;&#x000A;  &lt;body&gt;&#x000A;    &lt;select multiple=&quot;multiple&quot; id=&quot;my-select&quot; name=&quot;my-select[]&quot;&gt;&#x000A;      &lt;option value='elem_1'&gt;elem 1&lt;/option&gt;&#x000A;      &lt;option value='elem_2'&gt;elem 2&lt;/option&gt;&#x000A;      &lt;option value='elem_3'&gt;elem 3&lt;/option&gt;&#x000A;      &lt;option value='elem_4'&gt;elem 4&lt;/option&gt;&#x000A;      ...&#x000A;      &lt;option value='elem_100'&gt;elem 100&lt;/option&gt;&#x000A;    &lt;/select&gt;&#x000A;    &lt;script src=&quot;path/to/jquery.multi-select.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;&#x000A;  &lt;/body&gt;&#x000A;&lt;/html&gt;</code></pre>
+      <h3>
+        JavaScript
+      </h3>
+      <pre><code data-language='javascript'>$('#my-select').multiSelect()</code></pre>
+      <h3>Options</h3>
+      <table class='table table-bordered table-striped'>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>type</th>
+            <th>default</th>
+            <th>description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>afterInit</td>
+            <td>function</td>
+            <td>function(container){}</td>
+            <td>Function to call after the multiSelect initilization.</td>
+          </tr>
+          <tr>
+            <td>afterSelect</td>
+            <td>function</td>
+            <td>function(values){}</td>
+            <td>Function to call after one item is selected.</td>
+          </tr>
+          <tr>
+            <td>afterDeselect</td>
+            <td>function</td>
+            <td>function(values){}</td>
+            <td>Function to call after one item is deselected.</td>
+          </tr>
+          <tr>
+            <td>selectableHeader</td>
+            <td>HTML/Text</td>
+            <td>null</td>
+            <td>Text or HTML to display in the selectable header.</td>
+          </tr>
+          <tr>
+            <td>selectionHeader</td>
+            <td>HTML/Text</td>
+            <td>null</td>
+            <td>Text or HTML to display in the selection header.</td>
+          </tr>
+          <tr>
+            <td>selectableFooter</td>
+            <td>HTML/Text</td>
+            <td>null</td>
+            <td>Text or HTML to display in the selectable footer.</td>
+          </tr>
+          <tr>
+            <td>selectionFooter</td>
+            <td>HTML/Text</td>
+            <td>null</td>
+            <td>Text or HTML to display in the selection footer.</td>
+          </tr>
+          <tr>
+            <td>disabledClass</td>
+            <td>String</td>
+            <td>'disabled'</td>
+            <td>CSS class for disabled items.</td>
+          </tr>
+          <tr>
+            <td>selectableOptgroup</td>
+            <td>Boolean</td>
+            <td>false</td>
+            <td>Click on optgroup will select all nested options when set to true.</td>
+          </tr>
+        </tbody>
+      </table>
+      <h3>Methods</h3>
+      <br />
+      <h4>.multiSelect(options)</h4>
+      <p>
+        Activates your content as a multiselect. Accepts an optional options
+        <code>object</code>
+      </p>
+      <pre><code data-language='javascript'>$('#your-select').multiSelect({});</code></pre>
+      <br />
+      <div class='alert alert-info'>
+        <strong>Note:</strong>
+        You must init the multiple select with $('#your-select').multiSelect() before calling one of the following methods.
+      </div>
+      <h4>.multiSelect('select', String|Array)</h4>
+      <p>
+        Select the item with the value given in parameter. The value can be either a string ('elem_1') matching the value of the option oran Array of values (['elem_1', 'elem_42']).
+      </p>
+      <pre><code data-language='javascript'>$('#your-select').multiSelect('select', String|Array);</code></pre>
+      <h4>.multiSelect('deselect', String|Array)</h4>
+      <p>
+        Deselect the item with the value given in parameter. The value can be either a string ('elem_1') matching the value of the option oran Array of values (['elem_1', 'elem_42']).
+      </p>
+      <pre><code data-language='javascript'>$('#your-select').multiSelect('deselect', String|Array);</code></pre>
+      <h4>.multiSelect('select_all')</h4>
+      <p>
+        Select all elements.
+      </p>
+      <pre><code data-language='javascript'>$('#your-select').multiSelect('select_all');</code></pre>
+      <h4>.multiSelect('deselect_all')</h4>
+      <p>
+        Deselect all items previously selected.
+      </p>
+      <pre><code data-language='javascript'>$('#your-select').multiSelect('select_all');</code></pre>
+      <h4>.multiSelect('refresh')</h4>
+      <p>
+        Refresh current multiselect.
+      </p>
+      <pre><code data-language='javascript'>$('#your-select').multiSelect('refresh');</code></pre>
+      <br />
+      <h3>Keyboard</h3>
+      <table class='table table-bordered table-striped'>
+        <thead>
+          <tr>
+            <th width='120'>key</th>
+            <th>function</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>[&nbsp;&nbsp;&darr;&nbsp;&nbsp;]&nbsp;&nbsp;Down arrow</td>
+            <td>Select next item in the focused list</td>
+          </tr>
+          <tr>
+            <td>[&nbsp;&nbsp;&uarr;&nbsp;&nbsp;]&nbsp;&nbsp;Up arrow</td>
+            <td>Select previous item in the focused list</td>
+          </tr>
+          <tr>
+            <td>[&nbsp;&#8212;&nbsp;]&nbsp;&nbsp;Space</td>
+            <td>Add/remove item depending on which list is focused</td>
+          </tr>
+          <tr>
+            <td>[ &larr; ]&nbsp;&nbsp;Left arrow</td>
+            <td>Focus on the next list</td>
+          </tr>
+          <tr>
+            <td>[ &rarr; ]&nbsp;&nbsp;Right arrow</td>
+            <td>Focus on the previous list</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class='page-header' id='demos'>
+        <h2>Demos</h2>
+      </div>
+      <div class='row'>
+        <div class='span12'>
+          <h3>Pre-selected options</h3>
+        </div>
+        <div class='span7'>
+          <pre><code data-language='html'>&lt;select id='pre-selected-options' multiple='multiple'&gt;&#x000A;  &lt;option value='elem_1'&gt;elem 1&lt;/option&gt;&#x000A;  &lt;option value='elem_2'&gt;elem 2&lt;/option&gt;&#x000A;  &lt;option value='elem_3'&gt;elem 3&lt;/option&gt;&#x000A;  &lt;option value='elem_4'&gt;elem 4&lt;/option&gt;&#x000A;  ...&#x000A;  &lt;option value='elem_100'&gt;elem 100&lt;/option&gt;&#x000A;&lt;/select&gt;</code></pre>
+          <pre><code data-language='javascript'>$('#pre-selected-options').multiSelect();</code></pre>
+        </div>
+        <div class='span5'>
+          <select multiple id="pre-selected-options" class="multiselect" name="pre-selected-options[]">
+          <option value="elem_1" selected>elem 1</option>
+          <option value="elem_2">elem 2</option>
+          <option value="elem_3">elem 3</option>
+          <option value="elem_4">elem 4</option>
+          <option value="elem_5">elem 5</option>
+          <option value="elem_6">elem 6</option>
+          <option value="elem_7">elem 7</option>
+          <option value="elem_8">elem 8</option>
+          <option value="elem_9">elem 9</option>
+          <option value="elem_10">elem 10</option>
+          <option value="elem_11">elem 11</option>
+          <option value="elem_12">elem 12</option>
+          <option value="elem_13">elem 13</option>
+          <option value="elem_14">elem 14</option>
+          <option value="elem_15">elem 15</option>
+          <option value="elem_16">elem 16</option>
+          <option value="elem_17">elem 17</option>
+          <option value="elem_18">elem 18</option>
+          <option value="elem_19">elem 19</option>
+          <option value="elem_20">elem 20</option>
+          <option value="elem_21">elem 21</option>
+          <option value="elem_22">elem 22</option>
+          <option value="elem_23">elem 23</option>
+          <option value="elem_24">elem 24</option>
+          <option value="elem_25">elem 25</option>
+          <option value="elem_26">elem 26</option>
+          <option value="elem_27">elem 27</option>
+          <option value="elem_28">elem 28</option>
+          <option value="elem_29">elem 29</option>
+          <option value="elem_30">elem 30</option>
+          <option value="elem_31">elem 31</option>
+          <option value="elem_32">elem 32</option>
+          <option value="elem_33">elem 33</option>
+          <option value="elem_34">elem 34</option>
+          <option value="elem_35">elem 35</option>
+          <option value="elem_36">elem 36</option>
+          <option value="elem_37">elem 37</option>
+          <option value="elem_38">elem 38</option>
+          <option value="elem_39">elem 39</option>
+          <option value="elem_40">elem 40</option>
+          <option value="elem_41">elem 41</option>
+          <option value="elem_42" selected>elem 42</option>
+          <option value="elem_43">elem 43</option>
+          <option value="elem_44">elem 44</option>
+          <option value="elem_45">elem 45</option>
+          <option value="elem_46">elem 46</option>
+          <option value="elem_47">elem 47</option>
+          <option value="elem_48">elem 48</option>
+          <option value="elem_49">elem 49</option>
+          <option value="elem_50">elem 50</option>
+          <option value="elem_51">elem 51</option>
+          <option value="elem_52">elem 52</option>
+          <option value="elem_53">elem 53</option>
+          <option value="elem_54">elem 54</option>
+          <option value="elem_55">elem 55</option>
+          <option value="elem_56">elem 56</option>
+          <option value="elem_57">elem 57</option>
+          <option value="elem_58">elem 58</option>
+          <option value="elem_59">elem 59</option>
+          <option value="elem_60">elem 60</option>
+          <option value="elem_61">elem 61</option>
+          <option value="elem_62">elem 62</option>
+          <option value="elem_63">elem 63</option>
+          <option value="elem_64">elem 64</option>
+          <option value="elem_65">elem 65</option>
+          <option value="elem_66">elem 66</option>
+          <option value="elem_67">elem 67</option>
+          <option value="elem_68">elem 68</option>
+          <option value="elem_69">elem 69</option>
+          <option value="elem_70">elem 70</option>
+          <option value="elem_71">elem 71</option>
+          <option value="elem_72">elem 72</option>
+          <option value="elem_73">elem 73</option>
+          <option value="elem_74">elem 74</option>
+          <option value="elem_75">elem 75</option>
+          <option value="elem_76">elem 76</option>
+          <option value="elem_77">elem 77</option>
+          <option value="elem_78">elem 78</option>
+          <option value="elem_79">elem 79</option>
+          <option value="elem_80">elem 80</option>
+          <option value="elem_81">elem 81</option>
+          <option value="elem_82">elem 82</option>
+          <option value="elem_83">elem 83</option>
+          <option value="elem_84">elem 84</option>
+          <option value="elem_85">elem 85</option>
+          <option value="elem_86">elem 86</option>
+          <option value="elem_87">elem 87</option>
+          <option value="elem_88">elem 88</option>
+          <option value="elem_89">elem 89</option>
+          <option value="elem_90">elem 90</option>
+          <option value="elem_91">elem 91</option>
+          <option value="elem_92">elem 92</option>
+          <option value="elem_93">elem 93</option>
+          <option value="elem_94">elem 94</option>
+          <option value="elem_95">elem 95</option>
+          <option value="elem_96">elem 96</option>
+          <option value="elem_97">elem 97</option>
+          <option value="elem_98">elem 98</option>
+          <option value="elem_99">elem 99</option>
+          <option value="elem_100">elem 100</option></select>
+        </div>
+      </div>
+      <br />
+      <div class='row'>
+        <div class='span12'>
+          <h3>Callbacks</h3>
+        </div>
+        <div class='span7'>
+          <pre><code data-language='html'>&lt;select id='Callbacks' multiple='multiple'&gt;&#x000A;  &lt;option value='elem_1'&gt;elem 1&lt;/option&gt;&#x000A;  &lt;option value='elem_2'&gt;elem 2&lt;/option&gt;&#x000A;  &lt;option value='elem_3'&gt;elem 3&lt;/option&gt;&#x000A;  &lt;option value='elem_4'&gt;elem 4&lt;/option&gt;&#x000A;  ...&#x000A;  &lt;option value='elem_100'&gt;elem 100&lt;/option&gt;&#x000A;&lt;/select&gt;</code></pre>
+          <pre><code data-language='javascript'>$('#callbacks').multiSelect({&#x000A;  afterSelect: function(value, text){&#x000A;    alert(&quot;Select value: &quot;+value);&#x000A;  },&#x000A;  afterDeselect: function(value, text){&#x000A;    alert(&quot;Deselect value: &quot;+value);&#x000A;  }&#x000A;});</code></pre>
+        </div>
+        <div class='span5'>
+          <select multiple id="callbacks" name="callbacks[]">
+          <option value="elem_1">elem 1</option>
+          <option value="elem_2">elem 2</option>
+          <option value="elem_3">elem 3</option>
+          <option value="elem_4">elem 4</option>
+          <option value="elem_5">elem 5</option>
+          <option value="elem_6">elem 6</option>
+          <option value="elem_7">elem 7</option>
+          <option value="elem_8">elem 8</option>
+          <option value="elem_9">elem 9</option>
+          <option value="elem_10">elem 10</option>
+          <option value="elem_11">elem 11</option>
+          <option value="elem_12">elem 12</option>
+          <option value="elem_13">elem 13</option>
+          <option value="elem_14">elem 14</option>
+          <option value="elem_15">elem 15</option>
+          <option value="elem_16">elem 16</option>
+          <option value="elem_17">elem 17</option>
+          <option value="elem_18">elem 18</option>
+          <option value="elem_19">elem 19</option>
+          <option value="elem_20">elem 20</option>
+          <option value="elem_21">elem 21</option>
+          <option value="elem_22">elem 22</option>
+          <option value="elem_23">elem 23</option>
+          <option value="elem_24">elem 24</option>
+          <option value="elem_25">elem 25</option>
+          <option value="elem_26">elem 26</option>
+          <option value="elem_27">elem 27</option>
+          <option value="elem_28">elem 28</option>
+          <option value="elem_29">elem 29</option>
+          <option value="elem_30">elem 30</option>
+          <option value="elem_31">elem 31</option>
+          <option value="elem_32">elem 32</option>
+          <option value="elem_33">elem 33</option>
+          <option value="elem_34">elem 34</option>
+          <option value="elem_35">elem 35</option>
+          <option value="elem_36">elem 36</option>
+          <option value="elem_37">elem 37</option>
+          <option value="elem_38">elem 38</option>
+          <option value="elem_39">elem 39</option>
+          <option value="elem_40">elem 40</option>
+          <option value="elem_41">elem 41</option>
+          <option value="elem_42">elem 42</option>
+          <option value="elem_43">elem 43</option>
+          <option value="elem_44">elem 44</option>
+          <option value="elem_45">elem 45</option>
+          <option value="elem_46">elem 46</option>
+          <option value="elem_47">elem 47</option>
+          <option value="elem_48">elem 48</option>
+          <option value="elem_49">elem 49</option>
+          <option value="elem_50">elem 50</option>
+          <option value="elem_51">elem 51</option>
+          <option value="elem_52">elem 52</option>
+          <option value="elem_53">elem 53</option>
+          <option value="elem_54">elem 54</option>
+          <option value="elem_55">elem 55</option>
+          <option value="elem_56">elem 56</option>
+          <option value="elem_57">elem 57</option>
+          <option value="elem_58">elem 58</option>
+          <option value="elem_59">elem 59</option>
+          <option value="elem_60">elem 60</option>
+          <option value="elem_61">elem 61</option>
+          <option value="elem_62">elem 62</option>
+          <option value="elem_63">elem 63</option>
+          <option value="elem_64">elem 64</option>
+          <option value="elem_65">elem 65</option>
+          <option value="elem_66">elem 66</option>
+          <option value="elem_67">elem 67</option>
+          <option value="elem_68">elem 68</option>
+          <option value="elem_69">elem 69</option>
+          <option value="elem_70">elem 70</option>
+          <option value="elem_71">elem 71</option>
+          <option value="elem_72">elem 72</option>
+          <option value="elem_73">elem 73</option>
+          <option value="elem_74">elem 74</option>
+          <option value="elem_75">elem 75</option>
+          <option value="elem_76">elem 76</option>
+          <option value="elem_77">elem 77</option>
+          <option value="elem_78">elem 78</option>
+          <option value="elem_79">elem 79</option>
+          <option value="elem_80">elem 80</option>
+          <option value="elem_81">elem 81</option>
+          <option value="elem_82">elem 82</option>
+          <option value="elem_83">elem 83</option>
+          <option value="elem_84">elem 84</option>
+          <option value="elem_85">elem 85</option>
+          <option value="elem_86">elem 86</option>
+          <option value="elem_87">elem 87</option>
+          <option value="elem_88">elem 88</option>
+          <option value="elem_89">elem 89</option>
+          <option value="elem_90">elem 90</option>
+          <option value="elem_91">elem 91</option>
+          <option value="elem_92">elem 92</option>
+          <option value="elem_93">elem 93</option>
+          <option value="elem_94">elem 94</option>
+          <option value="elem_95">elem 95</option>
+          <option value="elem_96">elem 96</option>
+          <option value="elem_97">elem 97</option>
+          <option value="elem_98">elem 98</option>
+          <option value="elem_99">elem 99</option>
+          <option value="elem_100">elem 100</option></select>
+        </div>
+      </div>
+      <br />
+      <div class='row'>
+        <div class='span12'>
+          <h3>Public methods</h3>
+        </div>
+        <div class='span7'>
+          <pre><code data-language='html'>&lt;a href='#' id='select-all'&gt;select all&lt;/a&gt;&#x000A;&lt;a href='#' id='deselect-all'&gt;deselect all&lt;/a&gt;&#x000A;&lt;a href='#' id='select-100'&gt;select 100 elems&lt;/a&gt;&#x000A;&lt;a href='#' id='deselect-100'&gt;deselect 100 elems&lt;/a&gt;&#x000A;&lt;select id='public-methods' multiple='multiple'&gt;&#x000A;  &lt;option value='elem_1'&gt;elem 1&lt;/option&gt;&#x000A;  &lt;option value='elem_2'&gt;elem 2&lt;/option&gt;&#x000A;  &lt;option value='elem_3'&gt;elem 3&lt;/option&gt;&#x000A;  &lt;option value='elem_4'&gt;elem 4&lt;/option&gt;&#x000A;  ...&#x000A;  &lt;option value='elem_1000'&gt;elem 100&lt;/option&gt;&#x000A;&lt;/select&gt;</code></pre>
+          <pre><code data-language='javascript'>$('#public-methods').multiSelect();&#x000A;$('select-all').click(function(){&#x000A;  $('#public-methods').multiSelect('select_all');&#x000A;  return false;&#x000A;});&#x000A;$('deselect-all').click(function(){&#x000A;  $('#public-methods').multiSelect('deselect_all');&#x000A;  return false;&#x000A;});&#x000A;$('select-100').click(function(){&#x000A;  $('#public-methods').multiSelect('select', ['elem_0', 'elem_1' ..., 'elem_99']);&#x000A;  return false;&#x000A;});&#x000A;$('deselect-100').click(function(){&#x000A;  $('#public-methods').multiSelect('deselect', ['elem_0', 'elem_1' ..., 'elem_99']);&#x000A;  return false;&#x000A;});</code></pre>
+        </div>
+        <div class='span5'>
+          <a id="select-all" href="#">select all</a>
+          &middot;
+          <a id="deselect-all" href="#">deselect all</a>
+          &middot;
+          <a id="select-100" href="#">select 100 elems</a>
+          &middot;
+          <a id="deselect-100" href="#">deselect 100 elems</a>
+          <br />
+          <br />
+          <select multiple id="public-methods" name="public-methods[]">
+          <option value="elem_1">elem 1</option>
+          <option value="elem_2">elem 2</option>
+          <option value="elem_3">elem 3</option>
+          <option value="elem_4">elem 4</option>
+          <option value="elem_5">elem 5</option>
+          <option value="elem_6">elem 6</option>
+          <option value="elem_7">elem 7</option>
+          <option value="elem_8">elem 8</option>
+          <option value="elem_9">elem 9</option>
+          <option value="elem_10">elem 10</option>
+          <option value="elem_11">elem 11</option>
+          <option value="elem_12">elem 12</option>
+          <option value="elem_13">elem 13</option>
+          <option value="elem_14">elem 14</option>
+          <option value="elem_15">elem 15</option>
+          <option value="elem_16">elem 16</option>
+          <option value="elem_17">elem 17</option>
+          <option value="elem_18">elem 18</option>
+          <option value="elem_19">elem 19</option>
+          <option value="elem_20">elem 20</option>
+          <option value="elem_21">elem 21</option>
+          <option value="elem_22">elem 22</option>
+          <option value="elem_23">elem 23</option>
+          <option value="elem_24">elem 24</option>
+          <option value="elem_25">elem 25</option>
+          <option value="elem_26">elem 26</option>
+          <option value="elem_27">elem 27</option>
+          <option value="elem_28">elem 28</option>
+          <option value="elem_29">elem 29</option>
+          <option value="elem_30">elem 30</option>
+          <option value="elem_31">elem 31</option>
+          <option value="elem_32">elem 32</option>
+          <option value="elem_33">elem 33</option>
+          <option value="elem_34">elem 34</option>
+          <option value="elem_35">elem 35</option>
+          <option value="elem_36">elem 36</option>
+          <option value="elem_37">elem 37</option>
+          <option value="elem_38">elem 38</option>
+          <option value="elem_39">elem 39</option>
+          <option value="elem_40">elem 40</option>
+          <option value="elem_41">elem 41</option>
+          <option value="elem_42">elem 42</option>
+          <option value="elem_43">elem 43</option>
+          <option value="elem_44">elem 44</option>
+          <option value="elem_45">elem 45</option>
+          <option value="elem_46">elem 46</option>
+          <option value="elem_47">elem 47</option>
+          <option value="elem_48">elem 48</option>
+          <option value="elem_49">elem 49</option>
+          <option value="elem_50">elem 50</option>
+          <option value="elem_51">elem 51</option>
+          <option value="elem_52">elem 52</option>
+          <option value="elem_53">elem 53</option>
+          <option value="elem_54">elem 54</option>
+          <option value="elem_55">elem 55</option>
+          <option value="elem_56">elem 56</option>
+          <option value="elem_57">elem 57</option>
+          <option value="elem_58">elem 58</option>
+          <option value="elem_59">elem 59</option>
+          <option value="elem_60">elem 60</option>
+          <option value="elem_61">elem 61</option>
+          <option value="elem_62">elem 62</option>
+          <option value="elem_63">elem 63</option>
+          <option value="elem_64">elem 64</option>
+          <option value="elem_65">elem 65</option>
+          <option value="elem_66">elem 66</option>
+          <option value="elem_67">elem 67</option>
+          <option value="elem_68">elem 68</option>
+          <option value="elem_69">elem 69</option>
+          <option value="elem_70">elem 70</option>
+          <option value="elem_71">elem 71</option>
+          <option value="elem_72">elem 72</option>
+          <option value="elem_73">elem 73</option>
+          <option value="elem_74">elem 74</option>
+          <option value="elem_75">elem 75</option>
+          <option value="elem_76">elem 76</option>
+          <option value="elem_77">elem 77</option>
+          <option value="elem_78">elem 78</option>
+          <option value="elem_79">elem 79</option>
+          <option value="elem_80">elem 80</option>
+          <option value="elem_81">elem 81</option>
+          <option value="elem_82">elem 82</option>
+          <option value="elem_83">elem 83</option>
+          <option value="elem_84">elem 84</option>
+          <option value="elem_85">elem 85</option>
+          <option value="elem_86">elem 86</option>
+          <option value="elem_87">elem 87</option>
+          <option value="elem_88">elem 88</option>
+          <option value="elem_89">elem 89</option>
+          <option value="elem_90">elem 90</option>
+          <option value="elem_91">elem 91</option>
+          <option value="elem_92">elem 92</option>
+          <option value="elem_93">elem 93</option>
+          <option value="elem_94">elem 94</option>
+          <option value="elem_95">elem 95</option>
+          <option value="elem_96">elem 96</option>
+          <option value="elem_97">elem 97</option>
+          <option value="elem_98">elem 98</option>
+          <option value="elem_99">elem 99</option>
+          <option value="elem_100">elem 100</option>
+          <option value="elem_101">elem 101</option>
+          <option value="elem_102">elem 102</option>
+          <option value="elem_103">elem 103</option>
+          <option value="elem_104">elem 104</option>
+          <option value="elem_105">elem 105</option>
+          <option value="elem_106">elem 106</option>
+          <option value="elem_107">elem 107</option>
+          <option value="elem_108">elem 108</option>
+          <option value="elem_109">elem 109</option>
+          <option value="elem_110">elem 110</option>
+          <option value="elem_111">elem 111</option>
+          <option value="elem_112">elem 112</option>
+          <option value="elem_113">elem 113</option>
+          <option value="elem_114">elem 114</option>
+          <option value="elem_115">elem 115</option>
+          <option value="elem_116">elem 116</option>
+          <option value="elem_117">elem 117</option>
+          <option value="elem_118">elem 118</option>
+          <option value="elem_119">elem 119</option>
+          <option value="elem_120">elem 120</option>
+          <option value="elem_121">elem 121</option>
+          <option value="elem_122">elem 122</option>
+          <option value="elem_123">elem 123</option>
+          <option value="elem_124">elem 124</option>
+          <option value="elem_125">elem 125</option>
+          <option value="elem_126">elem 126</option>
+          <option value="elem_127">elem 127</option>
+          <option value="elem_128">elem 128</option>
+          <option value="elem_129">elem 129</option>
+          <option value="elem_130">elem 130</option>
+          <option value="elem_131">elem 131</option>
+          <option value="elem_132">elem 132</option>
+          <option value="elem_133">elem 133</option>
+          <option value="elem_134">elem 134</option>
+          <option value="elem_135">elem 135</option>
+          <option value="elem_136">elem 136</option>
+          <option value="elem_137">elem 137</option>
+          <option value="elem_138">elem 138</option>
+          <option value="elem_139">elem 139</option>
+          <option value="elem_140">elem 140</option>
+          <option value="elem_141">elem 141</option>
+          <option value="elem_142">elem 142</option>
+          <option value="elem_143">elem 143</option>
+          <option value="elem_144">elem 144</option>
+          <option value="elem_145">elem 145</option>
+          <option value="elem_146">elem 146</option>
+          <option value="elem_147">elem 147</option>
+          <option value="elem_148">elem 148</option>
+          <option value="elem_149">elem 149</option>
+          <option value="elem_150">elem 150</option>
+          <option value="elem_151">elem 151</option>
+          <option value="elem_152">elem 152</option>
+          <option value="elem_153">elem 153</option>
+          <option value="elem_154">elem 154</option>
+          <option value="elem_155">elem 155</option>
+          <option value="elem_156">elem 156</option>
+          <option value="elem_157">elem 157</option>
+          <option value="elem_158">elem 158</option>
+          <option value="elem_159">elem 159</option>
+          <option value="elem_160">elem 160</option>
+          <option value="elem_161">elem 161</option>
+          <option value="elem_162">elem 162</option>
+          <option value="elem_163">elem 163</option>
+          <option value="elem_164">elem 164</option>
+          <option value="elem_165">elem 165</option>
+          <option value="elem_166">elem 166</option>
+          <option value="elem_167">elem 167</option>
+          <option value="elem_168">elem 168</option>
+          <option value="elem_169">elem 169</option>
+          <option value="elem_170">elem 170</option>
+          <option value="elem_171">elem 171</option>
+          <option value="elem_172">elem 172</option>
+          <option value="elem_173">elem 173</option>
+          <option value="elem_174">elem 174</option>
+          <option value="elem_175">elem 175</option>
+          <option value="elem_176">elem 176</option>
+          <option value="elem_177">elem 177</option>
+          <option value="elem_178">elem 178</option>
+          <option value="elem_179">elem 179</option>
+          <option value="elem_180">elem 180</option>
+          <option value="elem_181">elem 181</option>
+          <option value="elem_182">elem 182</option>
+          <option value="elem_183">elem 183</option>
+          <option value="elem_184">elem 184</option>
+          <option value="elem_185">elem 185</option>
+          <option value="elem_186">elem 186</option>
+          <option value="elem_187">elem 187</option>
+          <option value="elem_188">elem 188</option>
+          <option value="elem_189">elem 189</option>
+          <option value="elem_190">elem 190</option>
+          <option value="elem_191">elem 191</option>
+          <option value="elem_192">elem 192</option>
+          <option value="elem_193">elem 193</option>
+          <option value="elem_194">elem 194</option>
+          <option value="elem_195">elem 195</option>
+          <option value="elem_196">elem 196</option>
+          <option value="elem_197">elem 197</option>
+          <option value="elem_198">elem 198</option>
+          <option value="elem_199">elem 199</option>
+          <option value="elem_200">elem 200</option>
+          <option value="elem_201">elem 201</option>
+          <option value="elem_202">elem 202</option>
+          <option value="elem_203">elem 203</option>
+          <option value="elem_204">elem 204</option>
+          <option value="elem_205">elem 205</option>
+          <option value="elem_206">elem 206</option>
+          <option value="elem_207">elem 207</option>
+          <option value="elem_208">elem 208</option>
+          <option value="elem_209">elem 209</option>
+          <option value="elem_210">elem 210</option>
+          <option value="elem_211">elem 211</option>
+          <option value="elem_212">elem 212</option>
+          <option value="elem_213">elem 213</option>
+          <option value="elem_214">elem 214</option>
+          <option value="elem_215">elem 215</option>
+          <option value="elem_216">elem 216</option>
+          <option value="elem_217">elem 217</option>
+          <option value="elem_218">elem 218</option>
+          <option value="elem_219">elem 219</option>
+          <option value="elem_220">elem 220</option>
+          <option value="elem_221">elem 221</option>
+          <option value="elem_222">elem 222</option>
+          <option value="elem_223">elem 223</option>
+          <option value="elem_224">elem 224</option>
+          <option value="elem_225">elem 225</option>
+          <option value="elem_226">elem 226</option>
+          <option value="elem_227">elem 227</option>
+          <option value="elem_228">elem 228</option>
+          <option value="elem_229">elem 229</option>
+          <option value="elem_230">elem 230</option>
+          <option value="elem_231">elem 231</option>
+          <option value="elem_232">elem 232</option>
+          <option value="elem_233">elem 233</option>
+          <option value="elem_234">elem 234</option>
+          <option value="elem_235">elem 235</option>
+          <option value="elem_236">elem 236</option>
+          <option value="elem_237">elem 237</option>
+          <option value="elem_238">elem 238</option>
+          <option value="elem_239">elem 239</option>
+          <option value="elem_240">elem 240</option>
+          <option value="elem_241">elem 241</option>
+          <option value="elem_242">elem 242</option>
+          <option value="elem_243">elem 243</option>
+          <option value="elem_244">elem 244</option>
+          <option value="elem_245">elem 245</option>
+          <option value="elem_246">elem 246</option>
+          <option value="elem_247">elem 247</option>
+          <option value="elem_248">elem 248</option>
+          <option value="elem_249">elem 249</option>
+          <option value="elem_250">elem 250</option>
+          <option value="elem_251">elem 251</option>
+          <option value="elem_252">elem 252</option>
+          <option value="elem_253">elem 253</option>
+          <option value="elem_254">elem 254</option>
+          <option value="elem_255">elem 255</option>
+          <option value="elem_256">elem 256</option>
+          <option value="elem_257">elem 257</option>
+          <option value="elem_258">elem 258</option>
+          <option value="elem_259">elem 259</option>
+          <option value="elem_260">elem 260</option>
+          <option value="elem_261">elem 261</option>
+          <option value="elem_262">elem 262</option>
+          <option value="elem_263">elem 263</option>
+          <option value="elem_264">elem 264</option>
+          <option value="elem_265">elem 265</option>
+          <option value="elem_266">elem 266</option>
+          <option value="elem_267">elem 267</option>
+          <option value="elem_268">elem 268</option>
+          <option value="elem_269">elem 269</option>
+          <option value="elem_270">elem 270</option>
+          <option value="elem_271">elem 271</option>
+          <option value="elem_272">elem 272</option>
+          <option value="elem_273">elem 273</option>
+          <option value="elem_274">elem 274</option>
+          <option value="elem_275">elem 275</option>
+          <option value="elem_276">elem 276</option>
+          <option value="elem_277">elem 277</option>
+          <option value="elem_278">elem 278</option>
+          <option value="elem_279">elem 279</option>
+          <option value="elem_280">elem 280</option>
+          <option value="elem_281">elem 281</option>
+          <option value="elem_282">elem 282</option>
+          <option value="elem_283">elem 283</option>
+          <option value="elem_284">elem 284</option>
+          <option value="elem_285">elem 285</option>
+          <option value="elem_286">elem 286</option>
+          <option value="elem_287">elem 287</option>
+          <option value="elem_288">elem 288</option>
+          <option value="elem_289">elem 289</option>
+          <option value="elem_290">elem 290</option>
+          <option value="elem_291">elem 291</option>
+          <option value="elem_292">elem 292</option>
+          <option value="elem_293">elem 293</option>
+          <option value="elem_294">elem 294</option>
+          <option value="elem_295">elem 295</option>
+          <option value="elem_296">elem 296</option>
+          <option value="elem_297">elem 297</option>
+          <option value="elem_298">elem 298</option>
+          <option value="elem_299">elem 299</option>
+          <option value="elem_300">elem 300</option>
+          <option value="elem_301">elem 301</option>
+          <option value="elem_302">elem 302</option>
+          <option value="elem_303">elem 303</option>
+          <option value="elem_304">elem 304</option>
+          <option value="elem_305">elem 305</option>
+          <option value="elem_306">elem 306</option>
+          <option value="elem_307">elem 307</option>
+          <option value="elem_308">elem 308</option>
+          <option value="elem_309">elem 309</option>
+          <option value="elem_310">elem 310</option>
+          <option value="elem_311">elem 311</option>
+          <option value="elem_312">elem 312</option>
+          <option value="elem_313">elem 313</option>
+          <option value="elem_314">elem 314</option>
+          <option value="elem_315">elem 315</option>
+          <option value="elem_316">elem 316</option>
+          <option value="elem_317">elem 317</option>
+          <option value="elem_318">elem 318</option>
+          <option value="elem_319">elem 319</option>
+          <option value="elem_320">elem 320</option>
+          <option value="elem_321">elem 321</option>
+          <option value="elem_322">elem 322</option>
+          <option value="elem_323">elem 323</option>
+          <option value="elem_324">elem 324</option>
+          <option value="elem_325">elem 325</option>
+          <option value="elem_326">elem 326</option>
+          <option value="elem_327">elem 327</option>
+          <option value="elem_328">elem 328</option>
+          <option value="elem_329">elem 329</option>
+          <option value="elem_330">elem 330</option>
+          <option value="elem_331">elem 331</option>
+          <option value="elem_332">elem 332</option>
+          <option value="elem_333">elem 333</option>
+          <option value="elem_334">elem 334</option>
+          <option value="elem_335">elem 335</option>
+          <option value="elem_336">elem 336</option>
+          <option value="elem_337">elem 337</option>
+          <option value="elem_338">elem 338</option>
+          <option value="elem_339">elem 339</option>
+          <option value="elem_340">elem 340</option>
+          <option value="elem_341">elem 341</option>
+          <option value="elem_342">elem 342</option>
+          <option value="elem_343">elem 343</option>
+          <option value="elem_344">elem 344</option>
+          <option value="elem_345">elem 345</option>
+          <option value="elem_346">elem 346</option>
+          <option value="elem_347">elem 347</option>
+          <option value="elem_348">elem 348</option>
+          <option value="elem_349">elem 349</option>
+          <option value="elem_350">elem 350</option>
+          <option value="elem_351">elem 351</option>
+          <option value="elem_352">elem 352</option>
+          <option value="elem_353">elem 353</option>
+          <option value="elem_354">elem 354</option>
+          <option value="elem_355">elem 355</option>
+          <option value="elem_356">elem 356</option>
+          <option value="elem_357">elem 357</option>
+          <option value="elem_358">elem 358</option>
+          <option value="elem_359">elem 359</option>
+          <option value="elem_360">elem 360</option>
+          <option value="elem_361">elem 361</option>
+          <option value="elem_362">elem 362</option>
+          <option value="elem_363">elem 363</option>
+          <option value="elem_364">elem 364</option>
+          <option value="elem_365">elem 365</option>
+          <option value="elem_366">elem 366</option>
+          <option value="elem_367">elem 367</option>
+          <option value="elem_368">elem 368</option>
+          <option value="elem_369">elem 369</option>
+          <option value="elem_370">elem 370</option>
+          <option value="elem_371">elem 371</option>
+          <option value="elem_372">elem 372</option>
+          <option value="elem_373">elem 373</option>
+          <option value="elem_374">elem 374</option>
+          <option value="elem_375">elem 375</option>
+          <option value="elem_376">elem 376</option>
+          <option value="elem_377">elem 377</option>
+          <option value="elem_378">elem 378</option>
+          <option value="elem_379">elem 379</option>
+          <option value="elem_380">elem 380</option>
+          <option value="elem_381">elem 381</option>
+          <option value="elem_382">elem 382</option>
+          <option value="elem_383">elem 383</option>
+          <option value="elem_384">elem 384</option>
+          <option value="elem_385">elem 385</option>
+          <option value="elem_386">elem 386</option>
+          <option value="elem_387">elem 387</option>
+          <option value="elem_388">elem 388</option>
+          <option value="elem_389">elem 389</option>
+          <option value="elem_390">elem 390</option>
+          <option value="elem_391">elem 391</option>
+          <option value="elem_392">elem 392</option>
+          <option value="elem_393">elem 393</option>
+          <option value="elem_394">elem 394</option>
+          <option value="elem_395">elem 395</option>
+          <option value="elem_396">elem 396</option>
+          <option value="elem_397">elem 397</option>
+          <option value="elem_398">elem 398</option>
+          <option value="elem_399">elem 399</option>
+          <option value="elem_400">elem 400</option>
+          <option value="elem_401">elem 401</option>
+          <option value="elem_402">elem 402</option>
+          <option value="elem_403">elem 403</option>
+          <option value="elem_404">elem 404</option>
+          <option value="elem_405">elem 405</option>
+          <option value="elem_406">elem 406</option>
+          <option value="elem_407">elem 407</option>
+          <option value="elem_408">elem 408</option>
+          <option value="elem_409">elem 409</option>
+          <option value="elem_410">elem 410</option>
+          <option value="elem_411">elem 411</option>
+          <option value="elem_412">elem 412</option>
+          <option value="elem_413">elem 413</option>
+          <option value="elem_414">elem 414</option>
+          <option value="elem_415">elem 415</option>
+          <option value="elem_416">elem 416</option>
+          <option value="elem_417">elem 417</option>
+          <option value="elem_418">elem 418</option>
+          <option value="elem_419">elem 419</option>
+          <option value="elem_420">elem 420</option>
+          <option value="elem_421">elem 421</option>
+          <option value="elem_422">elem 422</option>
+          <option value="elem_423">elem 423</option>
+          <option value="elem_424">elem 424</option>
+          <option value="elem_425">elem 425</option>
+          <option value="elem_426">elem 426</option>
+          <option value="elem_427">elem 427</option>
+          <option value="elem_428">elem 428</option>
+          <option value="elem_429">elem 429</option>
+          <option value="elem_430">elem 430</option>
+          <option value="elem_431">elem 431</option>
+          <option value="elem_432">elem 432</option>
+          <option value="elem_433">elem 433</option>
+          <option value="elem_434">elem 434</option>
+          <option value="elem_435">elem 435</option>
+          <option value="elem_436">elem 436</option>
+          <option value="elem_437">elem 437</option>
+          <option value="elem_438">elem 438</option>
+          <option value="elem_439">elem 439</option>
+          <option value="elem_440">elem 440</option>
+          <option value="elem_441">elem 441</option>
+          <option value="elem_442">elem 442</option>
+          <option value="elem_443">elem 443</option>
+          <option value="elem_444">elem 444</option>
+          <option value="elem_445">elem 445</option>
+          <option value="elem_446">elem 446</option>
+          <option value="elem_447">elem 447</option>
+          <option value="elem_448">elem 448</option>
+          <option value="elem_449">elem 449</option>
+          <option value="elem_450">elem 450</option>
+          <option value="elem_451">elem 451</option>
+          <option value="elem_452">elem 452</option>
+          <option value="elem_453">elem 453</option>
+          <option value="elem_454">elem 454</option>
+          <option value="elem_455">elem 455</option>
+          <option value="elem_456">elem 456</option>
+          <option value="elem_457">elem 457</option>
+          <option value="elem_458">elem 458</option>
+          <option value="elem_459">elem 459</option>
+          <option value="elem_460">elem 460</option>
+          <option value="elem_461">elem 461</option>
+          <option value="elem_462">elem 462</option>
+          <option value="elem_463">elem 463</option>
+          <option value="elem_464">elem 464</option>
+          <option value="elem_465">elem 465</option>
+          <option value="elem_466">elem 466</option>
+          <option value="elem_467">elem 467</option>
+          <option value="elem_468">elem 468</option>
+          <option value="elem_469">elem 469</option>
+          <option value="elem_470">elem 470</option>
+          <option value="elem_471">elem 471</option>
+          <option value="elem_472">elem 472</option>
+          <option value="elem_473">elem 473</option>
+          <option value="elem_474">elem 474</option>
+          <option value="elem_475">elem 475</option>
+          <option value="elem_476">elem 476</option>
+          <option value="elem_477">elem 477</option>
+          <option value="elem_478">elem 478</option>
+          <option value="elem_479">elem 479</option>
+          <option value="elem_480">elem 480</option>
+          <option value="elem_481">elem 481</option>
+          <option value="elem_482">elem 482</option>
+          <option value="elem_483">elem 483</option>
+          <option value="elem_484">elem 484</option>
+          <option value="elem_485">elem 485</option>
+          <option value="elem_486">elem 486</option>
+          <option value="elem_487">elem 487</option>
+          <option value="elem_488">elem 488</option>
+          <option value="elem_489">elem 489</option>
+          <option value="elem_490">elem 490</option>
+          <option value="elem_491">elem 491</option>
+          <option value="elem_492">elem 492</option>
+          <option value="elem_493">elem 493</option>
+          <option value="elem_494">elem 494</option>
+          <option value="elem_495">elem 495</option>
+          <option value="elem_496">elem 496</option>
+          <option value="elem_497">elem 497</option>
+          <option value="elem_498">elem 498</option>
+          <option value="elem_499">elem 499</option>
+          <option value="elem_500">elem 500</option>
+          <option value="elem_501">elem 501</option>
+          <option value="elem_502">elem 502</option>
+          <option value="elem_503">elem 503</option>
+          <option value="elem_504">elem 504</option>
+          <option value="elem_505">elem 505</option>
+          <option value="elem_506">elem 506</option>
+          <option value="elem_507">elem 507</option>
+          <option value="elem_508">elem 508</option>
+          <option value="elem_509">elem 509</option>
+          <option value="elem_510">elem 510</option>
+          <option value="elem_511">elem 511</option>
+          <option value="elem_512">elem 512</option>
+          <option value="elem_513">elem 513</option>
+          <option value="elem_514">elem 514</option>
+          <option value="elem_515">elem 515</option>
+          <option value="elem_516">elem 516</option>
+          <option value="elem_517">elem 517</option>
+          <option value="elem_518">elem 518</option>
+          <option value="elem_519">elem 519</option>
+          <option value="elem_520">elem 520</option>
+          <option value="elem_521">elem 521</option>
+          <option value="elem_522">elem 522</option>
+          <option value="elem_523">elem 523</option>
+          <option value="elem_524">elem 524</option>
+          <option value="elem_525">elem 525</option>
+          <option value="elem_526">elem 526</option>
+          <option value="elem_527">elem 527</option>
+          <option value="elem_528">elem 528</option>
+          <option value="elem_529">elem 529</option>
+          <option value="elem_530">elem 530</option>
+          <option value="elem_531">elem 531</option>
+          <option value="elem_532">elem 532</option>
+          <option value="elem_533">elem 533</option>
+          <option value="elem_534">elem 534</option>
+          <option value="elem_535">elem 535</option>
+          <option value="elem_536">elem 536</option>
+          <option value="elem_537">elem 537</option>
+          <option value="elem_538">elem 538</option>
+          <option value="elem_539">elem 539</option>
+          <option value="elem_540">elem 540</option>
+          <option value="elem_541">elem 541</option>
+          <option value="elem_542">elem 542</option>
+          <option value="elem_543">elem 543</option>
+          <option value="elem_544">elem 544</option>
+          <option value="elem_545">elem 545</option>
+          <option value="elem_546">elem 546</option>
+          <option value="elem_547">elem 547</option>
+          <option value="elem_548">elem 548</option>
+          <option value="elem_549">elem 549</option>
+          <option value="elem_550">elem 550</option>
+          <option value="elem_551">elem 551</option>
+          <option value="elem_552">elem 552</option>
+          <option value="elem_553">elem 553</option>
+          <option value="elem_554">elem 554</option>
+          <option value="elem_555">elem 555</option>
+          <option value="elem_556">elem 556</option>
+          <option value="elem_557">elem 557</option>
+          <option value="elem_558">elem 558</option>
+          <option value="elem_559">elem 559</option>
+          <option value="elem_560">elem 560</option>
+          <option value="elem_561">elem 561</option>
+          <option value="elem_562">elem 562</option>
+          <option value="elem_563">elem 563</option>
+          <option value="elem_564">elem 564</option>
+          <option value="elem_565">elem 565</option>
+          <option value="elem_566">elem 566</option>
+          <option value="elem_567">elem 567</option>
+          <option value="elem_568">elem 568</option>
+          <option value="elem_569">elem 569</option>
+          <option value="elem_570">elem 570</option>
+          <option value="elem_571">elem 571</option>
+          <option value="elem_572">elem 572</option>
+          <option value="elem_573">elem 573</option>
+          <option value="elem_574">elem 574</option>
+          <option value="elem_575">elem 575</option>
+          <option value="elem_576">elem 576</option>
+          <option value="elem_577">elem 577</option>
+          <option value="elem_578">elem 578</option>
+          <option value="elem_579">elem 579</option>
+          <option value="elem_580">elem 580</option>
+          <option value="elem_581">elem 581</option>
+          <option value="elem_582">elem 582</option>
+          <option value="elem_583">elem 583</option>
+          <option value="elem_584">elem 584</option>
+          <option value="elem_585">elem 585</option>
+          <option value="elem_586">elem 586</option>
+          <option value="elem_587">elem 587</option>
+          <option value="elem_588">elem 588</option>
+          <option value="elem_589">elem 589</option>
+          <option value="elem_590">elem 590</option>
+          <option value="elem_591">elem 591</option>
+          <option value="elem_592">elem 592</option>
+          <option value="elem_593">elem 593</option>
+          <option value="elem_594">elem 594</option>
+          <option value="elem_595">elem 595</option>
+          <option value="elem_596">elem 596</option>
+          <option value="elem_597">elem 597</option>
+          <option value="elem_598">elem 598</option>
+          <option value="elem_599">elem 599</option>
+          <option value="elem_600">elem 600</option>
+          <option value="elem_601">elem 601</option>
+          <option value="elem_602">elem 602</option>
+          <option value="elem_603">elem 603</option>
+          <option value="elem_604">elem 604</option>
+          <option value="elem_605">elem 605</option>
+          <option value="elem_606">elem 606</option>
+          <option value="elem_607">elem 607</option>
+          <option value="elem_608">elem 608</option>
+          <option value="elem_609">elem 609</option>
+          <option value="elem_610">elem 610</option>
+          <option value="elem_611">elem 611</option>
+          <option value="elem_612">elem 612</option>
+          <option value="elem_613">elem 613</option>
+          <option value="elem_614">elem 614</option>
+          <option value="elem_615">elem 615</option>
+          <option value="elem_616">elem 616</option>
+          <option value="elem_617">elem 617</option>
+          <option value="elem_618">elem 618</option>
+          <option value="elem_619">elem 619</option>
+          <option value="elem_620">elem 620</option>
+          <option value="elem_621">elem 621</option>
+          <option value="elem_622">elem 622</option>
+          <option value="elem_623">elem 623</option>
+          <option value="elem_624">elem 624</option>
+          <option value="elem_625">elem 625</option>
+          <option value="elem_626">elem 626</option>
+          <option value="elem_627">elem 627</option>
+          <option value="elem_628">elem 628</option>
+          <option value="elem_629">elem 629</option>
+          <option value="elem_630">elem 630</option>
+          <option value="elem_631">elem 631</option>
+          <option value="elem_632">elem 632</option>
+          <option value="elem_633">elem 633</option>
+          <option value="elem_634">elem 634</option>
+          <option value="elem_635">elem 635</option>
+          <option value="elem_636">elem 636</option>
+          <option value="elem_637">elem 637</option>
+          <option value="elem_638">elem 638</option>
+          <option value="elem_639">elem 639</option>
+          <option value="elem_640">elem 640</option>
+          <option value="elem_641">elem 641</option>
+          <option value="elem_642">elem 642</option>
+          <option value="elem_643">elem 643</option>
+          <option value="elem_644">elem 644</option>
+          <option value="elem_645">elem 645</option>
+          <option value="elem_646">elem 646</option>
+          <option value="elem_647">elem 647</option>
+          <option value="elem_648">elem 648</option>
+          <option value="elem_649">elem 649</option>
+          <option value="elem_650">elem 650</option>
+          <option value="elem_651">elem 651</option>
+          <option value="elem_652">elem 652</option>
+          <option value="elem_653">elem 653</option>
+          <option value="elem_654">elem 654</option>
+          <option value="elem_655">elem 655</option>
+          <option value="elem_656">elem 656</option>
+          <option value="elem_657">elem 657</option>
+          <option value="elem_658">elem 658</option>
+          <option value="elem_659">elem 659</option>
+          <option value="elem_660">elem 660</option>
+          <option value="elem_661">elem 661</option>
+          <option value="elem_662">elem 662</option>
+          <option value="elem_663">elem 663</option>
+          <option value="elem_664">elem 664</option>
+          <option value="elem_665">elem 665</option>
+          <option value="elem_666">elem 666</option>
+          <option value="elem_667">elem 667</option>
+          <option value="elem_668">elem 668</option>
+          <option value="elem_669">elem 669</option>
+          <option value="elem_670">elem 670</option>
+          <option value="elem_671">elem 671</option>
+          <option value="elem_672">elem 672</option>
+          <option value="elem_673">elem 673</option>
+          <option value="elem_674">elem 674</option>
+          <option value="elem_675">elem 675</option>
+          <option value="elem_676">elem 676</option>
+          <option value="elem_677">elem 677</option>
+          <option value="elem_678">elem 678</option>
+          <option value="elem_679">elem 679</option>
+          <option value="elem_680">elem 680</option>
+          <option value="elem_681">elem 681</option>
+          <option value="elem_682">elem 682</option>
+          <option value="elem_683">elem 683</option>
+          <option value="elem_684">elem 684</option>
+          <option value="elem_685">elem 685</option>
+          <option value="elem_686">elem 686</option>
+          <option value="elem_687">elem 687</option>
+          <option value="elem_688">elem 688</option>
+          <option value="elem_689">elem 689</option>
+          <option value="elem_690">elem 690</option>
+          <option value="elem_691">elem 691</option>
+          <option value="elem_692">elem 692</option>
+          <option value="elem_693">elem 693</option>
+          <option value="elem_694">elem 694</option>
+          <option value="elem_695">elem 695</option>
+          <option value="elem_696">elem 696</option>
+          <option value="elem_697">elem 697</option>
+          <option value="elem_698">elem 698</option>
+          <option value="elem_699">elem 699</option>
+          <option value="elem_700">elem 700</option>
+          <option value="elem_701">elem 701</option>
+          <option value="elem_702">elem 702</option>
+          <option value="elem_703">elem 703</option>
+          <option value="elem_704">elem 704</option>
+          <option value="elem_705">elem 705</option>
+          <option value="elem_706">elem 706</option>
+          <option value="elem_707">elem 707</option>
+          <option value="elem_708">elem 708</option>
+          <option value="elem_709">elem 709</option>
+          <option value="elem_710">elem 710</option>
+          <option value="elem_711">elem 711</option>
+          <option value="elem_712">elem 712</option>
+          <option value="elem_713">elem 713</option>
+          <option value="elem_714">elem 714</option>
+          <option value="elem_715">elem 715</option>
+          <option value="elem_716">elem 716</option>
+          <option value="elem_717">elem 717</option>
+          <option value="elem_718">elem 718</option>
+          <option value="elem_719">elem 719</option>
+          <option value="elem_720">elem 720</option>
+          <option value="elem_721">elem 721</option>
+          <option value="elem_722">elem 722</option>
+          <option value="elem_723">elem 723</option>
+          <option value="elem_724">elem 724</option>
+          <option value="elem_725">elem 725</option>
+          <option value="elem_726">elem 726</option>
+          <option value="elem_727">elem 727</option>
+          <option value="elem_728">elem 728</option>
+          <option value="elem_729">elem 729</option>
+          <option value="elem_730">elem 730</option>
+          <option value="elem_731">elem 731</option>
+          <option value="elem_732">elem 732</option>
+          <option value="elem_733">elem 733</option>
+          <option value="elem_734">elem 734</option>
+          <option value="elem_735">elem 735</option>
+          <option value="elem_736">elem 736</option>
+          <option value="elem_737">elem 737</option>
+          <option value="elem_738">elem 738</option>
+          <option value="elem_739">elem 739</option>
+          <option value="elem_740">elem 740</option>
+          <option value="elem_741">elem 741</option>
+          <option value="elem_742">elem 742</option>
+          <option value="elem_743">elem 743</option>
+          <option value="elem_744">elem 744</option>
+          <option value="elem_745">elem 745</option>
+          <option value="elem_746">elem 746</option>
+          <option value="elem_747">elem 747</option>
+          <option value="elem_748">elem 748</option>
+          <option value="elem_749">elem 749</option>
+          <option value="elem_750">elem 750</option>
+          <option value="elem_751">elem 751</option>
+          <option value="elem_752">elem 752</option>
+          <option value="elem_753">elem 753</option>
+          <option value="elem_754">elem 754</option>
+          <option value="elem_755">elem 755</option>
+          <option value="elem_756">elem 756</option>
+          <option value="elem_757">elem 757</option>
+          <option value="elem_758">elem 758</option>
+          <option value="elem_759">elem 759</option>
+          <option value="elem_760">elem 760</option>
+          <option value="elem_761">elem 761</option>
+          <option value="elem_762">elem 762</option>
+          <option value="elem_763">elem 763</option>
+          <option value="elem_764">elem 764</option>
+          <option value="elem_765">elem 765</option>
+          <option value="elem_766">elem 766</option>
+          <option value="elem_767">elem 767</option>
+          <option value="elem_768">elem 768</option>
+          <option value="elem_769">elem 769</option>
+          <option value="elem_770">elem 770</option>
+          <option value="elem_771">elem 771</option>
+          <option value="elem_772">elem 772</option>
+          <option value="elem_773">elem 773</option>
+          <option value="elem_774">elem 774</option>
+          <option value="elem_775">elem 775</option>
+          <option value="elem_776">elem 776</option>
+          <option value="elem_777">elem 777</option>
+          <option value="elem_778">elem 778</option>
+          <option value="elem_779">elem 779</option>
+          <option value="elem_780">elem 780</option>
+          <option value="elem_781">elem 781</option>
+          <option value="elem_782">elem 782</option>
+          <option value="elem_783">elem 783</option>
+          <option value="elem_784">elem 784</option>
+          <option value="elem_785">elem 785</option>
+          <option value="elem_786">elem 786</option>
+          <option value="elem_787">elem 787</option>
+          <option value="elem_788">elem 788</option>
+          <option value="elem_789">elem 789</option>
+          <option value="elem_790">elem 790</option>
+          <option value="elem_791">elem 791</option>
+          <option value="elem_792">elem 792</option>
+          <option value="elem_793">elem 793</option>
+          <option value="elem_794">elem 794</option>
+          <option value="elem_795">elem 795</option>
+          <option value="elem_796">elem 796</option>
+          <option value="elem_797">elem 797</option>
+          <option value="elem_798">elem 798</option>
+          <option value="elem_799">elem 799</option>
+          <option value="elem_800">elem 800</option>
+          <option value="elem_801">elem 801</option>
+          <option value="elem_802">elem 802</option>
+          <option value="elem_803">elem 803</option>
+          <option value="elem_804">elem 804</option>
+          <option value="elem_805">elem 805</option>
+          <option value="elem_806">elem 806</option>
+          <option value="elem_807">elem 807</option>
+          <option value="elem_808">elem 808</option>
+          <option value="elem_809">elem 809</option>
+          <option value="elem_810">elem 810</option>
+          <option value="elem_811">elem 811</option>
+          <option value="elem_812">elem 812</option>
+          <option value="elem_813">elem 813</option>
+          <option value="elem_814">elem 814</option>
+          <option value="elem_815">elem 815</option>
+          <option value="elem_816">elem 816</option>
+          <option value="elem_817">elem 817</option>
+          <option value="elem_818">elem 818</option>
+          <option value="elem_819">elem 819</option>
+          <option value="elem_820">elem 820</option>
+          <option value="elem_821">elem 821</option>
+          <option value="elem_822">elem 822</option>
+          <option value="elem_823">elem 823</option>
+          <option value="elem_824">elem 824</option>
+          <option value="elem_825">elem 825</option>
+          <option value="elem_826">elem 826</option>
+          <option value="elem_827">elem 827</option>
+          <option value="elem_828">elem 828</option>
+          <option value="elem_829">elem 829</option>
+          <option value="elem_830">elem 830</option>
+          <option value="elem_831">elem 831</option>
+          <option value="elem_832">elem 832</option>
+          <option value="elem_833">elem 833</option>
+          <option value="elem_834">elem 834</option>
+          <option value="elem_835">elem 835</option>
+          <option value="elem_836">elem 836</option>
+          <option value="elem_837">elem 837</option>
+          <option value="elem_838">elem 838</option>
+          <option value="elem_839">elem 839</option>
+          <option value="elem_840">elem 840</option>
+          <option value="elem_841">elem 841</option>
+          <option value="elem_842">elem 842</option>
+          <option value="elem_843">elem 843</option>
+          <option value="elem_844">elem 844</option>
+          <option value="elem_845">elem 845</option>
+          <option value="elem_846">elem 846</option>
+          <option value="elem_847">elem 847</option>
+          <option value="elem_848">elem 848</option>
+          <option value="elem_849">elem 849</option>
+          <option value="elem_850">elem 850</option>
+          <option value="elem_851">elem 851</option>
+          <option value="elem_852">elem 852</option>
+          <option value="elem_853">elem 853</option>
+          <option value="elem_854">elem 854</option>
+          <option value="elem_855">elem 855</option>
+          <option value="elem_856">elem 856</option>
+          <option value="elem_857">elem 857</option>
+          <option value="elem_858">elem 858</option>
+          <option value="elem_859">elem 859</option>
+          <option value="elem_860">elem 860</option>
+          <option value="elem_861">elem 861</option>
+          <option value="elem_862">elem 862</option>
+          <option value="elem_863">elem 863</option>
+          <option value="elem_864">elem 864</option>
+          <option value="elem_865">elem 865</option>
+          <option value="elem_866">elem 866</option>
+          <option value="elem_867">elem 867</option>
+          <option value="elem_868">elem 868</option>
+          <option value="elem_869">elem 869</option>
+          <option value="elem_870">elem 870</option>
+          <option value="elem_871">elem 871</option>
+          <option value="elem_872">elem 872</option>
+          <option value="elem_873">elem 873</option>
+          <option value="elem_874">elem 874</option>
+          <option value="elem_875">elem 875</option>
+          <option value="elem_876">elem 876</option>
+          <option value="elem_877">elem 877</option>
+          <option value="elem_878">elem 878</option>
+          <option value="elem_879">elem 879</option>
+          <option value="elem_880">elem 880</option>
+          <option value="elem_881">elem 881</option>
+          <option value="elem_882">elem 882</option>
+          <option value="elem_883">elem 883</option>
+          <option value="elem_884">elem 884</option>
+          <option value="elem_885">elem 885</option>
+          <option value="elem_886">elem 886</option>
+          <option value="elem_887">elem 887</option>
+          <option value="elem_888">elem 888</option>
+          <option value="elem_889">elem 889</option>
+          <option value="elem_890">elem 890</option>
+          <option value="elem_891">elem 891</option>
+          <option value="elem_892">elem 892</option>
+          <option value="elem_893">elem 893</option>
+          <option value="elem_894">elem 894</option>
+          <option value="elem_895">elem 895</option>
+          <option value="elem_896">elem 896</option>
+          <option value="elem_897">elem 897</option>
+          <option value="elem_898">elem 898</option>
+          <option value="elem_899">elem 899</option>
+          <option value="elem_900">elem 900</option>
+          <option value="elem_901">elem 901</option>
+          <option value="elem_902">elem 902</option>
+          <option value="elem_903">elem 903</option>
+          <option value="elem_904">elem 904</option>
+          <option value="elem_905">elem 905</option>
+          <option value="elem_906">elem 906</option>
+          <option value="elem_907">elem 907</option>
+          <option value="elem_908">elem 908</option>
+          <option value="elem_909">elem 909</option>
+          <option value="elem_910">elem 910</option>
+          <option value="elem_911">elem 911</option>
+          <option value="elem_912">elem 912</option>
+          <option value="elem_913">elem 913</option>
+          <option value="elem_914">elem 914</option>
+          <option value="elem_915">elem 915</option>
+          <option value="elem_916">elem 916</option>
+          <option value="elem_917">elem 917</option>
+          <option value="elem_918">elem 918</option>
+          <option value="elem_919">elem 919</option>
+          <option value="elem_920">elem 920</option>
+          <option value="elem_921">elem 921</option>
+          <option value="elem_922">elem 922</option>
+          <option value="elem_923">elem 923</option>
+          <option value="elem_924">elem 924</option>
+          <option value="elem_925">elem 925</option>
+          <option value="elem_926">elem 926</option>
+          <option value="elem_927">elem 927</option>
+          <option value="elem_928">elem 928</option>
+          <option value="elem_929">elem 929</option>
+          <option value="elem_930">elem 930</option>
+          <option value="elem_931">elem 931</option>
+          <option value="elem_932">elem 932</option>
+          <option value="elem_933">elem 933</option>
+          <option value="elem_934">elem 934</option>
+          <option value="elem_935">elem 935</option>
+          <option value="elem_936">elem 936</option>
+          <option value="elem_937">elem 937</option>
+          <option value="elem_938">elem 938</option>
+          <option value="elem_939">elem 939</option>
+          <option value="elem_940">elem 940</option>
+          <option value="elem_941">elem 941</option>
+          <option value="elem_942">elem 942</option>
+          <option value="elem_943">elem 943</option>
+          <option value="elem_944">elem 944</option>
+          <option value="elem_945">elem 945</option>
+          <option value="elem_946">elem 946</option>
+          <option value="elem_947">elem 947</option>
+          <option value="elem_948">elem 948</option>
+          <option value="elem_949">elem 949</option>
+          <option value="elem_950">elem 950</option>
+          <option value="elem_951">elem 951</option>
+          <option value="elem_952">elem 952</option>
+          <option value="elem_953">elem 953</option>
+          <option value="elem_954">elem 954</option>
+          <option value="elem_955">elem 955</option>
+          <option value="elem_956">elem 956</option>
+          <option value="elem_957">elem 957</option>
+          <option value="elem_958">elem 958</option>
+          <option value="elem_959">elem 959</option>
+          <option value="elem_960">elem 960</option>
+          <option value="elem_961">elem 961</option>
+          <option value="elem_962">elem 962</option>
+          <option value="elem_963">elem 963</option>
+          <option value="elem_964">elem 964</option>
+          <option value="elem_965">elem 965</option>
+          <option value="elem_966">elem 966</option>
+          <option value="elem_967">elem 967</option>
+          <option value="elem_968">elem 968</option>
+          <option value="elem_969">elem 969</option>
+          <option value="elem_970">elem 970</option>
+          <option value="elem_971">elem 971</option>
+          <option value="elem_972">elem 972</option>
+          <option value="elem_973">elem 973</option>
+          <option value="elem_974">elem 974</option>
+          <option value="elem_975">elem 975</option>
+          <option value="elem_976">elem 976</option>
+          <option value="elem_977">elem 977</option>
+          <option value="elem_978">elem 978</option>
+          <option value="elem_979">elem 979</option>
+          <option value="elem_980">elem 980</option>
+          <option value="elem_981">elem 981</option>
+          <option value="elem_982">elem 982</option>
+          <option value="elem_983">elem 983</option>
+          <option value="elem_984">elem 984</option>
+          <option value="elem_985">elem 985</option>
+          <option value="elem_986">elem 986</option>
+          <option value="elem_987">elem 987</option>
+          <option value="elem_988">elem 988</option>
+          <option value="elem_989">elem 989</option>
+          <option value="elem_990">elem 990</option>
+          <option value="elem_991">elem 991</option>
+          <option value="elem_992">elem 992</option>
+          <option value="elem_993">elem 993</option>
+          <option value="elem_994">elem 994</option>
+          <option value="elem_995">elem 995</option>
+          <option value="elem_996">elem 996</option>
+          <option value="elem_997">elem 997</option>
+          <option value="elem_998">elem 998</option>
+          <option value="elem_999">elem 999</option>
+          <option value="elem_1000">elem 1000</option></select>
+          <br />
+          <p>
+            In this example there are
+            <strong>
+              1000
+            </strong>
+            elements
+          </p>
+        </div>
+      </div>
+      <br />
+      <div class='row'>
+        <div class='span12'>
+          <h3>Optgroup</h3>
+        </div>
+        <div class='span7'>
+          <pre><code data-language='html'>&lt;select id='optgroup' multiple='multiple'&gt;&#x000A;  &lt;optgroup label='Friends'&gt;&#x000A;    &lt;option value='1'&gt;Yoda&lt;/option&gt;&#x000A;    &lt;option value='2'&gt;Obiwan&lt;/option&gt;&#x000A;  &lt;/optgroup&gt;&#x000A;  &lt;optgroup label='Enemies'&gt;&#x000A;    &lt;option value='3'&gt;Palpatine&lt;/option&gt;&#x000A;    &lt;option value='4'&gt;Darth Vader&lt;/option&gt;&#x000A;  &lt;/optgroup&gt;&#x000A;&lt;/select&gt;</code></pre>
+          <pre><code data-language='javascript'>$('#optgroup').multiSelect({ selectableOptgroup: true });</code></pre>
+        </div>
+        <div class='span5'>
+          <select multiple id="optgroup" name="optgroup[]">
+          <optgroup label="Friends"><option value="1">Yoda</option>
+          <option value="2" selected>Obiwan</option></optgroup>
+          <optgroup label="Enemies"><option value="3">Palpatine</option>
+          <option value="4" selected>Darth Vader</option></optgroup></select>
+        </div>
+      </div>
+      <br />
+      <div class='row'>
+        <div class='span12 title'>
+          <h3>Disabled attribute</h3>
+        </div>
+        <div class='span7'>
+          <pre><code data-language='html'>&lt;select id='disabled-attribute' disabled='disabled' multiple='multiple'&gt;&#x000A;  &lt;option value='elem_1'&gt;elem 1&lt;/option&gt;&#x000A;  &lt;option value='elem_2'&gt;elem 2&lt;/option&gt;&#x000A;  &lt;option value='elem_3'&gt;elem 3&lt;/option&gt;&#x000A;  &lt;option value='elem_4'&gt;elem 4&lt;/option&gt;&#x000A;  ...&#x000A;  &lt;option value='elem_100'&gt;elem 100&lt;/option&gt;&#x000A;&lt;/select&gt;</code></pre>
+          <pre><code data-language='javascript'>$('#disabled-attribute').multiSelect();</code></pre>
+        </div>
+        <div class='span5'>
+          <select multiple disabled id="disable-attribute" class="multiselect" name="disabled-attribute[]">
+          <option value="elem_1">elem 1</option>
+          <option value="elem_2">elem 2</option>
+          <option value="elem_3">elem 3</option>
+          <option value="elem_4">elem 4</option>
+          <option value="elem_5">elem 5</option>
+          <option value="elem_6">elem 6</option>
+          <option value="elem_7">elem 7</option>
+          <option value="elem_8">elem 8</option>
+          <option value="elem_9">elem 9</option>
+          <option value="elem_10">elem 10</option>
+          <option value="elem_11">elem 11</option>
+          <option value="elem_12">elem 12</option>
+          <option value="elem_13">elem 13</option>
+          <option value="elem_14">elem 14</option>
+          <option value="elem_15">elem 15</option>
+          <option value="elem_16">elem 16</option>
+          <option value="elem_17">elem 17</option>
+          <option value="elem_18">elem 18</option>
+          <option value="elem_19">elem 19</option>
+          <option value="elem_20">elem 20</option>
+          <option value="elem_21">elem 21</option>
+          <option value="elem_22">elem 22</option>
+          <option value="elem_23">elem 23</option>
+          <option value="elem_24">elem 24</option>
+          <option value="elem_25">elem 25</option>
+          <option value="elem_26">elem 26</option>
+          <option value="elem_27">elem 27</option>
+          <option value="elem_28">elem 28</option>
+          <option value="elem_29">elem 29</option>
+          <option value="elem_30">elem 30</option>
+          <option value="elem_31">elem 31</option>
+          <option value="elem_32">elem 32</option>
+          <option value="elem_33">elem 33</option>
+          <option value="elem_34">elem 34</option>
+          <option value="elem_35">elem 35</option>
+          <option value="elem_36">elem 36</option>
+          <option value="elem_37">elem 37</option>
+          <option value="elem_38">elem 38</option>
+          <option value="elem_39">elem 39</option>
+          <option value="elem_40">elem 40</option>
+          <option value="elem_41">elem 41</option>
+          <option value="elem_42">elem 42</option>
+          <option value="elem_43">elem 43</option>
+          <option value="elem_44">elem 44</option>
+          <option value="elem_45">elem 45</option>
+          <option value="elem_46">elem 46</option>
+          <option value="elem_47">elem 47</option>
+          <option value="elem_48">elem 48</option>
+          <option value="elem_49">elem 49</option>
+          <option value="elem_50">elem 50</option>
+          <option value="elem_51">elem 51</option>
+          <option value="elem_52">elem 52</option>
+          <option value="elem_53">elem 53</option>
+          <option value="elem_54">elem 54</option>
+          <option value="elem_55">elem 55</option>
+          <option value="elem_56">elem 56</option>
+          <option value="elem_57">elem 57</option>
+          <option value="elem_58">elem 58</option>
+          <option value="elem_59">elem 59</option>
+          <option value="elem_60">elem 60</option>
+          <option value="elem_61">elem 61</option>
+          <option value="elem_62">elem 62</option>
+          <option value="elem_63">elem 63</option>
+          <option value="elem_64">elem 64</option>
+          <option value="elem_65">elem 65</option>
+          <option value="elem_66">elem 66</option>
+          <option value="elem_67">elem 67</option>
+          <option value="elem_68">elem 68</option>
+          <option value="elem_69">elem 69</option>
+          <option value="elem_70">elem 70</option>
+          <option value="elem_71">elem 71</option>
+          <option value="elem_72">elem 72</option>
+          <option value="elem_73">elem 73</option>
+          <option value="elem_74">elem 74</option>
+          <option value="elem_75">elem 75</option>
+          <option value="elem_76">elem 76</option>
+          <option value="elem_77">elem 77</option>
+          <option value="elem_78">elem 78</option>
+          <option value="elem_79">elem 79</option>
+          <option value="elem_80">elem 80</option>
+          <option value="elem_81">elem 81</option>
+          <option value="elem_82">elem 82</option>
+          <option value="elem_83">elem 83</option>
+          <option value="elem_84">elem 84</option>
+          <option value="elem_85">elem 85</option>
+          <option value="elem_86">elem 86</option>
+          <option value="elem_87">elem 87</option>
+          <option value="elem_88">elem 88</option>
+          <option value="elem_89">elem 89</option>
+          <option value="elem_90">elem 90</option>
+          <option value="elem_91">elem 91</option>
+          <option value="elem_92">elem 92</option>
+          <option value="elem_93">elem 93</option>
+          <option value="elem_94">elem 94</option>
+          <option value="elem_95">elem 95</option>
+          <option value="elem_96">elem 96</option>
+          <option value="elem_97">elem 97</option>
+          <option value="elem_98">elem 98</option>
+          <option value="elem_99">elem 99</option>
+          <option value="elem_100">elem 100</option></select>
+        </div>
+        <div class='span12'>
+          <div class='alert alert-info'>
+            <strong>Note:</strong>
+            You can also deactivate option one by one by adding disabled attribute to each option you want to disable
+            <br />
+            <code>&lt;option value='fuu' disabled='disabled'&gt;bar&lt;/option&gt;</code>
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class='row'>
+        <div class='span12'>
+          <h3>Custom headers and footers</h3>
+        </div>
+        <div class='span7'>
+          <pre><code data-language='html'>&lt;select id='custom-headers' multiple='multiple'&gt;&#x000A;  &lt;option value='elem_1'&gt;elem 1&lt;/option&gt;&#x000A;  &lt;option value='elem_2'&gt;elem 2&lt;/option&gt;&#x000A;  &lt;option value='elem_3'&gt;elem 3&lt;/option&gt;&#x000A;  &lt;option value='elem_4'&gt;elem 4&lt;/option&gt;&#x000A;  ...&#x000A;  &lt;option value='elem_100'&gt;elem 100&lt;/option&gt;&#x000A;&lt;/select&gt;</code></pre>
+          <pre><code data-language='javascript'>$('#custom-headers').multiSelect({&#x000A;  selectableHeader: &quot;&lt;div class='custom-header'&gt;Selectable items&lt;/div&gt;&quot;,&#x000A;  selectionHeader: &quot;&lt;div class='custom-header'&gt;Selection items&lt;/div&gt;&quot;,&#x000A;  selectableFooter: &quot;&lt;div class='custom-header'&gt;Selectable footer&lt;/div&gt;&quot;,&#x000A;  selectionFooter: &quot;&lt;div class='custom-header'&gt;Selection footer&lt;/div&gt;&quot;&#x000A;});</code></pre>
+        </div>
+        <div class='span5'>
+          <select multiple id="custom-headers" name="custom-headers[]">
+          <option value="elem_1">elem 1</option>
+          <option value="elem_2">elem 2</option>
+          <option value="elem_3">elem 3</option>
+          <option value="elem_4">elem 4</option>
+          <option value="elem_5">elem 5</option>
+          <option value="elem_6">elem 6</option>
+          <option value="elem_7">elem 7</option>
+          <option value="elem_8">elem 8</option>
+          <option value="elem_9">elem 9</option>
+          <option value="elem_10">elem 10</option>
+          <option value="elem_11">elem 11</option>
+          <option value="elem_12">elem 12</option>
+          <option value="elem_13">elem 13</option>
+          <option value="elem_14">elem 14</option>
+          <option value="elem_15">elem 15</option>
+          <option value="elem_16">elem 16</option>
+          <option value="elem_17">elem 17</option>
+          <option value="elem_18">elem 18</option>
+          <option value="elem_19">elem 19</option>
+          <option value="elem_20">elem 20</option>
+          <option value="elem_21">elem 21</option>
+          <option value="elem_22">elem 22</option>
+          <option value="elem_23">elem 23</option>
+          <option value="elem_24">elem 24</option>
+          <option value="elem_25">elem 25</option>
+          <option value="elem_26">elem 26</option>
+          <option value="elem_27">elem 27</option>
+          <option value="elem_28">elem 28</option>
+          <option value="elem_29">elem 29</option>
+          <option value="elem_30">elem 30</option>
+          <option value="elem_31">elem 31</option>
+          <option value="elem_32">elem 32</option>
+          <option value="elem_33">elem 33</option>
+          <option value="elem_34">elem 34</option>
+          <option value="elem_35">elem 35</option>
+          <option value="elem_36">elem 36</option>
+          <option value="elem_37">elem 37</option>
+          <option value="elem_38">elem 38</option>
+          <option value="elem_39">elem 39</option>
+          <option value="elem_40">elem 40</option>
+          <option value="elem_41">elem 41</option>
+          <option value="elem_42">elem 42</option>
+          <option value="elem_43">elem 43</option>
+          <option value="elem_44">elem 44</option>
+          <option value="elem_45">elem 45</option>
+          <option value="elem_46">elem 46</option>
+          <option value="elem_47">elem 47</option>
+          <option value="elem_48">elem 48</option>
+          <option value="elem_49">elem 49</option>
+          <option value="elem_50">elem 50</option>
+          <option value="elem_51">elem 51</option>
+          <option value="elem_52">elem 52</option>
+          <option value="elem_53">elem 53</option>
+          <option value="elem_54">elem 54</option>
+          <option value="elem_55">elem 55</option>
+          <option value="elem_56">elem 56</option>
+          <option value="elem_57">elem 57</option>
+          <option value="elem_58">elem 58</option>
+          <option value="elem_59">elem 59</option>
+          <option value="elem_60">elem 60</option>
+          <option value="elem_61">elem 61</option>
+          <option value="elem_62">elem 62</option>
+          <option value="elem_63">elem 63</option>
+          <option value="elem_64">elem 64</option>
+          <option value="elem_65">elem 65</option>
+          <option value="elem_66">elem 66</option>
+          <option value="elem_67">elem 67</option>
+          <option value="elem_68">elem 68</option>
+          <option value="elem_69">elem 69</option>
+          <option value="elem_70">elem 70</option>
+          <option value="elem_71">elem 71</option>
+          <option value="elem_72">elem 72</option>
+          <option value="elem_73">elem 73</option>
+          <option value="elem_74">elem 74</option>
+          <option value="elem_75">elem 75</option>
+          <option value="elem_76">elem 76</option>
+          <option value="elem_77">elem 77</option>
+          <option value="elem_78">elem 78</option>
+          <option value="elem_79">elem 79</option>
+          <option value="elem_80">elem 80</option>
+          <option value="elem_81">elem 81</option>
+          <option value="elem_82">elem 82</option>
+          <option value="elem_83">elem 83</option>
+          <option value="elem_84">elem 84</option>
+          <option value="elem_85">elem 85</option>
+          <option value="elem_86">elem 86</option>
+          <option value="elem_87">elem 87</option>
+          <option value="elem_88">elem 88</option>
+          <option value="elem_89">elem 89</option>
+          <option value="elem_90">elem 90</option>
+          <option value="elem_91">elem 91</option>
+          <option value="elem_92">elem 92</option>
+          <option value="elem_93">elem 93</option>
+          <option value="elem_94">elem 94</option>
+          <option value="elem_95">elem 95</option>
+          <option value="elem_96">elem 96</option>
+          <option value="elem_97">elem 97</option>
+          <option value="elem_98">elem 98</option>
+          <option value="elem_99">elem 99</option>
+          <option value="elem_100">elem 100</option></select>
+        </div>
+      </div>
+      <br />
+      <div class='row'>
+        <div class='span12'>
+          <h3>Searchable</h3>
+        </div>
+        <div class='span12'>
+          <div class='alert info'>
+            <strong>Note:</strong>
+            This feature is not built-in but depends on an other plugin.
+            I personnally use the excellent
+            <a target="_blank" href="https://github.com/riklomas/quicksearch">quicksearch</a>
+            library, but you can use whatever library you like.
+          </div>
+        </div>
+        <div class='span12'>
+          <select multiple id="searchable" name="searchable[]">
+          <option value="elem_1">elem 1</option>
+          <option value="elem_2">elem 2</option>
+          <option value="elem_3">elem 3</option>
+          <option value="elem_4">elem 4</option>
+          <option value="elem_5">elem 5</option>
+          <option value="elem_6">elem 6</option>
+          <option value="elem_7">elem 7</option>
+          <option value="elem_8">elem 8</option>
+          <option value="elem_9">elem 9</option>
+          <option value="elem_10">elem 10</option>
+          <option value="elem_11">elem 11</option>
+          <option value="elem_12">elem 12</option>
+          <option value="elem_13">elem 13</option>
+          <option value="elem_14">elem 14</option>
+          <option value="elem_15">elem 15</option>
+          <option value="elem_16">elem 16</option>
+          <option value="elem_17">elem 17</option>
+          <option value="elem_18">elem 18</option>
+          <option value="elem_19">elem 19</option>
+          <option value="elem_20">elem 20</option>
+          <option value="elem_21">elem 21</option>
+          <option value="elem_22">elem 22</option>
+          <option value="elem_23">elem 23</option>
+          <option value="elem_24">elem 24</option>
+          <option value="elem_25">elem 25</option>
+          <option value="elem_26">elem 26</option>
+          <option value="elem_27">elem 27</option>
+          <option value="elem_28">elem 28</option>
+          <option value="elem_29">elem 29</option>
+          <option value="elem_30">elem 30</option>
+          <option value="elem_31">elem 31</option>
+          <option value="elem_32">elem 32</option>
+          <option value="elem_33">elem 33</option>
+          <option value="elem_34">elem 34</option>
+          <option value="elem_35">elem 35</option>
+          <option value="elem_36">elem 36</option>
+          <option value="elem_37">elem 37</option>
+          <option value="elem_38">elem 38</option>
+          <option value="elem_39">elem 39</option>
+          <option value="elem_40">elem 40</option>
+          <option value="elem_41">elem 41</option>
+          <option value="elem_42">elem 42</option>
+          <option value="elem_43">elem 43</option>
+          <option value="elem_44">elem 44</option>
+          <option value="elem_45">elem 45</option>
+          <option value="elem_46">elem 46</option>
+          <option value="elem_47">elem 47</option>
+          <option value="elem_48">elem 48</option>
+          <option value="elem_49">elem 49</option>
+          <option value="elem_50">elem 50</option>
+          <option value="elem_51">elem 51</option>
+          <option value="elem_52">elem 52</option>
+          <option value="elem_53">elem 53</option>
+          <option value="elem_54">elem 54</option>
+          <option value="elem_55">elem 55</option>
+          <option value="elem_56">elem 56</option>
+          <option value="elem_57">elem 57</option>
+          <option value="elem_58">elem 58</option>
+          <option value="elem_59">elem 59</option>
+          <option value="elem_60">elem 60</option>
+          <option value="elem_61">elem 61</option>
+          <option value="elem_62">elem 62</option>
+          <option value="elem_63">elem 63</option>
+          <option value="elem_64">elem 64</option>
+          <option value="elem_65">elem 65</option>
+          <option value="elem_66">elem 66</option>
+          <option value="elem_67">elem 67</option>
+          <option value="elem_68">elem 68</option>
+          <option value="elem_69">elem 69</option>
+          <option value="elem_70">elem 70</option>
+          <option value="elem_71">elem 71</option>
+          <option value="elem_72">elem 72</option>
+          <option value="elem_73">elem 73</option>
+          <option value="elem_74">elem 74</option>
+          <option value="elem_75">elem 75</option>
+          <option value="elem_76">elem 76</option>
+          <option value="elem_77">elem 77</option>
+          <option value="elem_78">elem 78</option>
+          <option value="elem_79">elem 79</option>
+          <option value="elem_80">elem 80</option>
+          <option value="elem_81">elem 81</option>
+          <option value="elem_82">elem 82</option>
+          <option value="elem_83">elem 83</option>
+          <option value="elem_84">elem 84</option>
+          <option value="elem_85">elem 85</option>
+          <option value="elem_86">elem 86</option>
+          <option value="elem_87">elem 87</option>
+          <option value="elem_88">elem 88</option>
+          <option value="elem_89">elem 89</option>
+          <option value="elem_90">elem 90</option>
+          <option value="elem_91">elem 91</option>
+          <option value="elem_92">elem 92</option>
+          <option value="elem_93">elem 93</option>
+          <option value="elem_94">elem 94</option>
+          <option value="elem_95">elem 95</option>
+          <option value="elem_96">elem 96</option>
+          <option value="elem_97">elem 97</option>
+          <option value="elem_98">elem 98</option>
+          <option value="elem_99">elem 99</option>
+          <option value="elem_100">elem 100</option></select>
+          <br />
+        </div>
+        <div class='span12'>
+          <pre><code data-language='html'>&lt;select id='searchable' multiple='multiple'&gt;&#x000A;  &lt;option value='fr'&gt;France&lt;/option&gt;&#x000A;  &lt;option value='uk'&gt;United Kingdom&lt;/option&gt;&#x000A;  &lt;option value='us'&gt;United States&lt;/option&gt;&#x000A;  &lt;option value='ch'&gt;China&lt;/option&gt;&#x000A;&lt;/select&gt;&#x000A;&lt;script src=&quot;path/to/jquery.multi-select.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;&#x000A;&lt;script src=&quot;path/to/jquery.quicksearch.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;</code></pre>
+          <pre><code data-language='javascript'>$('#searchable').multiSelect({&#x000A;  selectableHeader: &quot;&lt;input type='text' id='search' autocomplete='off' placeholder='try \&quot;elem 2\&quot;'&gt;&quot;&#x000A;});&#x000A;&#x000A;$('#search').quicksearch($('.ms-elem-selectable', '#ms-searchable' )).on('keydown', function(e){&#x000A;  if (e.keyCode == 40){&#x000A;    $(this).trigger('focusout');&#x000A;    $('#searchable').focus();&#x000A;    return false;&#x000A;  }&#x000A;});</code></pre>
+        </div>
+      </div>
+      <div class='page-header' id='project'>
+        <h2>Project</h2>
+      </div>
+      <div class='row'>
+        <div class='span6' id='contributors'>
+        </div>
+        <div class='span6'>
+          <h3>How to contribute?</h3>
+          <ul class='contribute'>
+            <li>
+              Fork the project
+              <a target="_blank" href="https://github.com/lou/multi-select">https://github.com/lou/multi-select</a>
+            </li>
+            <li>Make your feature addition or bug fix.</li>
+            <li>Commit your change.</li>
+            <li>Send me a pull request. Bonus points for topic branches.</li>
+          </ul>
+        </div>
+      </div>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+    </div>
+    <script src="js/jquery.js" type="text/javascript"></script>
+    <script src="js/bootstrap.js" type="text/javascript"></script>
+    <script src="js/jquery-ui.js" type="text/javascript"></script>
+    <script src="js/jquery.tinysort.js" type="text/javascript"></script>
+    <script src="js/jquery.quicksearch.js" type="text/javascript"></script>
+    <script src="js/jquery.multi-select.js" type="text/javascript"></script>
+    <script src="js/rainbow.js" type="text/javascript"></script>
+    <script src="js/application.js" type="text/javascript"></script>
+    <script src="js/handlebars.js" type="text/javascript"></script>
+    <script src="js/github-api.js" type="text/javascript"></script>
+    <script type='text/x-handlebars-template' id='contributors-tpl'>
+      <h3>{{ contributors.length }} contributors</h3>
+      <ul>
+        {{#each contributors}}
+          <li>
+            <img width="35px" height="35px" src="{{avatar_url}}" />
+            <a target="_blank" href="{{html_url}}">{{login}}</a>
+            - {{contributions}} contributions
+          </li>
+        {{/each}}
+      </ul>
+    </script>
+  </body>
+</html>
