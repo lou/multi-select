@@ -10,7 +10,7 @@
   $.ajax('https://api.github.com/repos/lou/multi-select/git/refs/tags')
   .done(function(data){
     var ref = data[data.length-1].ref;
-    var tagNumber = ref.match(/\d(.\d)*$/)[0];
+    var tagNumber = ref.match(/(\d.+)*$/)[0];
 
     $('#brand').append(' <span>'+tagNumber+'</span>')
   })
