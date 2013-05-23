@@ -1,0 +1,80 @@
+.navbar .brand{
+  padding: 9px 20px 8px;
+}
+
+.navbar iframe{
+  float: left;
+  margin-top: 10px;
+}
+
+.brand span{
+  font-size: 0.6em;
+  color: #aaa;
+}
+
+ .hero-unit .ms-container ul.ms-list{
+  height: 250px;
+}
+
+ .hero-unit .ms-container{
+  background-position: 165px 110px;
+}
+
+.hero-unit ul.describe{
+  float: left;
+}
+
+.hero-multiselect{
+  float: right;
+}
+
+#contributors ul{
+  margin: 0;
+}
+
+#contributors li{
+  list-style-type: none;
+  padding: 5px 0px;
+}
+
+#contributors img{
+  border: 1px #ddd solid;
+  padding: 1px;
+}
+
+ul.contribute li{
+  padding: 5px 0px;
+  font-size: 15px;
+}
+
+.custom-header{
+  text-align: center;
+  padding: 3px;
+  background: #000;
+  color: #fff;
+}
+
+h2{
+  margin-top: 2em;
+}
+
+h3{
+  margin: 1em 0;
+}
+
+h4{
+  margin-top: 2em;
+}
+
+#ms-searchable .ms-selection{
+  margin-top: 32px;
+}
+
+#ms-searchable.ms-container{
+  background-position: 164px 110px;
+}
+
+#search{
+  width: 152px;
+  margin-bottom: 5px;
+}

@@ -1,9 +1,16 @@
 .ms-container{
-  background: transparent url('../img/switch.png') no-repeat 170px 80px;
+  background: transparent url('../img/switch.png') no-repeat 170px 90px;
 }
 
 .ms-container:after{
-  content: "."; display: block; height: 0; line-height: 0; font-size: 0; clear: both; min-height: 0; visibility: hidden;
+  content: ".";
+  display: block;
+  height: 0;
+  line-height: 0;
+  font-size: 0;
+  clear: both;
+  min-height: 0;
+  visibility: hidden;
 }
 
 .ms-container .ms-selectable, .ms-container .ms-selection{
