@@ -290,9 +290,13 @@
     },
 
     'refresh' : function() {
+      this.destroy();
+      this.$element.multiSelect(this.options);
+    },
+
+    'destroy' : function(){
       $("#ms-"+this.$element.attr("id")).remove();
       this.$element.removeData('multiselect');
-      this.$element.multiSelect(this.options);
     },
 
     'select' : function(value, method){
