@@ -41,6 +41,11 @@
       }
     });
 
+    $('#refresh').on('click', function(){
+      $('#public-methods').multiSelect('refresh');
+      return false;
+    })
+
     $('#public-methods').multiSelect({});
     
     $('#select-all').click(function(){
