@@ -291,7 +291,8 @@
 
     'refresh' : function() {
       $("#ms-"+this.$element.attr("id")).remove();
-      this.init(this.options);
+      this.$element.removeData('multiselect');
+      this.$element.multiSelect(this.options);
     },
 
     'select' : function(value, method){
