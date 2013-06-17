@@ -8,13 +8,23 @@
     });
 
     $('#searchable').multiSelect({
-      selectableHeader: "<input type='text' id='search' autocomplete='off' placeholder='try \"elem 2\"'>"
+      selectableHeader: "<input type='text' id='search1' autocomplete='off' placeholder='try \"elem 2\"'>",
+      selectionHeader: "<input type='text' id='search2' autocomplete='off' placeholder='try \"elem 2\"'>"
     });
 
-    $('#search').quicksearch($('.ms-elem-selectable', '#ms-searchable' )).on('keydown', function(e){
+    $('#search1').quicksearch($('.ms-elem-selectable', '#ms-searchable' )).on('keydown', function(e){
       if (e.keyCode == 40){
         $(this).trigger('focusout');
         $('#searchable').focus();
+        return false;
+      }
+    });
+
+    $('#search2').quicksearch($('.ms-elem-selection', '#ms-searchable' )).on('keydown', function(e){
+      if (e.keyCode == 40){
+        $(this).trigger('focusout');
+        console.log('focus selection')
+        $('.ms-selection', '#searchable').focus();
         return false;
       }
     });
@@ -64,7 +74,7 @@
     }
 
     $('#select-100').click(function(){
-      $('#public-methods').multiSelect('select', arr);
+      $('#public-methods').multiSelect('select', 1);
       return false;
     });
     $('#deselect-100').click(function(){

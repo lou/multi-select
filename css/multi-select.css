@@ -63,6 +63,7 @@
 }
 
 .ms-container ul.ms-list{
+  position: relative;
   width: 160px;
   height: 200px;
   padding: 0;

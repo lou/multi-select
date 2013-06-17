@@ -26,10 +26,11 @@
     this.$container = $('<div/>', { 'id': "ms-"+id, 'class': "ms-container" });
     this.$selectableContainer = $('<div/>', { 'class': 'ms-selectable' });
     this.$selectionContainer = $('<div/>', { 'class': 'ms-selection' });
-    this.$selectableUl = $('<ul/>', { 'class': "ms-list" });
-    this.$selectionUl = $('<ul/>', { 'class': "ms-list" });
+    this.$selectableUl = $('<ul/>', { 'class': "ms-list", 'tabindex' : '0' });
+    this.$selectionUl = $('<ul/>', { 'class': "ms-list", 'tabindex' : '-1' });
     this.scrollTo = 0;
     this.sanitizeRegexp = new RegExp("\\W+", 'gi');
+    this.elemsSelector = 'li:visible:not(.ms-optgroup-label,.ms-optgroup-container)';
   };
 
   MultiSelect.prototype = {
@@ -79,6 +80,7 @@
               .append($(optgroupUlTemplate)
                 .append(optgroupSelectableLi));
 
+            that.$selectableUl.data('ms-mouse-active', false);
             that.$selectableUl.append(optgroupSelectable);
 
             optgroupSelectionLi.html(optgroupLabel);
@@ -87,6 +89,7 @@
               .append($(optgroupUlTemplate)
                 .append(optgroupSelectionLi));
 
+            that.$selectionUl.data('ms-mouse-active', false);
             that.$selectionUl.append(optgroupSelection);
 
             optgroupCpt++;
@@ -160,12 +163,9 @@
         that.$container.append(that.$selectableContainer);
         that.$container.append(that.$selectionContainer);
         ms.after(that.$container);
-        that.$selectableUl.on('mouseenter', '.ms-elem-selectable', function(){
-          $('li', that.$container).removeClass('ms-hover');
-          $(this).addClass('ms-hover');
-        }).on('mouseleave', function(){
-          $('li', that.$container).removeClass('ms-hover');
-        });
+
+        that.activeMouse(that.$selectableUl);
+        that.activeKeyboard(that.$selectableUl);
 
         var action = that.options.dblClick ? 'dblclick' : 'click';
 
@@ -176,109 +176,8 @@
           that.deselect($(this).data('ms-value'));
         });
 
-
-        that.$selectionUl.on('mouseenter', '.ms-elem-selection', function(){
-          $('li', that.$selectionUl).removeClass('ms-hover');
-          $(this).addClass('ms-hover');
-        }).on('mouseleave', function(){
-          $('li', that.$selectionUl).removeClass('ms-hover');
-        });
-
-        that.$selectableUl.on('focusin', function(){
-          $(this).addClass('ms-focus');
-          that.$selectionUl.focusout();
-        }).on('focusout', function(){
-          $(this).removeClass('ms-focus');
-          $('li', that.$container).removeClass('ms-hover');
-        });
-
-        that.$selectionUl.on('focusin', function(){
-          $(this).addClass('ms-focus');
-        }).on('focusout', function(){
-          $(this).removeClass('ms-focus');
-          $('li', that.$container).removeClass('ms-hover');
-        });
-
-        ms.on('focusin', function(){
-          ms.focusout();
-          that.$selectableUl.focusin();
-        }).on('focusout', function(){
-          that.$selectableUl.removeClass('ms-focus');
-          that.$selectionUl.removeClass('ms-focus');
-        });
-
-        ms.onKeyDown = function(e, keyContainer){
-          var ul = that.$container.find('.'+keyContainer).find('.ms-list'),
-              lis = ul.find('li:visible:not(.ms-optgroup-label, .ms-optgroup-container)'),
-              lisNumber = lis.length,
-              liFocused = ul.find('li.ms-hover'),
-              liFocusedIndex = liFocused.length > 0 ? lis.index(liFocused) : -1,
-              ulHeight = ul.innerHeight(),
-              liHeight = lis.first().outerHeight(true),
-              numberOfLisDisplayed = Math.floor(ulHeight / liHeight),
-              ulPosition = null;
-
-          if (e.keyCode === 32){ // space
-            if (liFocused.length >0){
-              if (keyContainer === 'ms-selectable'){
-                that.select(liFocused.data('ms-value'));
-              } else {
-                that.deselect(liFocused.data('ms-value'));
-              }
-              lis.removeClass('ms-hover');
-              that.scrollTo = 0;
-              ul.scrollTop(that.scrollTo);
-            }
-          } else if (e.keyCode === 40){ // Down
-            if (lis.length > 0){
-              var nextLiIndex = liFocusedIndex+1,
-                  nextLi = (lisNumber !== nextLiIndex) ? lis.eq(nextLiIndex) : lis.first(),
-                  nextLiPosition = nextLi.position().top;
-
-              ulPosition = ul.position().top;
-              lis.removeClass('ms-hover');
-              nextLi.addClass('ms-hover');
-
-              if (lisNumber === nextLiIndex){
-                that.scrollTo = 0;
-              } else if (nextLiPosition >= (ulPosition + (numberOfLisDisplayed * liHeight))){
-                that.scrollTo += liHeight;
-              }
-              ul.scrollTop(that.scrollTo);
-            }
-          } else if (e.keyCode === 38){ // Up
-            if (lis.length > 0){
-              var prevLiIndex = Math.max(liFocusedIndex-1, -1),
-                  prevLi = lis.eq(prevLiIndex),
-                  prevLiPosition = prevLi.position().top;
-
-              ulPosition = ul.position().top;
-              lis.removeClass('ms-hover');
-              prevLi.addClass('ms-hover');
-              if (prevLiPosition <= ulPosition){
-                that.scrollTo -= liHeight;
-              } else if (prevLiIndex < 0){
-                that.scrollTo = (lisNumber - numberOfLisDisplayed) * liHeight;
-              }
-              ul.scrollTop(that.scrollTo);
-            }
-          } else if (e.keyCode === 37 || e.keyCode === 39){
-            if (that.$selectableUl.hasClass('ms-focus')){
-              that.$selectableUl.focusout();
-              that.$selectionUl.focusin();
-            } else {
-              that.$selectableUl.focusin();
-              that.$selectionUl.focusout();
-            }
-          }
-        };
-
-        ms.on('keydown', function(e){
-          if (ms.is(':focus')){
-            var keyContainer = that.$selectableUl.hasClass('ms-focus') ? 'ms-selectable' : 'ms-selection';
-            ms.onKeyDown(e, keyContainer);
-          }
-        });
+        that.activeMouse(that.$selectionUl);
+        that.activeKeyboard(that.$selectionUl);
       }
 
       var selectedValues = ms.find('option:selected').map(function(){ return $(this).val(); }).get();
@@ -287,6 +186,115 @@
       if (typeof that.options.afterInit === 'function') {
         that.options.afterInit.call(this, this.$container);
       }
+    },
+
+    'activeKeyboard' : function($list){
+      var that = this;
+
+      $list.on('focus', function(){
+        $(this).addClass('ms-focus');
+      })
+      .on('blur', function(){
+        $(this).removeClass('ms-focus');
+      })
+      .on('keydown', function(e){
+        switch (e.which) {
+          case 40:
+          case 38:
+            e.preventDefault();
+            e.stopPropagation();
+            that.moveHighlight($(this), (e.which === 38) ? -1 : 1);
+            return;
+          case 32:
+            e.preventDefault();
+            e.stopPropagation();
+            that.selectHighlighted($list);
+            return;
+          case 37:
+          case 39:
+            e.preventDefault();
+            e.stopPropagation();
+            that.switchList($list);
+            return;
+        }
+      });
+    },
+
+    'moveHighlight': function($list, direction){
+      var $elems = $list.find(this.elemsSelector),
+          $currElem = $elems.filter('.ms-hover'),
+          $nextElem = null,
+          elemHeight = $elems.first().outerHeight(),
+          containerHeight = $list.height(),
+          containerSelector = '#'+this.$container.prop('id');
+
+      // Deactive mouseenter event when move is active
+      // It fixes a bug when mouse is over the list
+      $elems.off('mouseenter');
+      $list.data('ms-mouse-active', false);
+
+      $elems.removeClass('ms-hover');
+      if (direction === 1){ // DOWN
+        var nextSelector = containerSelector+' .'+$list.parent().prop('class')+' '+this.elemsSelector;
+      
+        $nextElem = $currElem.nextALL(nextSelector).first();
+        if ($nextElem.length === 0){
+          $nextElem = $elems.first();
+        }
+      } else if (direction === -1){ // UP
+        var prevSelector = containerSelector+' .'+$list.parent().prop('class')+' '+this.elemsSelector;
+
+        $nextElem = $currElem.prevALL(prevSelector).first();
+        if ($nextElem.length === 0){
+          $nextElem = $elems.last();
+        }
+      }
+      if ($nextElem.length > 0){
+        $nextElem.addClass('ms-hover');
+        var scrollTo = $list.scrollTop() + $nextElem.position().top - 
+                       containerHeight / 2 + elemHeight / 2;
+
+        $list.scrollTop(scrollTo);
+      }
+    },
+
+    'selectHighlighted' : function($list){
+        var $elems = $list.find(this.elemsSelector),
+            $highlightedElem = $elems.filter('.ms-hover').first();
+
+        if ($highlightedElem.length > 0){
+          if ($list.parent().hasClass('ms-selectable')){
+            this.select($highlightedElem.data('ms-value'));
+          } else {
+            this.deselect($highlightedElem.data('ms-value'));
+          }
+          $elems.removeClass('ms-hover');
+        }
+    },
+
+    'switchList' : function($list){
+      $list.blur();
+      if ($list.parent().hasClass('ms-selectable')){
+        this.$selectionUl.focus();
+      } else {
+        this.$selectableUl.focus();
+      }
+    },
+
+    'activeMouse' : function($list){
+      var that = this;
+
+      $list.on('mousemove', function(){
+        if ($list.data('ms-mouse-active') === false){
+          var elems = $list.find(that.elemsSelector);
+
+          elems.on('mouseenter', function(){
+            elems.removeClass('ms-hover');
+            $(this).addClass('ms-hover');
+            $list.data('ms-mouse-active', true);
+          });
+        }
+      });
     },
 
     'refresh' : function() {
@@ -463,5 +471,26 @@
   };
 
   $.fn.multiSelect.Constructor = MultiSelect;
+
+  // Lovely borrowed from http://stackoverflow.com/a/324159/195571
+  $.fn.reverse = function() {
+      return this.pushStack(this.get().reverse(), arguments);
+  };
+
+  $.each( ['prev', 'next'], function(unusedIndex, name) {
+      $.fn[ name + 'ALL' ] = function(matchExpr) {
+          // get all the elements in the body, including the body.
+          var $all = $('body').find('*').andSelf();
+
+          // slice the $all object according to which way we're looking
+          $all = (name == 'prev')
+               ? $all.slice(0, $all.index(this)).reverse()
+               : $all.slice($all.index(this) + 1)
+          ;
+          // filter the matches if specified
+          if (matchExpr) $all = $all.filter(matchExpr);
+          return $all;
+      };
+  });
 
 }(window.jQuery);
