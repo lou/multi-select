@@ -235,18 +235,42 @@
 
       $elems.removeClass('ms-hover');
       if (direction === 1){ // DOWN
-        var nextSelector = containerSelector+' .'+$list.parent().prop('class')+' '+this.elemsSelector;
-      
-        $nextElem = $currElem.nextALL(nextSelector).first();
+
+        $nextElem = $currElem.nextAll(this.elemsSelector).first();
         if ($nextElem.length === 0){
-          $nextElem = $elems.first();
+          var $optgroupUl = $currElem.parent();
+
+          if ($optgroupUl.hasClass('ms-optgroup')){
+            var $optgroupLi = $optgroupUl.parent(),
+                $nextOptgroupLi = $optgroupLi.next(':visible');
+
+            if ($nextOptgroupLi.length > 0){
+              $nextElem = $nextOptgroupLi.find(this.elemsSelector).first();
+            } else {
+              $nextElem = $elems.first();
+            }
+          } else {
+            $nextElem = $elems.first();
+          }
         }
       } else if (direction === -1){ // UP
-        var prevSelector = containerSelector+' .'+$list.parent().prop('class')+' '+this.elemsSelector;
 
-        $nextElem = $currElem.prevALL(prevSelector).first();
+        $nextElem = $currElem.prevAll(this.elemsSelector).first();
         if ($nextElem.length === 0){
-          $nextElem = $elems.last();
+          var $optgroupUl = $currElem.parent();
+
+          if ($optgroupUl.hasClass('ms-optgroup')){
+            var $optgroupLi = $optgroupUl.parent(),
+                $prevOptgroupLi = $optgroupLi.prev(':visible');
+
+            if ($prevOptgroupLi.length > 0){
+              $nextElem = $prevOptgroupLi.find(this.elemsSelector).last();
+            } else {
+              $nextElem = $elems.last();
+            }
+          } else {
+            $nextElem = $elems.last();
+          }
         }
       }
       if ($nextElem.length > 0){
@@ -471,26 +495,5 @@
   };
 
   $.fn.multiSelect.Constructor = MultiSelect;
-
-  // Lovely borrowed from http://stackoverflow.com/a/324159/195571
-  $.fn.reverse = function() {
-      return this.pushStack(this.get().reverse(), arguments);
-  };
-
-  $.each( ['prev', 'next'], function(unusedIndex, name) {
-      $.fn[ name + 'ALL' ] = function(matchExpr) {
-          // get all the elements in the body, including the body.
-          var $all = $('body').find('*').andSelf();
-
-          // slice the $all object according to which way we're looking
-          $all = (name == 'prev')
-               ? $all.slice(0, $all.index(this)).reverse()
-               : $all.slice($all.index(this) + 1)
-          ;
-          // filter the matches if specified
-          if (matchExpr) $all = $all.filter(matchExpr);
-          return $all;
-      };
-  });
 
 }(window.jQuery);

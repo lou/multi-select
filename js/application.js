@@ -1,6 +1,10 @@
 // Put your application scripts here
 (function($){
   $(function(){
+    // $('body').on('keypress', function(){
+    //   console.log($(':focus'));  
+    // });
+    
     $('.multiselect').multiSelect({});
 
     $('#keep-order').multiSelect({
@@ -74,7 +78,7 @@
     }
 
     $('#select-100').click(function(){
-      $('#public-methods').multiSelect('select', 1);
+      $('#public-methods').multiSelect('select', arr);
       return false;
     });
     $('#deselect-100').click(function(){
