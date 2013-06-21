@@ -26,8 +26,8 @@
     this.$container = $('<div/>', { 'id': "ms-"+id, 'class': "ms-container" });
     this.$selectableContainer = $('<div/>', { 'class': 'ms-selectable' });
     this.$selectionContainer = $('<div/>', { 'class': 'ms-selection' });
-    this.$selectableUl = $('<ul/>', { 'class': "ms-list", 'tabindex' : '0', 'data-ms-mouse-active' : false });
-    this.$selectionUl = $('<ul/>', { 'class': "ms-list", 'tabindex' : '-1', 'data-ms-mouse-active' : false });
+    this.$selectableUl = $('<ul/>', { 'class': "ms-list", 'tabindex' : '0' });
+    this.$selectionUl = $('<ul/>', { 'class': "ms-list", 'tabindex' : '-1' });
     this.scrollTo = 0;
     this.sanitizeRegexp = new RegExp("\\W+", 'gi');
     this.elemsSelector = 'li:visible:not(.ms-optgroup-label,.ms-optgroup-container)';
@@ -91,7 +91,6 @@
                 .append($(optgroupUlTemplate)
                   .append(optgroupSelectableLi));
 
-              that.$selectableUl.data('ms-mouse-active', false);
               that.$selectableUl.append(optgroupSelectable);
 
               optgroupSelectionLi.html(optgroupLabel);
@@ -100,24 +99,23 @@
                 .append($(optgroupUlTemplate)
                   .append(optgroupSelectionLi));
 
-              that.$selectionUl.data('ms-mouse-active', false);
               that.$selectionUl.append(optgroupSelection);
 
               optgroupCpt++;
 
             } else {
 
-              // var attributes = "";
+              var attributes = "",
+                  HTMLElem = $elem.get(0);
 
-              // for (var cpt = 0; cpt < this.attributes.length; cpt++){
-              //   var attr = this.attributes[cpt];
+              for (var cpt = 0; cpt < HTMLElem.attributes.length; cpt++){
+                var attr = HTMLElem.attributes[cpt];
 
-              //   if(that.isDomNode(attr.name)){
-              //     attributes += attr.name+'="'+attr.value+'" ';
-              //   }
-              // }
-              // var selectableLi = $('<li '+attributes+'><span>'+$(this).text()+'</span></li>'),
-              var selectableLi = $('<li><span>'+$elem.text()+'</span></li>'),
+                if(that.isDomNode(attr.name)){
+                  attributes += attr.name+'="'+attr.value+'" ';
+                }
+              }
+              var selectableLi = $('<li '+attributes+'><span>'+$elem.text()+'</span></li>'),
                   selectedLi = selectableLi.clone();
 
               var value = $elem.val(),
@@ -249,7 +247,6 @@
       // Deactive mouseenter event when move is active
       // It fixes a bug when mouse is over the list
       $elems.off('mouseenter');
-      $list.data('ms-mouse-active', false);
 
       $elems.removeClass('ms-hover');
       if (direction === 1){ // DOWN
@@ -327,15 +324,12 @@
       var that = this;
 
       $list.on('mousemove', function(){
-        if ($list.data('ms-mouse-active') === false){
-          var elems = $list.find(that.elemsSelector);
+        var elems = $list.find(that.elemsSelector);
 
-          elems.on('mouseenter', function(){
-            elems.removeClass('ms-hover');
-            $(this).addClass('ms-hover');
-            $list.data('ms-mouse-active', true);
-          });
-        }
+        elems.on('mouseenter', function(){
+          elems.removeClass('ms-hover');
+          $(this).addClass('ms-hover');
+        });
       });
     },
 
