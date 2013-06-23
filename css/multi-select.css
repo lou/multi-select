@@ -35,10 +35,6 @@
   border-radius: 3px;
 }
 
-
-.ms-selected{
-  display:none;
-}
 .ms-container .ms-selectable{
   margin-right: 40px;
 }
@@ -63,6 +59,7 @@
 }
 
 .ms-container ul.ms-list{
+  position: relative;
   width: 160px;
   height: 200px;
   padding: 0;

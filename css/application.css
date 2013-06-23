@@ -66,15 +66,14 @@ h4{
   margin-top: 2em;
 }
 
-#ms-searchable .ms-selection{
-  margin-top: 32px;
-}
-
 #ms-searchable.ms-container{
-  background-position: 164px 110px;
+  background-position: 168px 110px;
 }
 
-#search{
-  width: 152px;
+#search1, #search2{
+  box-sizing: border-box;
+  -moz-box-sizing:border-box;
+  width: 100%;
   margin-bottom: 5px;
+  height: auto;
 }

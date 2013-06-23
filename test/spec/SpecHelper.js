@@ -14,5 +14,6 @@ afterEach(function () {
 });
 
 sanitize = function(value){
-  return(value.replace(/[^A-Za-z0-9]*/gi, '_'));
+  reg = new RegExp("\\W+", 'gi');
+  return value.replace(reg, '_');
 }

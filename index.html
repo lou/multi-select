@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -9,6 +8,7 @@
     <link href="css/multi-select.css" media="screen" rel="stylesheet" type="text/css" />
     <link href="css/theme.css" media="screen" rel="stylesheet" type="text/css" />
     <link href="css/application.css" media="screen" rel="stylesheet" type="text/css" />
+    <link rel="icon" type="image/png" href="img/favicon.png" />
     <script type='text/javascript'>
       //<![CDATA[
         var _gaq = _gaq || [];
@@ -248,15 +248,15 @@
           </tr>
           <tr>
             <td>[&nbsp;&#8212;&nbsp;]&nbsp;&nbsp;Space</td>
-            <td>Add/remove item depending on which list is focused</td>
+            <td>Add/remove item depending on which list is currently focused</td>
           </tr>
           <tr>
             <td>[ &larr; ]&nbsp;&nbsp;Left arrow</td>
-            <td>Focus on the next list</td>
+            <td>Focus the previous list</td>
           </tr>
           <tr>
             <td>[ &rarr; ]&nbsp;&nbsp;Right arrow</td>
-            <td>Focus on the previous list</td>
+            <td>Focus the next list</td>
           </tr>
         </tbody>
       </table>
@@ -381,7 +381,7 @@
           <h3>Callbacks</h3>
         </div>
         <div class='span7'>
-          <pre><code data-language='html'>&lt;select id='Callbacks' multiple='multiple'&gt;&#x000A;  &lt;option value='elem_1'&gt;elem 1&lt;/option&gt;&#x000A;  &lt;option value='elem_2'&gt;elem 2&lt;/option&gt;&#x000A;  &lt;option value='elem_3'&gt;elem 3&lt;/option&gt;&#x000A;  &lt;option value='elem_4'&gt;elem 4&lt;/option&gt;&#x000A;  ...&#x000A;  &lt;option value='elem_100'&gt;elem 100&lt;/option&gt;&#x000A;&lt;/select&gt;</code></pre>
+          <pre><code data-language='html'>&lt;select id='callbacks' multiple='multiple'&gt;&#x000A;  &lt;option value='elem_1'&gt;elem 1&lt;/option&gt;&#x000A;  &lt;option value='elem_2'&gt;elem 2&lt;/option&gt;&#x000A;  &lt;option value='elem_3'&gt;elem 3&lt;/option&gt;&#x000A;  &lt;option value='elem_4'&gt;elem 4&lt;/option&gt;&#x000A;  ...&#x000A;  &lt;option value='elem_100'&gt;elem 100&lt;/option&gt;&#x000A;&lt;/select&gt;</code></pre>
           <pre><code data-language='javascript'>$('#callbacks').multiSelect({&#x000A;  afterSelect: function(values){&#x000A;    alert(&quot;Select value: &quot;+values);&#x000A;  },&#x000A;  afterDeselect: function(values){&#x000A;    alert(&quot;Deselect value: &quot;+values);&#x000A;  }&#x000A;});</code></pre>
         </div>
         <div class='span5'>
@@ -1787,10 +1787,10 @@
         </div>
         <div class='span12'>
           <select multiple id="searchable" name="searchable[]">
-          <option value="elem_1">elem 1</option>
+          <option value="elem_1" selected='selected'>elem 1</option>
           <option value="elem_2">elem 2</option>
           <option value="elem_3">elem 3</option>
-          <option value="elem_4">elem 4</option>
+          <option value="elem_4" selected='selected'>elem 4</option>
           <option value="elem_5">elem 5</option>
           <option value="elem_6">elem 6</option>
           <option value="elem_7">elem 7</option>
@@ -1890,8 +1890,38 @@
           <br />
         </div>
         <div class='span12'>
-          <pre><code data-language='html'>&lt;select id='searchable' multiple='multiple'&gt;&#x000A;  &lt;option value='fr'&gt;France&lt;/option&gt;&#x000A;  &lt;option value='uk'&gt;United Kingdom&lt;/option&gt;&#x000A;  &lt;option value='us'&gt;United States&lt;/option&gt;&#x000A;  &lt;option value='ch'&gt;China&lt;/option&gt;&#x000A;&lt;/select&gt;&#x000A;&lt;script src=&quot;path/to/jquery.multi-select.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;&#x000A;&lt;script src=&quot;path/to/jquery.quicksearch.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;</code></pre>
-          <pre><code data-language='javascript'>$('#searchable').multiSelect({&#x000A;  selectableHeader: &quot;&lt;input type='text' id='search' autocomplete='off' placeholder='try \&quot;elem 2\&quot;'&gt;&quot;&#x000A;});&#x000A;&#x000A;$('#search').quicksearch($('.ms-elem-selectable', '#ms-searchable' )).on('keydown', function(e){&#x000A;  if (e.keyCode == 40){&#x000A;    $(this).trigger('focusout');&#x000A;    $('#searchable').focus();&#x000A;    return false;&#x000A;  }&#x000A;});</code></pre>
+          <pre><code data-language='html'>&lt;select id='custom-headers' multiple='multiple'&gt;&#x000A;  &lt;option value='elem_1'&gt;elem 1&lt;/option&gt;&#x000A;  &lt;option value='elem_2'&gt;elem 2&lt;/option&gt;&#x000A;  &lt;option value='elem_3'&gt;elem 3&lt;/option&gt;&#x000A;  &lt;option value='elem_4'&gt;elem 4&lt;/option&gt;&#x000A;  ...&#x000A;  &lt;option value='elem_100'&gt;elem 100&lt;/option&gt;&#x000A;&lt;/select&gt;</code></pre>
+          <pre><code data-language='javascript'>$('#searchable').multiSelect({
+  selectableHeader: "&lt;input type='text' id='search1' autocomplete='off' placeholder='try \"12\"'&gt;",
+  selectionHeader: "&lt;input type='text' id='search2' autocomplete='off' placeholder='try \"4\"'&gt;",
+  afterInit: function(ms){
+    var that = this;
+
+    that.qs1 = $('#search1').quicksearch('#ms-searchable .ms-elem-selectable:not(.ms-selected)', {})
+    .on('keydown', function(e){
+      if (e.which === 40){
+        that.$selectableUl.focus();
+        return false;
+      }
+    });
+
+    that.qs2 = $('#search2').quicksearch('#ms-searchable .ms-elem-selection.ms-selected', {})
+    .on('keydown', function(e){
+      if (e.which == 40){
+        that.$selectionUl.focus();
+        return false;
+      }
+    });
+  },
+  afterSelect: function(){
+    this.qs1.cache();
+    this.qs2.cache();
+  },
+  afterDeselect: function(){
+    this.qs1.cache();
+    this.qs2.cache();
+  }
+});</code></pre>
         </div>
       </div>
       <div class='page-header' id='project'>
