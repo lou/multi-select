@@ -16,10 +16,10 @@
         return;
       },
       show: function () {
-        $(this).show();
+        this.style.display = "";
       },
       hide: function () {
-        $(this).hide();
+        this.style.display = "none";
       },
       prepareQuery: function (val) {
         return val.toLowerCase().split(' ');
@@ -130,7 +130,6 @@
       }
       
       var t = (typeof options.selector === "string") ? jq_results.find(options.selector) : $(target).not(options.noResults);
-
       cache = t.map(function () {
         return e.strip_html(this.innerHTML);
       });

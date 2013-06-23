@@ -247,15 +247,15 @@
           </tr>
           <tr>
             <td>[&nbsp;&#8212;&nbsp;]&nbsp;&nbsp;Space</td>
-            <td>Add/remove item depending on which list is focused</td>
+            <td>Add/remove item depending on which list is currently focused</td>
           </tr>
           <tr>
             <td>[ &larr; ]&nbsp;&nbsp;Left arrow</td>
-            <td>Focus on the next list</td>
+            <td>Focus the previous list</td>
           </tr>
           <tr>
             <td>[ &rarr; ]&nbsp;&nbsp;Right arrow</td>
-            <td>Focus on the previous list</td>
+            <td>Focus the next list</td>
           </tr>
         </tbody>
       </table>
@@ -380,7 +380,7 @@
           <h3>Callbacks</h3>
         </div>
         <div class='span7'>
-          <pre><code data-language='html'>&lt;select id='Callbacks' multiple='multiple'&gt;&#x000A;  &lt;option value='elem_1'&gt;elem 1&lt;/option&gt;&#x000A;  &lt;option value='elem_2'&gt;elem 2&lt;/option&gt;&#x000A;  &lt;option value='elem_3'&gt;elem 3&lt;/option&gt;&#x000A;  &lt;option value='elem_4'&gt;elem 4&lt;/option&gt;&#x000A;  ...&#x000A;  &lt;option value='elem_100'&gt;elem 100&lt;/option&gt;&#x000A;&lt;/select&gt;</code></pre>
+          <pre><code data-language='html'>&lt;select id='callbacks' multiple='multiple'&gt;&#x000A;  &lt;option value='elem_1'&gt;elem 1&lt;/option&gt;&#x000A;  &lt;option value='elem_2'&gt;elem 2&lt;/option&gt;&#x000A;  &lt;option value='elem_3'&gt;elem 3&lt;/option&gt;&#x000A;  &lt;option value='elem_4'&gt;elem 4&lt;/option&gt;&#x000A;  ...&#x000A;  &lt;option value='elem_100'&gt;elem 100&lt;/option&gt;&#x000A;&lt;/select&gt;</code></pre>
           <pre><code data-language='javascript'>$('#callbacks').multiSelect({&#x000A;  afterSelect: function(values){&#x000A;    alert(&quot;Select value: &quot;+values);&#x000A;  },&#x000A;  afterDeselect: function(values){&#x000A;    alert(&quot;Deselect value: &quot;+values);&#x000A;  }&#x000A;});</code></pre>
         </div>
         <div class='span5'>
@@ -1889,39 +1889,38 @@
           <br />
         </div>
         <div class='span12'>
-          <pre><code data-language='html'>&lt;select id='searchable' multiple='multiple'&gt;&#x000A;  &lt;option value='fr'&gt;France&lt;/option&gt;&#x000A;  &lt;option value='uk'&gt;United Kingdom&lt;/option&gt;&#x000A;  &lt;option value='us'&gt;United States&lt;/option&gt;&#x000A;  &lt;option value='ch'&gt;China&lt;/option&gt;&#x000A;&lt;/select&gt;&#x000A;&lt;script src=&quot;path/to/jquery.multi-select.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;&#x000A;&lt;script src=&quot;path/to/jquery.quicksearch.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;</code></pre>
-          <pre><code data-language='javascript'>
-    $('#searchable').multiSelect({
-      selectableHeader: "&lt;input type='text' id='search1' autocomplete='off' placeholder='try \"12\"'&gt;",
-      selectionHeader: "&lt;input type='text' id='search2' autocomplete='off' placeholder='try \"4\"'&gt;",
-      afterInit: function(ms){
-        var that = this;
+          <pre><code data-language='html'>&lt;select id='custom-headers' multiple='multiple'&gt;&#x000A;  &lt;option value='elem_1'&gt;elem 1&lt;/option&gt;&#x000A;  &lt;option value='elem_2'&gt;elem 2&lt;/option&gt;&#x000A;  &lt;option value='elem_3'&gt;elem 3&lt;/option&gt;&#x000A;  &lt;option value='elem_4'&gt;elem 4&lt;/option&gt;&#x000A;  ...&#x000A;  &lt;option value='elem_100'&gt;elem 100&lt;/option&gt;&#x000A;&lt;/select&gt;</code></pre>
+          <pre><code data-language='javascript'>$('#searchable').multiSelect({
+  selectableHeader: "&lt;input type='text' id='search1' autocomplete='off' placeholder='try \"12\"'&gt;",
+  selectionHeader: "&lt;input type='text' id='search2' autocomplete='off' placeholder='try \"4\"'&gt;",
+  afterInit: function(ms){
+    var that = this;
 
-        that.qs1 = $('#search1').quicksearch('#ms-searchable .ms-elem-selectable:not(.ms-selected)', {})
-        .on('keydown', function(e){
-          if (e.which === 40){
-            that.$selectableUl.focus();
-            return false;
-          }
-        });
-
-        that.qs2 = $('#search2').quicksearch('#ms-searchable .ms-elem-selection.ms-selected', {})
-        .on('keydown', function(e){
-          if (e.which == 40){
-            that.$selectionUl.focus();
-            return false;
-          }
-        });
-      },
-      afterSelect: function(){
-        this.qs1.cache();
-        this.qs2.cache();
-      },
-      afterDeselect: function(){
-        this.qs1.cache();
-        this.qs2.cache();
+    that.qs1 = $('#search1').quicksearch('#ms-searchable .ms-elem-selectable:not(.ms-selected)', {})
+    .on('keydown', function(e){
+      if (e.which === 40){
+        that.$selectableUl.focus();
+        return false;
       }
-    });</code></pre>
+    });
+
+    that.qs2 = $('#search2').quicksearch('#ms-searchable .ms-elem-selection.ms-selected', {})
+    .on('keydown', function(e){
+      if (e.which == 40){
+        that.$selectionUl.focus();
+        return false;
+      }
+    });
+  },
+  afterSelect: function(){
+    this.qs1.cache();
+    this.qs2.cache();
+  },
+  afterDeselect: function(){
+    this.qs1.cache();
+    this.qs2.cache();
+  }
+});</code></pre>
         </div>
       </div>
       <div class='page-header' id='project'>
