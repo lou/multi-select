@@ -7,6 +7,7 @@
       stripeRows: null,
       loader: null,
       noResults: '',
+      matchedResultsCount: 0,
       bind: 'keyup',
       onBefore: function () { 
         return;
@@ -15,10 +16,10 @@
         return;
       },
       show: function () {
-        this.style.display = "";
+        $(this).show();
       },
       hide: function () {
-        this.style.display = "none";
+        $(this).hide();
       },
       prepareQuery: function (val) {
         return val.toLowerCase().split(' ');
@@ -35,15 +36,17 @@
     
     this.go = function () {
       
-      var i = 0, 
-      noresults = true, 
-      query = options.prepareQuery(val),
-      val_empty = (val.replace(' ', '').length === 0);
+      var i = 0,
+        numMatchedRows = 0,
+        noresults = true, 
+        query = options.prepareQuery(val),
+        val_empty = (val.replace(' ', '').length === 0);
       
       for (var i = 0, len = rowcache.length; i < len; i++) {
         if (val_empty || options.testQuery(query, cache[i], rowcache[i])) {
           options.show.apply(rowcache[i]);
           noresults = false;
+          numMatchedRows++;
         } else {
           options.hide.apply(rowcache[i]);
         }
@@ -56,10 +59,27 @@
         this.stripe();
       }
       
+      this.matchedResultsCount = numMatchedRows;
       this.loader(false);
       options.onAfter();
       
       return this;
+    };
+    
+    /*
+     * External API so that users can perform search programatically. 
+     * */
+    this.search = function (submittedVal) {
+      val = submittedVal;
+      e.trigger();
+    };
+    
+    /*
+     * External API to get the number of matched results as seen in 
+     * https://github.com/ruiz107/quicksearch/commit/f78dc440b42d95ce9caed1d087174dd4359982d6
+     * */
+    this.currentMatchedResults = function() {
+      return this.matchedResultsCount;
     };
     
     this.stripe = function () {
@@ -110,6 +130,7 @@
       }
       
       var t = (typeof options.selector === "string") ? jq_results.find(options.selector) : $(target).not(options.noResults);
+
       cache = t.map(function () {
         return e.strip_html(this.innerHTML);
       });
@@ -117,6 +138,12 @@
       rowcache = jq_results.map(function () {
         return this;
       });
+
+      /*
+       * Modified fix for sync-ing "val". 
+       * Original fix https://github.com/michaellwest/quicksearch/commit/4ace4008d079298a01f97f885ba8fa956a9703d1
+       * */
+      val = val || this.val() || "";
       
       return this.go();
     };
@@ -139,7 +166,12 @@
     this.loader(false);
     
     return this.each(function () {
-      $(this).bind(options.bind, function () {
+      
+      /*
+       * Changed from .bind to .on.
+       * */
+      $(this).on(options.bind, function () {
+        
         val = $(this).val();
         e.trigger();
       });

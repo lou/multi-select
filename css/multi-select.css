@@ -35,10 +35,6 @@
   border-radius: 3px;
 }
 
-
-.ms-selected{
-  display:none;
-}
 .ms-container .ms-selectable{
   margin-right: 40px;
 }

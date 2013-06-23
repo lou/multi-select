@@ -4,26 +4,35 @@
     
     $('.multiselect').multiSelect({});
 
-    $('#keep-order').multiSelect({
-      keepOrder: true
-    });
-
     $('#searchable').multiSelect({
-      selectableHeader: "<input type='text' id='search1' autocomplete='off' placeholder='try \"elem 2\"'>",
-      selectionHeader: "<input type='text' id='search2' autocomplete='off' placeholder='try \"elem 2\"'>"
-    });
+      selectableHeader: "<input type='text' id='search1' autocomplete='off' placeholder='try \"12\"'>",
+      selectionHeader: "<input type='text' id='search2' autocomplete='off' placeholder='try \"4\"'>",
+      afterInit: function(ms){
+        var that = this;
 
-    $('#search1').quicksearch($('.ms-elem-selectable', '#ms-searchable' )).on('keydown', function(e){
-      if (e.keyCode == 40){
-        $('#searchable').focus();
-        return false;
-      }
-    });
+        that.qs1 = $('#search1').quicksearch('#ms-searchable .ms-elem-selectable:not(.ms-selected)', {})
+        .on('keydown', function(e){
+          if (e.which === 40){
+            that.$selectableUl.focus();
+            return false;
+          }
+        });
 
-    $('#search2').quicksearch($('.ms-elem-selection', '#ms-searchable' )).on('keydown', function(e){
-      if (e.keyCode == 40){
-        $('#ms-searchable').children('.ms-selection').find('.ms-list').focus();
-        return false;
+        that.qs2 = $('#search2').quicksearch('#ms-searchable .ms-elem-selection.ms-selected', {})
+        .on('keydown', function(e){
+          if (e.which == 40){
+            that.$selectionUl.focus();
+            return false;
+          }
+        });
+      },
+      afterSelect: function(){
+        this.qs1.cache();
+        this.qs2.cache();
+      },
+      afterDeselect: function(){
+        this.qs1.cache();
+        this.qs2.cache();
       }
     });
 

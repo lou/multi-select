@@ -75,4 +75,5 @@ h4{
   -moz-box-sizing:border-box;
   width: 100%;
   margin-bottom: 5px;
+  height: auto;
 }

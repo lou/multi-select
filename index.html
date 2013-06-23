@@ -1786,10 +1786,10 @@
         </div>
         <div class='span12'>
           <select multiple id="searchable" name="searchable[]">
-          <option value="elem_1">elem 1</option>
+          <option value="elem_1" selected='selected'>elem 1</option>
           <option value="elem_2">elem 2</option>
           <option value="elem_3">elem 3</option>
-          <option value="elem_4">elem 4</option>
+          <option value="elem_4" selected='selected'>elem 4</option>
           <option value="elem_5">elem 5</option>
           <option value="elem_6">elem 6</option>
           <option value="elem_7">elem 7</option>
@@ -1890,22 +1890,36 @@
         </div>
         <div class='span12'>
           <pre><code data-language='html'>&lt;select id='searchable' multiple='multiple'&gt;&#x000A;  &lt;option value='fr'&gt;France&lt;/option&gt;&#x000A;  &lt;option value='uk'&gt;United Kingdom&lt;/option&gt;&#x000A;  &lt;option value='us'&gt;United States&lt;/option&gt;&#x000A;  &lt;option value='ch'&gt;China&lt;/option&gt;&#x000A;&lt;/select&gt;&#x000A;&lt;script src=&quot;path/to/jquery.multi-select.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;&#x000A;&lt;script src=&quot;path/to/jquery.quicksearch.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;</code></pre>
-          <pre><code data-language='javascript'>    $('#searchable').multiSelect({
-      selectableHeader: "&lt;input type='text' id='search1' autocomplete='off' placeholder='try \"elem 2\"'&gt;",
-      selectionHeader: "&glt;input type='text' id='search2' autocomplete='off' placeholder='try \"elem 2\"'&gt;"
-    });
+          <pre><code data-language='javascript'>
+    $('#searchable').multiSelect({
+      selectableHeader: "&lt;input type='text' id='search1' autocomplete='off' placeholder='try \"12\"'&gt;",
+      selectionHeader: "&lt;input type='text' id='search2' autocomplete='off' placeholder='try \"4\"'&gt;",
+      afterInit: function(ms){
+        var that = this;
 
-    $('#search1').quicksearch($('.ms-elem-selectable', '#ms-searchable' )).on('keydown', function(e){
-      if (e.keyCode == 40){
-        $('#searchable').focus();
-        return false;
-      }
-    });
+        that.qs1 = $('#search1').quicksearch('#ms-searchable .ms-elem-selectable:not(.ms-selected)', {})
+        .on('keydown', function(e){
+          if (e.which === 40){
+            that.$selectableUl.focus();
+            return false;
+          }
+        });
 
-    $('#search2').quicksearch($('.ms-elem-selection', '#ms-searchable' )).on('keydown', function(e){
-      if (e.keyCode == 40){
-        $('#ms-searchable').children('.ms-selection').find('.ms-list').focus();
-        return false;
+        that.qs2 = $('#search2').quicksearch('#ms-searchable .ms-elem-selection.ms-selected', {})
+        .on('keydown', function(e){
+          if (e.which == 40){
+            that.$selectionUl.focus();
+            return false;
+          }
+        });
+      },
+      afterSelect: function(){
+        this.qs1.cache();
+        this.qs2.cache();
+      },
+      afterDeselect: function(){
+        this.qs1.cache();
+        this.qs2.cache();
       }
     });</code></pre>
         </div>
