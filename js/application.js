@@ -15,7 +15,6 @@
 
     $('#search1').quicksearch($('.ms-elem-selectable', '#ms-searchable' )).on('keydown', function(e){
       if (e.keyCode == 40){
-        $(this).trigger('focusout');
         $('#searchable').focus();
         return false;
       }
@@ -23,9 +22,7 @@
 
     $('#search2').quicksearch($('.ms-elem-selection', '#ms-searchable' )).on('keydown', function(e){
       if (e.keyCode == 40){
-        $(this).trigger('focusout');
-        console.log('focus selection')
-        $('.ms-selection', '#searchable').focus();
+        $('#ms-searchable').children('.ms-selection').find('.ms-list').focus();
         return false;
       }
     });
