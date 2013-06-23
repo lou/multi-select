@@ -80,7 +80,6 @@
               .append($(optgroupUlTemplate)
                 .append(optgroupSelectableLi));
 
-            that.$selectableUl.data('ms-mouse-active', false);
             that.$selectableUl.append(optgroupSelectable);
 
             optgroupSelectionLi.html(optgroupLabel);
@@ -89,7 +88,6 @@
               .append($(optgroupUlTemplate)
                 .append(optgroupSelectionLi));
 
-            that.$selectionUl.data('ms-mouse-active', false);
             that.$selectionUl.append(optgroupSelection);
 
             optgroupCpt++;
@@ -231,7 +229,6 @@
       // Deactive mouseenter event when move is active
       // It fixes a bug when mouse is over the list
       $elems.off('mouseenter');
-      $list.data('ms-mouse-active', false);
 
       $elems.removeClass('ms-hover');
       if (direction === 1){ // DOWN
@@ -309,15 +306,12 @@
       var that = this;
 
       $list.on('mousemove', function(){
-        if ($list.data('ms-mouse-active') === false){
-          var elems = $list.find(that.elemsSelector);
+        var elems = $list.find(that.elemsSelector);
 
-          elems.on('mouseenter', function(){
-            elems.removeClass('ms-hover');
-            $(this).addClass('ms-hover');
-            $list.data('ms-mouse-active', true);
-          });
-        }
+        elems.on('mouseenter', function(){
+          elems.removeClass('ms-hover');
+          $(this).addClass('ms-hover');
+        });
       });
     },
 
