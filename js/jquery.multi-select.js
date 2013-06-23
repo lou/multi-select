@@ -362,8 +362,6 @@
           });
         }
         if (method !== 'init'){
-          that.$selectionUl.focusout();
-          that.$selectableUl.focusin();
           ms.trigger('change');
           if (typeof that.options.afterSelect === 'function') {
             that.options.afterSelect.call(this, value);
@@ -404,8 +402,6 @@
             }
           });
         }
-        this.$selectableUl.focusout();
-        this.$selectionUl.focusin();
         ms.trigger('change');
         if (typeof that.options.afterDeselect === 'function') {
           that.options.afterDeselect.call(this, value);
@@ -422,8 +418,7 @@
       this.$selectionUl.find('.ms-optgroup-label').show();
       this.$selectableUl.find('.ms-optgroup-label').hide();
       this.$selectionUl.find('.ms-elem-selection').addClass('ms-selected').show();
-      this.$selectionUl.focusin();
-      this.$selectableUl.focusout();
+      this.$selectionUl.focus();
       ms.trigger('change');
       if (typeof this.options.afterSelect === 'function') {
         var selectedValues = $.grep(ms.val(), function(item){
@@ -442,8 +437,7 @@
       this.$selectionUl.find('.ms-optgroup-label').hide();
       this.$selectableUl.find('.ms-optgroup-label').show();
       this.$selectionUl.find('.ms-elem-selection').removeClass('ms-selected').hide();
-      this.$selectableUl.focusin();
-      this.$selectionUl.focusout();
+      this.$selectableUl.focus();
       ms.trigger('change');
       if (typeof this.options.afterDeselect === 'function') {
         this.options.afterDeselect.call(this, values);
