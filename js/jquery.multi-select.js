@@ -26,7 +26,7 @@
     this.$container = $('<div/>', { 'id': "ms-"+id, 'class': "ms-container" });
     this.$selectableContainer = $('<div/>', { 'class': 'ms-selectable' });
     this.$selectionContainer = $('<div/>', { 'class': 'ms-selection' });
-    this.$selectableUl = $('<ul/>', { 'class': "ms-list", 'tabindex' : '0' });
+    this.$selectableUl = $('<ul/>', { 'class': "ms-list", 'tabindex' : '-1' });
     this.$selectionUl = $('<ul/>', { 'class': "ms-list", 'tabindex' : '-1' });
     this.scrollTo = 0;
     this.sanitizeRegexp = new RegExp("\\W+", 'gi');
@@ -176,6 +176,10 @@
 
         that.activeMouse(that.$selectionUl);
         that.activeKeyboard(that.$selectionUl);
+
+        ms.on('focus', function(){
+          that.$selectableUl.focus();
+        })
       }
 
       var selectedValues = ms.find('option:selected').map(function(){ return $(this).val(); }).get();

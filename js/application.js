@@ -1,9 +1,6 @@
 // Put your application scripts here
 (function($){
   $(function(){
-    // $('body').on('keypress', function(){
-    //   console.log($(':focus'));  
-    // });
     
     $('.multiselect').multiSelect({});
 
