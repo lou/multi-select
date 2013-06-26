@@ -70,7 +70,7 @@ h4{
   background-position: 168px 110px;
 }
 
-#search1, #search2{
+input.search-input{
   box-sizing: border-box;
   -moz-box-sizing:border-box;
   width: 100%;
