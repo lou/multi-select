@@ -21,9 +21,7 @@
     this.options = options;
     this.$element = $(element);
 
-    var id = this.$element.attr('id');
-
-    this.$container = $('<div/>', { 'id': "ms-"+id, 'class': "ms-container" });
+    this.$container = $('<div/>', { 'class': "ms-container" });
     this.$selectableContainer = $('<div/>', { 'class': 'ms-selectable' });
     this.$selectionContainer = $('<div/>', { 'class': 'ms-selection' });
     this.$selectableUl = $('<ul/>', { 'class': "ms-list", 'tabindex' : '-1' });
@@ -42,7 +40,8 @@
 
       if (ms.next('.ms-container').length === 0){
         ms.css({ position: 'absolute', left: '-9999px' });
-        ms.attr('id', ms.attr('id') ? ms.attr('id') : 'ms-'+Math.ceil(Math.random()*1000));
+        ms.attr('id', ms.attr('id') ? ms.attr('id') : Math.ceil(Math.random()*1000)+'multiselect');
+        this.$container.attr('id', 'ms-'+ms.attr('id'));
 
         var optgroupLabel = null,
             optgroupId = null,
