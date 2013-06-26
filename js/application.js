@@ -4,17 +4,17 @@
     
     $('.multiselect').multiSelect({});
 
-
-
     $('.searchable').multiSelect({
       selectableHeader: "<input type='text' class='search-input' autocomplete='off' placeholder='try \"12\"'>",
       selectionHeader: "<input type='text' class='search-input' autocomplete='off' placeholder='try \"4\"'>",
       afterInit: function(ms){
         var that = this,
-            $selectableSearch = that.$selectableUl.prev().first(),
-            $selectionSearch = that.$selectionUl.prev().first();
+            $selectableSearch = that.$selectableUl.prev(),
+            $selectionSearch = that.$selectionUl.prev(),
+            selectableSearchString = '#'+that.$container.attr('id')+' .ms-elem-selectable:not(.ms-selected)',
+            selectionSearchString = '#'+that.$container.attr('id')+' .ms-elem-selection.ms-selected';
 
-        that.qs1 = $selectableSearch.quicksearch('#'+that.$container.attr('id')+' .ms-elem-selectable:not(.ms-selected)')
+        that.qs1 = $selectableSearch.quicksearch(selectableSearchString)
         .on('keydown', function(e){
           if (e.which === 40){
             that.$selectableUl.focus();
@@ -22,7 +22,7 @@
           }
         });
 
-        that.qs2 = $selectionSearch.quicksearch('#'+that.$container.attr('id')+' .ms-elem-selection.ms-selected')
+        that.qs2 = $selectionSearch.quicksearch(selectionSearchString)
         .on('keydown', function(e){
           if (e.which == 40){
             that.$selectionUl.focus();

@@ -1891,13 +1891,17 @@
         </div>
         <div class='span12'>
           <pre><code data-language='html'>&lt;select id='custom-headers' multiple='multiple'&gt;&#x000A;  &lt;option value='elem_1'&gt;elem 1&lt;/option&gt;&#x000A;  &lt;option value='elem_2'&gt;elem 2&lt;/option&gt;&#x000A;  &lt;option value='elem_3'&gt;elem 3&lt;/option&gt;&#x000A;  &lt;option value='elem_4'&gt;elem 4&lt;/option&gt;&#x000A;  ...&#x000A;  &lt;option value='elem_100'&gt;elem 100&lt;/option&gt;&#x000A;&lt;/select&gt;</code></pre>
-          <pre><code data-language='javascript'>$('#searchable').multiSelect({
-  selectableHeader: "&lt;input type='text' id='search1' autocomplete='off' placeholder='try \"12\"'&gt;",
-  selectionHeader: "&lt;input type='text' id='search2' autocomplete='off' placeholder='try \"4\"'&gt;",
+          <pre><code data-language='javascript'>$('.searchable').multiSelect({
+  selectableHeader: "&lt;input type='text' class='search-input' autocomplete='off' placeholder='try \"12\"'&gt;",
+  selectionHeader: "&lt;input type='text' class='search-input' autocomplete='off' placeholder='try \"4\"'&gt;",
   afterInit: function(ms){
-    var that = this;
+    var that = this,
+        $selectableSearch = that.$selectableUl.prev(),
+        $selectionSearch = that.$selectionUl.prev(),
+        selectableSearchString = '#'+that.$container.attr('id')+' .ms-elem-selectable:not(.ms-selected)',
+        selectionSearchString = '#'+that.$container.attr('id')+' .ms-elem-selection.ms-selected';
 
-    that.qs1 = $('#search1').quicksearch('#ms-searchable .ms-elem-selectable:not(.ms-selected)', {})
+    that.qs1 = $selectableSearch.quicksearch(selectableSearchString)
     .on('keydown', function(e){
       if (e.which === 40){
         that.$selectableUl.focus();
@@ -1905,7 +1909,7 @@
       }
     });
 
-    that.qs2 = $('#search2').quicksearch('#ms-searchable .ms-elem-selection.ms-selected', {})
+    that.qs2 = $selectionSearch.quicksearch(selectionSearchString)
     .on('keydown', function(e){
       if (e.which == 40){
         that.$selectionUl.focus();
