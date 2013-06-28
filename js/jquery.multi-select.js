@@ -63,12 +63,12 @@
 
             if (that.options.selectableOptgroup){
               optgroupSelectableLi.on('click', function(){
-                var values = optgroup.children(':not(:selected)').map(function(){ return $(this).val(); }).get();
+                var values = optgroup.children(':not(:selected):not(:disabled)').map(function(){ return $(this).val(); }).get();
                 that.select(values);
               });
 
               optgroupSelectionLi.on('click', function(){
-                var values = optgroup.children(':selected').map(function(){ return $(this).val(); }).get();
+                var values = optgroup.children(':selected:not(:disabled)').map(function(){ return $(this).val(); }).get();
                 that.deselect(values);
               });
             }
