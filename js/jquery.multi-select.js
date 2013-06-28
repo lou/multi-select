@@ -122,13 +122,8 @@
             that.$selectionUl.find('.ms-optgroup-label').hide();
 
             if ($(this).prop('disabled') || ms.prop('disabled')){
-              if (this.selected) {
-                selectedLi.prop('disabled', true);
-                selectedLi.addClass(that.options.disabledClass);
-              } else {
-                selectableLi.prop('disabled', true);
-                selectableLi.addClass(that.options.disabledClass);
-              }
+              selectedLi.addClass(that.options.disabledClass);
+              selectableLi.addClass(that.options.disabledClass);
             }
 
             if (optgroupId){
@@ -335,8 +330,8 @@
           ms = this.$element,
           msIds = $.map(value, function(val){ return(that.sanitize(val, that.sanitizeRegexp)); }),
           selectables = this.$selectableUl.find('#' + msIds.join('-selectable, #')+'-selectable').filter(':not(.'+that.options.disabledClass+')'),
-          selections = this.$selectionUl.find('#' + msIds.join('-selection, #') + '-selection'),
-          options = ms.find('option').filter(function(){ return($.inArray(this.value, value) > -1); });
+          selections = this.$selectionUl.find('#' + msIds.join('-selection, #') + '-selection').filter(':not(.'+that.options.disabledClass+')'),
+          options = ms.find('option:not(:disabled)').filter(function(){ return($.inArray(this.value, value) > -1); });
 
       if (selectables.length > 0){
         selectables.addClass('ms-selected').hide();
@@ -412,11 +407,11 @@
       var ms = this.$element,
           values = ms.val();
 
-      ms.find('option').prop('selected', true);
-      this.$selectableUl.find('.ms-elem-selectable').addClass('ms-selected').hide();
+      ms.find('option:not(":disabled")').prop('selected', true);
+      this.$selectableUl.find('.ms-elem-selectable').filter(':not(.'+this.options.disabledClass+')').addClass('ms-selected').hide();
       this.$selectionUl.find('.ms-optgroup-label').show();
       this.$selectableUl.find('.ms-optgroup-label').hide();
-      this.$selectionUl.find('.ms-elem-selection').addClass('ms-selected').show();
+      this.$selectionUl.find('.ms-elem-selection').filter(':not(.'+this.options.disabledClass+')').addClass('ms-selected').show();
       this.$selectionUl.focus();
       ms.trigger('change');
       if (typeof this.options.afterSelect === 'function') {
