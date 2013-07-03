@@ -98,7 +98,7 @@
             for (var cpt = 0; cpt < this.attributes.length; cpt++){
               var attr = this.attributes[cpt];
 
-              if(that.isDomNode(attr.name)){
+              if(attr.name !== 'value'){
                 attributes += attr.name+'="'+attr.value+'" ';
               }
             }
@@ -436,15 +436,6 @@
       if (typeof this.options.afterDeselect === 'function') {
         this.options.afterDeselect.call(this, values);
       }
-    },
-
-    isDomNode: function (attr){
-      return (
-        attr &&
-        typeof attr === "object" &&
-        typeof attr.nodeType === "number" &&
-        typeof attr.nodeName === "string"
-      );
     },
 
     sanitize: function(value, reg){
