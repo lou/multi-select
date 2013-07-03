@@ -43,14 +43,6 @@
         ms.attr('id', ms.attr('id') ? ms.attr('id') : Math.ceil(Math.random()*1000)+'multiselect');
         this.$container.attr('id', 'ms-'+ms.attr('id'));
 
-        var optgroupLabel = null,
-            optgroupId = null,
-            optgroupCpt = 0,
-            optgroupContainerTemplate = '<li class="ms-optgroup-container"></li>',
-            optgroupUlTemplate = '<ul class="ms-optgroup"></ul>',
-            optgroupLiTemplate = '<li class="ms-optgroup-label"><span></span></li>';
-
-
         ms.find('option').each(function(){
           that.generateLisFromOption(this);
         });
