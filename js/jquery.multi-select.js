@@ -340,6 +340,10 @@
               $(this).find('.ms-optgroup-label').show();
             }
           });
+        } else {
+          if (that.options.keepOrder){
+            selections.insertAfter(that.$selectionUl.find('.ms-selected').last());  
+          }
         }
         if (method !== 'init'){
           ms.trigger('change');
@@ -454,7 +458,8 @@
   $.fn.multiSelect.defaults = {
     selectableOptgroup: false,
     disabledClass : 'disabled',
-    dblClick : false
+    dblClick : false,
+    keepOrder: true
   };
 
   $.fn.multiSelect.Constructor = MultiSelect;
