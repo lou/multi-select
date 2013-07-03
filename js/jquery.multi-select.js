@@ -459,7 +459,7 @@
     selectableOptgroup: false,
     disabledClass : 'disabled',
     dblClick : false,
-    keepOrder: true
+    keepOrder: false
   };
 
   $.fn.multiSelect.Constructor = MultiSelect;
