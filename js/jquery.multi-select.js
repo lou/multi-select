@@ -103,9 +103,8 @@
               }
             }
             var selectableLi = $('<li '+attributes+'><span>'+$(this).text()+'</span></li>'),
-                selectedLi = selectableLi.clone();
-
-            var value = $(this).val(),
+                selectedLi = selectableLi.clone(),
+                value = $(this).val(),
                 msId = that.sanitize(value, that.sanitizeRegexp);
 
             selectableLi
