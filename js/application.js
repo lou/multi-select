@@ -40,6 +40,10 @@
       }
     });
 
+
+    $('#keep-order').multiSelect({
+      keepOrder: true
+    });
     
     $('#optgroup').multiSelect({
       selectableOptgroup: true
