@@ -8,7 +8,6 @@
 * To Public License, Version 2, as published by Sam Hocevar. See
 * http://sam.zoy.org/wtfpl/COPYING for more details.
 */
-
 !function ($) {
 
   "use strict";
@@ -55,14 +54,15 @@
             divideInto = (listLength > this.options.chunk ? Math.floor(listLength / this.options.chunk) : 1),
             chunkSize = listLength / divideInto,
             iteration = 0,
-            index = 0;
+            index = 0,
+            items = ms.children().toArray();
 
         setTimeout(function generateList(){
           iteration++;
           var base = chunkSize * iteration;
 
           while (index < base){
-            var $elem = ms.children().eq(index);
+            var $elem = $(items[index]);
 
             if ($elem.is('optgroup')){
               optgroupLabel = '<span>'+$elem.attr('label')+'</span>';
@@ -155,9 +155,9 @@
             index++;
           }
           if (iteration < divideInto){
-            setTimeout(generateList, 0);
+            setTimeout(generateList, 5); // 5 is the lowest allowable by some browsers
           }
-        }, 0);
+        }, 5);
 
 
         if (that.options.selectableHeader){
@@ -290,7 +290,7 @@
       }
       if ($nextElem.length > 0){
         $nextElem.addClass('ms-hover');
-        var scrollTo = $list.scrollTop() + $nextElem.position().top - 
+        var scrollTo = $list.scrollTop() + $nextElem.position().top -
                        containerHeight / 2 + elemHeight / 2;
 
         $list.scrollTop(scrollTo);
