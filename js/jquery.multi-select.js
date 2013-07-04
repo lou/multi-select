@@ -28,7 +28,7 @@
     this.$selectionUl = $('<ul/>', { 'class': "ms-list", 'tabindex' : '-1' });
     this.scrollTo = 0;
     this.sanitizeRegexp = new RegExp("\\W+", 'gi');
-    this.elemsSelector = 'li:visible:not(.ms-optgroup-label,.ms-optgroup-container)';
+    this.elemsSelector = 'li:visible:not(.ms-optgroup-label,.ms-optgroup-container,.'+options.disabledClass+')';
   };
 
   MultiSelect.prototype = {
