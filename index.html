@@ -274,7 +274,7 @@
           <h3>Pre-selected options</h3>
         </div>
         <div class='span7'>
-          <pre><code data-language='html'>&lt;select id='pre-selected-options' multiple='multiple'&gt;&#x000A;  &lt;option value='elem_1'&gt;elem 1&lt;/option&gt;&#x000A;  &lt;option value='elem_2'&gt;elem 2&lt;/option&gt;&#x000A;  &lt;option value='elem_3'&gt;elem 3&lt;/option&gt;&#x000A;  &lt;option value='elem_4'&gt;elem 4&lt;/option&gt;&#x000A;  ...&#x000A;  &lt;option value='elem_100'&gt;elem 100&lt;/option&gt;&#x000A;&lt;/select&gt;</code></pre>
+          <pre><code data-language='html'>&lt;select id='pre-selected-options' multiple='multiple'&gt;&#x000A;  &lt;option value='elem_1' selected&gt;elem 1&lt;/option&gt;&#x000A;  &lt;option value='elem_2'&gt;elem 2&lt;/option&gt;&#x000A;  &lt;option value='elem_3'&gt;elem 3&lt;/option&gt;&#x000A;  &lt;option value='elem_4' selected&gt;elem 4&lt;/option&gt;&#x000A;  ...&#x000A;  &lt;option value='elem_100'&gt;elem 100&lt;/option&gt;&#x000A;&lt;/select&gt;</code></pre>
           <pre><code data-language='javascript'>$('#pre-selected-options').multiSelect();</code></pre>
         </div>
         <div class='span5'>
@@ -282,7 +282,7 @@
           <option value="elem_1" selected>elem 1</option>
           <option value="elem_2">elem 2</option>
           <option value="elem_3">elem 3</option>
-          <option value="elem_4">elem 4</option>
+          <option value="elem_4" selected>elem 4</option>
           <option value="elem_5">elem 5</option>
           <option value="elem_6">elem 6</option>
           <option value="elem_7">elem 7</option>
@@ -320,7 +320,7 @@
           <option value="elem_39">elem 39</option>
           <option value="elem_40">elem 40</option>
           <option value="elem_41">elem 41</option>
-          <option value="elem_42" selected>elem 42</option>
+          <option value="elem_42">elem 42</option>
           <option value="elem_43">elem 43</option>
           <option value="elem_44">elem 44</option>
           <option value="elem_45">elem 45</option>
@@ -621,7 +621,7 @@
           <h3>Public methods</h3>
         </div>
         <div class='span7'>
-          <pre><code data-language='html'>&lt;a href='#' id='select-all'&gt;select all&lt;/a&gt;&#x000A;&lt;a href='#' id='deselect-all'&gt;deselect all&lt;/a&gt;&#x000A;&lt;a href='#' id='select-100'&gt;select 100 elems&lt;/a&gt;&#x000A;&lt;a href='#' id='deselect-100'&gt;deselect 100 elems&lt;/a&gt;&#x000A;&lt;select id='public-methods' multiple='multiple'&gt;&#x000A;  &lt;option value='elem_1'&gt;elem 1&lt;/option&gt;&#x000A;  &lt;option value='elem_2'&gt;elem 2&lt;/option&gt;&#x000A;  &lt;option value='elem_3'&gt;elem 3&lt;/option&gt;&#x000A;  &lt;option value='elem_4'&gt;elem 4&lt;/option&gt;&#x000A;  ...&#x000A;  &lt;option value='elem_1000'&gt;elem 100&lt;/option&gt;&#x000A;&lt;/select&gt;</code></pre>
+          <pre><code data-language='html'>&lt;a href='#' id='select-all'&gt;select all&lt;/a&gt;&#x000A;&lt;a href='#' id='deselect-all'&gt;deselect all&lt;/a&gt;&#x000A;&lt;a href='#' id='select-100'&gt;select 100 elems&lt;/a&gt;&#x000A;&lt;a href='#' id='deselect-100'&gt;deselect 100 elems&lt;/a&gt;&#x000A;&lt;select id='public-methods' multiple='multiple'&gt;&#x000A;  &lt;option value='elem_1'&gt;elem 1&lt;/option&gt;&#x000A;  &lt;option value='elem_2' disabled&gt;elem 2&lt;/option&gt;&#x000A;  &lt;option value='elem_3'&gt;elem 3&lt;/option&gt;&#x000A;  &lt;option value='elem_4'&gt;elem 4&lt;/option&gt;&#x000A;  ...&#x000A;  &lt;option value='elem_1000'&gt;elem 100&lt;/option&gt;&#x000A;&lt;/select&gt;</code></pre>
           <pre><code data-language='javascript'>$('#public-methods').multiSelect();&#x000A;$('select-all').click(function(){&#x000A;  $('#public-methods').multiSelect('select_all');&#x000A;  return false;&#x000A;});&#x000A;$('deselect-all').click(function(){&#x000A;  $('#public-methods').multiSelect('deselect_all');&#x000A;  return false;&#x000A;});&#x000A;$('select-100').click(function(){&#x000A;  $('#public-methods').multiSelect('select', ['elem_0', 'elem_1' ..., 'elem_99']);&#x000A;  return false;&#x000A;});&#x000A;$('deselect-100').click(function(){&#x000A;  $('#public-methods').multiSelect('deselect', ['elem_0', 'elem_1' ..., 'elem_99']);&#x000A;  return false;&#x000A;});</code></pre>
         </div>
         <div class='span5'>
@@ -640,9 +640,9 @@
           <option value="elem_1">elem 1</option>
           <option value="elem_2" disabled>elem 2</option>
           <option value="elem_3">elem 3</option>
-          <option value="elem_4" disabled>elem 4</option>
+          <option value="elem_4">elem 4</option>
           <option value="elem_5">elem 5</option>
-          <option value="elem_6" selected disabled>elem 6</option>
+          <option value="elem_6">elem 6</option>
           <option value="elem_7">elem 7</option>
           <option value="elem_8">elem 8</option>
           <option value="elem_9">elem 9</option>
@@ -1653,7 +1653,7 @@
           <h3>Optgroup</h3>
         </div>
         <div class='span7'>
-          <pre><code data-language='html'>&lt;select id='optgroup' multiple='multiple'&gt;&#x000A;  &lt;optgroup label='Friends'&gt;&#x000A;    &lt;option value='1'&gt;Yoda&lt;/option&gt;&#x000A;    &lt;option value='2'&gt;Obiwan&lt;/option&gt;&#x000A;  &lt;/optgroup&gt;&#x000A;  &lt;optgroup label='Enemies'&gt;&#x000A;    &lt;option value='3'&gt;Palpatine&lt;/option&gt;&#x000A;    &lt;option value='4'&gt;Darth Vader&lt;/option&gt;&#x000A;  &lt;/optgroup&gt;&#x000A;&lt;/select&gt;</code></pre>
+          <pre><code data-language='html'>&lt;select id='optgroup' multiple='multiple'&gt;&#x000A;  &lt;optgroup label='Friends'&gt;&#x000A;    &lt;option value='1'&gt;Yoda&lt;/option&gt;&#x000A;    &lt;option value='2'&gt;Obiwan&lt;/option&gt;&#x000A;  &lt;/optgroup&gt;&#x000A;  &lt;optgroup label='Enemies'&gt;&#x000A;    &lt;option value='3'&gt;Palpatine&lt;/option&gt;&#x000A;    &lt;option value='4' disabled&gt;Darth Vader&lt;/option&gt;&#x000A;  &lt;/optgroup&gt;&#x000A;&lt;/select&gt;</code></pre>
           <pre><code data-language='javascript'>$('#optgroup').multiSelect({ selectableOptgroup: true });</code></pre>
         </div>
         <div class='span5'>
