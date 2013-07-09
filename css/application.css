@@ -1,3 +1,8 @@
+h1{
+  margin: 0;
+  padding: 0;
+  line-height: 0.5em;
+}
 .navbar .brand{
   padding: 9px 20px 8px;
 }
@@ -12,7 +17,7 @@
   color: #aaa;
 }
 
- .hero-unit .ms-container ul.ms-list{
+.hero-unit .ms-container ul.ms-list{
   height: 250px;
 }
 
@@ -22,6 +27,20 @@
 
 .hero-unit ul.describe{
   float: left;
+  list-style-type: none;
+  list-style-image: url(../img/check.png);
+  margin-left: 3em;
+}
+
+.hero-unit ul.describe li{
+  padding-left: 0.5em;
+}
+
+.hero-unit p{
+  font-size: 1.5em;
+  text-align: center;
+  margin: 1em 0em 2em;
+  line-height: 1.5em;
 }
 
 .hero-multiselect{
