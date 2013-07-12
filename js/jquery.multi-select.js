@@ -84,10 +84,8 @@
         that.activeMouse(that.$selectionUl);
         that.activeKeyboard(that.$selectionUl);
 
-        ms.on('focus', function(e){
-          if (!$(e.relatedTarget).is('ul.ms-list')) {
-	    that.$selectableUl.focus();
-	  }
+        ms.on('focus', function(){
+          that.$selectableUl.focus();
         })
       }
 
@@ -200,11 +198,6 @@
             e.stopPropagation();
             that.switchList($list);
             return;
-          case 9:
-	    if (e.shiftKey) {
-	      that.$element.focus().trigger(e);
-	    }
-	    return true;
         }
       });
     },
