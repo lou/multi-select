@@ -84,8 +84,10 @@
         that.activeMouse(that.$selectionUl);
         that.activeKeyboard(that.$selectionUl);
 
-        ms.on('focus', function(){
-          that.$selectableUl.focus();
+        ms.on('focus', function(e){
+          if (!$(e.relatedTarget).is('ul.ms-list')) {
+            that.$selectableUl.focus();
+          }
         })
       }
 
@@ -198,6 +200,11 @@
             e.stopPropagation();
             that.switchList($list);
             return;
+          case 9:
+            if (e.shiftKey) {
+              that.$element.focus().trigger(e);
+            }
+            return true;
         }
       });
     },
@@ -287,16 +294,14 @@
     },
 
     'activeMouse' : function($list){
-      var that = this;
-
-      $list.on('mousemove', function(){
-        var elems = $list.find(that.elemsSelector);
-
-        elems.on('mouseenter', function(){
-          elems.removeClass('ms-hover');
-          $(this).addClass('ms-hover');
-        });
-      });
+      $list.on('mouseenter', this.elemsSelector, function() {
+  			var $this = $(this);
+				
+				if (!$this.hasClass('ms-hover')) {
+					$list.find('.ms-hover').removeClass('ms-hover');
+					$this.addClass('ms-hover');
+				}
+			});
     },
 
     'refresh' : function() {
