@@ -287,16 +287,14 @@
     },
 
     'activeMouse' : function($list){
-      var that = this;
-
-      $list.on('mousemove', function(){
-        var elems = $list.find(that.elemsSelector);
-
-        elems.on('mouseenter', function(){
-          elems.removeClass('ms-hover');
-          $(this).addClass('ms-hover');
-        });
-      });
+      $list.on('mouseenter', this.elemsSelector, function() {
+  			var $this = $(this);
+				
+				if (!$this.hasClass('ms-hover')) {
+					$list.find('.ms-hover').removeClass('ms-hover');
+					$this.addClass('ms-hover');
+				}
+			});
     },
 
     'refresh' : function() {
