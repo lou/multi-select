@@ -1,0 +1,19 @@
+{
+    "name": "multi-select"
+  , "description": "Sleek, intuitive, and powerful front-end framework for faster and easier web development."
+  , "version": "0.9.8"
+  , "keywords": ["select", "multiselect"]
+  , "homepage": "http://loudev.com"
+  , "author": "lou"
+  , "scripts": { "test": "make test" }
+  , "repository": {
+        "type": "git"
+      , "url": "https://github.com/lou/multi-select.git"
+    }
+  , "licenses": [
+      {
+          "type": "WTFL"
+        , "url": "http://www.wtfpl.net/txt/copying/"
+      }
+    ]
+}
