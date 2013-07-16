@@ -1,0 +1,8 @@
+{
+  "name": "multiselect",
+  "version": "0.9.8",
+  "main": ["css/multi-select.css", "img/switch.png", "js/jquery.multi-select.js"],
+  "dependencies" : {
+    "jquery" ">= 1.7.1"
+  }
+}
