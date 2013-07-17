@@ -9,7 +9,7 @@ h1{
 
 .navbar iframe{
   float: left;
-  margin-top: 10px;
+  margin: 10px 0px 0px 1em;
 }
 
 .brand span{
