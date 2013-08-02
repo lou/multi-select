@@ -92,3 +92,7 @@
   color: #aaa;
   cursor: text;
 }
+
+.ms-container input {
+  width: 100%;
+}
