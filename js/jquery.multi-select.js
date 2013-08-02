@@ -400,11 +400,16 @@
       var ms = this.$element,
           values = ms.val();
 
-      ms.find('option:not(":disabled")').prop('selected', true);
-      this.$selectableUl.find('.ms-elem-selectable').filter(':not(.'+this.options.disabledClass+')').addClass('ms-selected').hide();
+      ms.find('option:not(":disabled"):visible').prop('selected', true);
+      var selected = this.$selectableUl.find('.ms-elem-selectable:visible').filter(':not(.'+this.options.disabledClass+')');
+      selected.addClass('ms-selected').hide();
       this.$selectionUl.find('.ms-optgroup-label').show();
       this.$selectableUl.find('.ms-optgroup-label').hide();
-      this.$selectionUl.find('.ms-elem-selection').filter(':not(.'+this.options.disabledClass+')').addClass('ms-selected').show();
+      
+      var ids = [];
+      selected.each(function() {ids.push('#' + $(this).data('msValue') + '-selection');});
+      
+      this.$selectionUl.find(ids.join(',')).filter(':not(.'+this.options.disabledClass+')').addClass('ms-selected').show();
       this.$selectionUl.focus();
       ms.trigger('change');
       if (typeof this.options.afterSelect === 'function') {
@@ -419,11 +424,16 @@
       var ms = this.$element,
           values = ms.val();
 
-      ms.find('option').prop('selected', false);
-      this.$selectableUl.find('.ms-elem-selectable').removeClass('ms-selected').show();
+      ms.find('option:visible').prop('selected', false);
+      var selected = this.$selectionUl.find('.ms-elem-selection:visible');
+      selected.removeClass('ms-selected').hide();
       this.$selectionUl.find('.ms-optgroup-label').hide();
       this.$selectableUl.find('.ms-optgroup-label').show();
-      this.$selectionUl.find('.ms-elem-selection').removeClass('ms-selected').hide();
+      
+      var ids = [];
+      selected.each(function() {ids.push('#' + $(this).data('msValue') + '-selectable');});
+
+      this.$selectableUl.find(ids.join(',')).filter(':not(.'+this.options.disabledClass+')').addClass('ms-selected').show();
       this.$selectableUl.focus();
       ms.trigger('change');
       if (typeof this.options.afterDeselect === 'function') {
