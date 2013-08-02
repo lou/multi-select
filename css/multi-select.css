@@ -30,7 +30,7 @@
 
 
 .ms-selected{
-  display:none;
+  display:block;
 }
 .ms-container .ms-selectable{
   margin-right: 40px;
