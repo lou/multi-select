@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>DEMO - jQuery multiselect</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        
+    <!-- BOOTSTRAP -->
+    <link href="assets/bootstrap/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css" />
+
+    <!-- DEMOSTYLE -->
+    <link href="assets/demostyle.css" media="screen" rel="stylesheet" type="text/css" />    
+
+    <!-- MULTISELECT / REQUIERED RESOURCES -->
+    <link href="assets/multiselect/multiselect.css" media="screen" rel="stylesheet" type="text/css" />
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <div>
+        <h3 class="muted">DEMO - jQuery multiselect</h3>
+      </div>
+
+      <hr />
+
+      <div>
+        <a href='#' id='select-all'>select all</a> | <a href='#' id='deselect-all'>deselect all</a> | <a href="#" id="refresh">refresh</a><br /><br />
+
+        <select multiple class="custom" name="custom[]" >
+          <option value="elem_1">elem 1</option>
+          <option value="elem_2" selected>elem 2</option>
+          <option value="elem_3">elem 3</option>
+          <option value="elem_4" selected>elem 4</option>
+          <option value="elem_5">elem 5</option>
+          <option value="elem_6" selected>elem 6</option>
+          <option value="elem_7">elem 7</option>
+          <option value="elem_8">elem 8</option>
+          <option value="elem_9">elem 9</option>
+          <option value="elem_10">elem 10</option>
+          <option value="elem_11">elem 11</option>
+          <option value="elem_12">elem 12</option>
+          <option value="elem_13">elem 13</option>
+          <option value="elem_14">elem 14</option>
+          <option value="elem_15">elem 15</option>
+        </select>
+      </div>
+
+    </div>
+
+    <!-- BOOTSTRAP -->
+    <script src="assets/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+  
+    <!-- MULTISELECT / REQUIERED RESOURCES -->
+    <script src="assets/multiselect/jquery-2.0.3.min.js" type="text/javascript"></script>
+    <script src="assets/multiselect/jquery.tinysort.js" type="text/javascript"></script>
+    <script src="assets/multiselect/jquery.quicksearch.js" type="text/javascript"></script>
+    <script src="assets/multiselect/jquery.multi-select.js" type="text/javascript"></script>
+    
+    <!-- MULTISELECT / CUSTOM SETTINGS -->
+    <script type="text/javascript">
+        
+        /* $('.custom').multiSelect(); */
+        
+        $('.custom').multiSelect({
+          selectableHeader: "<input type='text' class='search-input' autocomplete='off' placeholder='try \"12\"'>",
+          selectionHeader:  "<input type='text' class='search-input' autocomplete='off' placeholder='try \"4\"'>",
+          selectableFooter: "<div class='custom-header'>Selectable Footer</div>",
+          selectionFooter:  "<div class='custom-header'>Selection Footer</div>",      
+          
+          afterInit: function(ms){
+            var that = this,
+                $selectableSearch = that.$selectableUl.prev(),
+                $selectionSearch = that.$selectionUl.prev(),
+                selectableSearchString = '#'+that.$container.attr('id')+' .ms-elem-selectable:not(.ms-selected)',
+                selectionSearchString = '#'+that.$container.attr('id')+' .ms-elem-selection.ms-selected';
+    
+            that.qs1 = $selectableSearch.quicksearch(selectableSearchString)
+            .on('keydown', function(e){
+              if (e.which === 40){
+                that.$selectableUl.focus();
+                return false;
+              }
+            });
+    
+            that.qs2 = $selectionSearch.quicksearch(selectionSearchString)
+            .on('keydown', function(e){
+              if (e.which == 40){
+                that.$selectionUl.focus();
+                return false;
+              }
+            });
+          },
+          afterSelect: function(){
+            this.qs1.cache();
+            this.qs2.cache();
+          },
+          afterDeselect: function(){
+            this.qs1.cache();
+            this.qs2.cache();
+          }
+        });
+        
+        $('#select-all').click(function(){
+          $('.custom').multiSelect('select_all');
+          return false;
+        });
+        $('#deselect-all').click(function(){
+          $('.custom').multiSelect('deselect_all');
+          return false;
+        });    
+        $('#refresh').on('click', function(){
+          $('.custom').multiSelect('refresh');
+          return false;
+        })
+
+    </script>
+
+  </body>
+</html>
