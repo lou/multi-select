@@ -106,7 +106,7 @@
       for (var cpt = 0; cpt < option.attributes.length; cpt++){
         var attr = option.attributes[cpt];
 
-        if(attr.name !== 'value'){
+        if(attr.name !== 'value' && attr.name !== 'disabled'){
           attributes += attr.name+'="'+attr.value+'" ';
         }
       }
