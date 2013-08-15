@@ -73,7 +73,6 @@
         that.activeKeyboard(that.$selectableUl);
 
         var action = that.options.dblClick ? 'dblclick' : 'click';
-        if(action === 'click' && that.options.isOldIE){ action = 'mouseup'; }
 
         that.$selectableUl.on(action, '.ms-elem-selectable', function(){
           that.select($(this).data('ms-value'));
@@ -463,9 +462,7 @@
     selectableOptgroup: false,
     disabledClass : 'disabled',
     dblClick : false,
-    keepOrder: false,
-    // States:
-    isOldIE: (typeof $.browser==='object' && $.browser.msie && parseInt($.browser.version, 10) < 8) ? true : false
+    keepOrder: false
   };
 
   $.fn.multiSelect.Constructor = MultiSelect;
