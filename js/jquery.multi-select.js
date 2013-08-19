@@ -413,10 +413,7 @@
       this.$selectionUl.focus();
       ms.trigger('change');
       if (typeof this.options.afterSelect === 'function') {
-        var selectedValues = $.grep(ms.val(), function(item){
-          return $.inArray(item, values) < 0;
-        });
-        this.options.afterSelect.call(this, selectedValues);
+        this.options.afterSelect.call(this, ids);
       }
     },
 
