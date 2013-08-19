@@ -20,6 +20,9 @@
   float: left;
   width: 45%;
 }
+.ms-container .ms-selection{
+  float: right;
+}
 
 .ms-container .ms-list{
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
@@ -38,10 +41,6 @@
   height: 200px;
   padding: 0;
   overflow-y: auto;
-}
-
-.ms-container .ms-selectable{
-  margin-right: 10%;
 }
 
 .ms-container .ms-list.ms-focus{
