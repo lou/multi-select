@@ -151,8 +151,23 @@
           $selectionOptgroup.append($(optgroupTpl));
           if (that.options.selectableOptgroup){
             $selectableOptgroup.find('.ms-optgroup-label').on('click', function(){
-              var values = $optgroup.children(':not(:selected)').map(function(){ return $(this).val() }).get();
-              that.select(values);
+              var sliced = false,
+                  values = $optgroup.children(':not(:selected)');
+              if(that.options.selectionLimit){
+                var toBeSelected = values.length;
+                var leftOver = that.options.selectionLimit - that.selectionCount();
+                if(toBeSelected > leftOver){
+                  values = values.slice(0, leftOver);
+                  sliced = true;
+                }
+              }
+              values = values.map(function(){ return $(this).val() }).get();
+              if(values.length){
+                that.select(values);
+              }
+              if(sliced && (typeof that.options.limitBlocked === 'function')){
+                that.options.limitBlocked(that);
+              }
             });
             $selectionOptgroup.find('.ms-optgroup-label').on('click', function(){
               var values = $optgroup.children(':selected').map(function(){ return $(this).val() }).get();
@@ -263,13 +278,19 @@
       }
     },
 
+    'selectionCount' : function(){
+      return this.$selectionUl.find('.ms-selected').length;
+    },
+
     'selectHighlighted' : function($list){
         var $elems = $list.find(this.elemsSelector),
             $highlightedElem = $elems.filter('.ms-hover').first();
 
         if ($highlightedElem.length > 0){
           if ($list.parent().hasClass('ms-selectable')){
-            this.select($highlightedElem.data('ms-value'));
+            if(!this.select($highlightedElem.data('ms-value'))){
+              return false;
+            }
           } else {
             this.deselect($highlightedElem.data('ms-value'));
           }
@@ -319,7 +340,7 @@
           selections = this.$selectionUl.find('#' + msIds.join('-selection, #') + '-selection').filter(':not(.'+that.options.disabledClass+')'),
           options = ms.find('option:not(:disabled)').filter(function(){ return($.inArray(this.value, value) > -1); });
 
-      if (selectables.length > 0){
+      if (selectables.length && (method==='init' || (!this.options.selectionLimit || (this.selectionCount() < this.options.selectionLimit)))){
         selectables.addClass('ms-selected').hide();
         selections.addClass('ms-selected').show();
         options.prop('selected', true);
@@ -354,6 +375,15 @@
             that.options.afterSelect.call(this, value);
           }
         }
+        if(this.options.selectionLimit && (this.selectionCount() === this.options.selectionLimit) && (typeof this.options.limitReached === 'function')){
+          this.options.limitReached(this);
+        }
+        return true;
+      }else{
+        if(this.options.selectionLimit && (this.selectionCount() >= this.options.selectionLimit) && (typeof this.options.limitBlocked === 'function')){
+          this.options.limitBlocked(this);
+        }
+        return false;
       }
     },
 
@@ -396,9 +426,30 @@
       }
     },
 
-    'select_all' : function(){
+    'select_all' : function(respectLimit){
       var ms = this.$element,
-          values = ms.val();
+          values = ms.val(),
+          toBeSelected,
+          leftOver,
+          sliced = false;
+      respectLimit = respectLimit || false;
+
+      if(respectLimit && this.options.selectionLimit){
+        if(this.selectionCount() < this.options.selectionLimit){
+          toBeSelected = ms.find('option').not(':disabled, :selected');
+          leftOver = this.options.selectionLimit - this.selectionCount();
+          if(toBeSelected.length > leftOver){
+            toBeSelected = toBeSelected.slice(0, leftOver);
+            sliced = true;
+          }
+          toBeSelected = toBeSelected.map(function(){ return $(this).val(); }).get();
+          this.select(toBeSelected);
+        }
+        if(typeof this.options.limitBlocked === 'function' && (sliced || (this.selectionCount() >= this.options.selectionLimit))){
+          this.options.limitBlocked(this);
+        }
+        return;
+      }
 
       ms.find('option:not(":disabled")').prop('selected', true);
       this.$selectableUl.find('.ms-elem-selectable').filter(':not(.'+this.options.disabledClass+')').addClass('ms-selected').hide();
@@ -462,7 +513,8 @@
     selectableOptgroup: false,
     disabledClass : 'disabled',
     dblClick : false,
-    keepOrder: false
+    keepOrder: false,
+    selectionLimit: 0
   };
 
   $.fn.multiSelect.Constructor = MultiSelect;
