@@ -205,10 +205,12 @@
     'moveHighlight': function($list, direction){
       var $elems = $list.find(this.elemsSelector),
           $currElem = $elems.filter('.ms-hover'),
-          $nextElem = null,
+          $nextElem = 0,
           elemHeight = $elems.first().outerHeight(),
           containerHeight = $list.height(),
-          containerSelector = '#'+this.$container.prop('id');
+          containerSelector = '#'+this.$container.prop('id'),
+          $elemGroupParent = $currElem.parents('.ms-optgroup-container'),
+          that = this;
 
       // Deactive mouseenter event when move is active
       // It fixes a bug when mouse is over the list
@@ -217,42 +219,52 @@
       $elems.removeClass('ms-hover');
       if (direction === 1){ // DOWN
 
-        $nextElem = $currElem.nextAll(this.elemsSelector).first();
-        if ($nextElem.length === 0){
-          var $optgroupUl = $currElem.parent();
-
-          if ($optgroupUl.hasClass('ms-optgroup')){
-            var $optgroupLi = $optgroupUl.parent(),
-                $nextOptgroupLi = $optgroupLi.next(':visible');
-
-            if ($nextOptgroupLi.length > 0){
-              $nextElem = $nextOptgroupLi.find(this.elemsSelector).first();
-            } else {
-              $nextElem = $elems.first();
-            }
-          } else {
-            $nextElem = $elems.first();
-          }
+        // If last in group
+        if($elemGroupParent.length && !$currElem.nextAll(that.elemsSelector).length){
+          $currElem = $elemGroupParent;
         }
+        $currElem.nextAll('li').each(function(){
+          var $li = $(this);
+          // If this is a valid regular item
+          if($li.is(that.elemsSelector)){
+            $nextElem = $li;
+            return false;
+          }
+          // If next is a group container
+          if($li.hasClass('ms-optgroup-container')){
+            $nextElem = $li.find(that.elemsSelector).first();
+            if($nextElem.length) return false;
+          }
+        });
+        // Back to first
+        if(!$nextElem.length){
+          $nextElem = $elems.first();
+        }
+
       } else if (direction === -1){ // UP
 
-        $nextElem = $currElem.prevAll(this.elemsSelector).first();
-        if ($nextElem.length === 0){
-          var $optgroupUl = $currElem.parent();
-
-          if ($optgroupUl.hasClass('ms-optgroup')){
-            var $optgroupLi = $optgroupUl.parent(),
-                $prevOptgroupLi = $optgroupLi.prev(':visible');
-
-            if ($prevOptgroupLi.length > 0){
-              $nextElem = $prevOptgroupLi.find(this.elemsSelector).last();
-            } else {
-              $nextElem = $elems.last();
-            }
-          } else {
-            $nextElem = $elems.last();
-          }
+        // If first in group
+        if($elemGroupParent.length && !$currElem.prevAll(that.elemsSelector).length){
+          $currElem = $elemGroupParent;
         }
+        $currElem.prevAll('li').each(function(){
+          var $li = $(this);
+          // If this is a valid regular item
+          if($li.is(that.elemsSelector)){
+            $nextElem = $li;
+            return false;
+          }
+          // If prev is a group container
+          if($li.hasClass('ms-optgroup-container')){
+            $nextElem = $li.find(that.elemsSelector).last();
+            if($nextElem.length) return false;
+          }
+        });
+        // Back to first
+        if(!$nextElem.length){
+          $nextElem = $elems.last();
+        }
+
       }
       if ($nextElem.length > 0){
         $nextElem.addClass('ms-hover');
