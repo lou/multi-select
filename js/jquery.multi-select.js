@@ -198,6 +198,10 @@
             e.stopPropagation();
             that.switchList($list);
             return;
+          case 9:
+            if(e.shiftKey){
+              that.$element.trigger('focus');
+            }
         }
       });
     },
