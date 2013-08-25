@@ -192,6 +192,13 @@
             e.stopPropagation();
             that.selectHighlighted($list);
             return;
+          case 13:
+            if(that.options.enterKeySelect){
+              e.preventDefault();
+              e.stopPropagation();
+              that.selectHighlighted($list);
+            }
+            return;
           case 37:
           case 39:
             e.preventDefault();
@@ -459,6 +466,7 @@
   };
 
   $.fn.multiSelect.defaults = {
+    enterKeySelect: false,
     selectableOptgroup: false,
     disabledClass : 'disabled',
     dblClick : false,
