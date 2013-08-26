@@ -29,6 +29,7 @@
     this.scrollTo = 0;
     this.sanitizeRegexp = new RegExp("\\W+", 'gi');
     this.elemsSelector = 'li:visible:not(.ms-optgroup-label,.ms-optgroup-container,.'+options.disabledClass+')';
+    this.unique = Math.ceil(Math.random()*1000);
   };
 
   MultiSelect.prototype = {
@@ -40,7 +41,7 @@
 
       if (ms.next('.ms-container').length === 0){
         ms.css({ position: 'absolute', left: '-9999px' });
-        ms.attr('id', ms.attr('id') ? ms.attr('id') : Math.ceil(Math.random()*1000)+'multiselect');
+        ms.attr('id', ms.attr('id') || this.unique+'multiselect');
         this.$container.attr('id', 'ms-'+ms.attr('id'));
 
         ms.find('option').each(function(){
@@ -118,12 +119,12 @@
       selectableLi
         .data('ms-value', value)
         .addClass('ms-elem-selectable')
-        .attr('id', elementId+'-selectable');
+        .attr('id', this.unique+elementId+'-selectable');
 
       selectedLi
         .data('ms-value', value)
         .addClass('ms-elem-selection')
-        .attr('id', elementId+'-selection')
+        .attr('id', this.unique+elementId+'-selection')
         .hide();
 
       if ($option.prop('disabled') || ms.prop('disabled')){
@@ -136,8 +137,8 @@
       if ($optgroup.length > 0){
         var optgroupLabel = $optgroup.attr('label'),
             optgroupId = that.sanitize(optgroupLabel, that.sanitizeRegexp),
-            $selectableOptgroup = that.$selectableUl.find('#optgroup-selectable-'+optgroupId),
-            $selectionOptgroup = that.$selectionUl.find('#optgroup-selection-'+optgroupId);
+            $selectableOptgroup = that.$selectableUl.find('#'+that.unique+'optgroup-selectable-'+optgroupId),
+            $selectionOptgroup = that.$selectionUl.find('#'+that.unique+'optgroup-selection-'+optgroupId);
         
         if ($selectableOptgroup.length === 0){
           var optgroupContainerTpl = '<li class="ms-optgroup-container"></li>',
@@ -145,8 +146,8 @@
           
           $selectableOptgroup = $(optgroupContainerTpl);
           $selectionOptgroup = $(optgroupContainerTpl);
-          $selectableOptgroup.attr('id', 'optgroup-selectable-'+optgroupId);
-          $selectionOptgroup.attr('id', 'optgroup-selection-'+optgroupId);
+          $selectableOptgroup.attr('id', that.unique+'optgroup-selectable-'+optgroupId);
+          $selectionOptgroup.attr('id', that.unique+'optgroup-selection-'+optgroupId);
           $selectableOptgroup.append($(optgroupTpl));
           $selectionOptgroup.append($(optgroupTpl));
           if (that.options.selectableOptgroup){
@@ -314,7 +315,7 @@
 
       var that = this,
           ms = this.$element,
-          msIds = $.map(value, function(val){ return(that.sanitize(val, that.sanitizeRegexp)); }),
+          msIds = $.map(value, function(val){ return(that.unique+that.sanitize(val, that.sanitizeRegexp)); }),
           selectables = this.$selectableUl.find('#' + msIds.join('-selectable, #')+'-selectable').filter(':not(.'+that.options.disabledClass+')'),
           selections = this.$selectionUl.find('#' + msIds.join('-selection, #') + '-selection').filter(':not(.'+that.options.disabledClass+')'),
           options = ms.find('option:not(:disabled)').filter(function(){ return($.inArray(this.value, value) > -1); });
@@ -362,7 +363,7 @@
 
       var that = this,
           ms = this.$element,
-          msIds = $.map(value, function(val){ return(that.sanitize(val, that.sanitizeRegexp)); }),
+          msIds = $.map(value, function(val){ return(that.unique+that.sanitize(val, that.sanitizeRegexp)); }),
           selectables = this.$selectableUl.find('#' + msIds.join('-selectable, #')+'-selectable'),
           selections = this.$selectionUl.find('#' + msIds.join('-selection, #')+'-selection').filter('.ms-selected'),
           options = ms.find('option').filter(function(){ return($.inArray(this.value, value) > -1); });
