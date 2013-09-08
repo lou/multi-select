@@ -106,7 +106,7 @@
       for (var cpt = 0; cpt < option.attributes.length; cpt++){
         var attr = option.attributes[cpt];
 
-        if(attr.name !== 'value'){
+        if(attr.name !== 'value' && attr.name !== 'disabled'){
           attributes += attr.name+'="'+attr.value+'" ';
         }
       }
@@ -342,7 +342,10 @@
           });
         } else {
           if (that.options.keepOrder){
-            selections.insertAfter(that.$selectionUl.find('.ms-selected').last());  
+            var selectionLiLast = that.$selectionUl.find('.ms-selected'); 
+            if((selectionLiLast.length > 1) && (selectionLiLast.last().get(0) != selections.get(0))) {
+              selections.insertAfter(selectionLiLast.last());
+            }
           }
         }
         if (method !== 'init'){
