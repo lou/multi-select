@@ -301,9 +301,11 @@
 
     'activeMouse' : function($list){
       var that = this;
-
+      var lastMovedDom = false;
       $list.on('mousemove', function(){
-        var elems = $list.find(that.elemsSelector);
+        if (lastMovedDom === this) return;
+				lastMovedDom = this;
+				var elems = $list.find(that.elemsSelector);
 
         elems.on('mouseenter', function(){
           elems.removeClass('ms-hover');
