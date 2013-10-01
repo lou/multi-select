@@ -327,6 +327,14 @@
       this.refresh();
     },
 
+    'clear': function() {
+      for (var _index in this.$element.get(0).options) {
+        this.$element.get(0).options.remove(0);
+      }
+
+      this.refresh();
+    },
+
     'select' : function(value, method){
       if (typeof value === 'string'){ value = [value]; }
 
