@@ -27,7 +27,7 @@
     this.$selectableUl = $('<ul/>', { 'class': "ms-list", 'tabindex' : '-1' });
     this.$selectionUl = $('<ul/>', { 'class': "ms-list", 'tabindex' : '-1' });
     this.scrollTo = 0;
-    this.sanitizeRegexp = new RegExp("\\W+", 'gi');
+    this.sanitizeRegexp = new RegExp("\\W", 'gi');
     this.elemsSelector = 'li:visible:not(.ms-optgroup-label,.ms-optgroup-container,.'+options.disabledClass+')';
   };
 
@@ -445,7 +445,8 @@
     },
 
     sanitize: function(value, reg){
-      return(value.replace(reg, '_'));
+      var hex = function(m) { return '_x' + m.charCodeAt(0).toString(16); }; 
+      return(value.replace(reg, hex));
     }
   };
 
