@@ -410,37 +410,47 @@
     },
 
     'select_all' : function(){
-      var ms = this.$element,
-          values = ms.val();
+      var ms = this.$element;
 
-      ms.find('option:not(":disabled")').prop('selected', true);
-      this.$selectableUl.find('.ms-elem-selectable').filter(':not(.'+this.options.disabledClass+')').addClass('ms-selected').hide();
+      var selected = this.$selectableUl.find('.ms-elem-selectable:visible').filter(':not(.'+this.options.disabledClass+')');
+      selected.addClass('ms-selected').hide();
       this.$selectionUl.find('.ms-optgroup-label').show();
       this.$selectableUl.find('.ms-optgroup-label').hide();
-      this.$selectionUl.find('.ms-elem-selection').filter(':not(.'+this.options.disabledClass+')').addClass('ms-selected').show();
+
+      // get ids and update original select
+      var ids = [];
+      selected.each(function() {
+          ids.push('#' + $(this).data('msValue') + '-selection');
+          ms.find('option[value="' + $(this).data('msValue') + '"]').prop('selected', true);
+      });
+      
+      this.$selectionUl.find(ids.join(',')).filter(':not(.'+this.options.disabledClass+')').addClass('ms-selected').show();
       this.$selectionUl.focus();
       ms.trigger('change');
       if (typeof this.options.afterSelect === 'function') {
-        var selectedValues = $.grep(ms.val(), function(item){
-          return $.inArray(item, values) < 0;
-        });
-        this.options.afterSelect.call(this, selectedValues);
+          this.options.afterSelect.call(this, ids);
       }
     },
 
     'deselect_all' : function(){
-      var ms = this.$element,
-          values = ms.val();
+      var ms = this.$element;
 
-      ms.find('option').prop('selected', false);
-      this.$selectableUl.find('.ms-elem-selectable').removeClass('ms-selected').show();
+      var selected = this.$selectionUl.find('.ms-elem-selection:visible');
+      selected.removeClass('ms-selected').hide();
       this.$selectionUl.find('.ms-optgroup-label').hide();
       this.$selectableUl.find('.ms-optgroup-label').show();
-      this.$selectionUl.find('.ms-elem-selection').removeClass('ms-selected').hide();
+      
+      var ids = [];
+      selected.each(function() {
+          ids.push('#' + $(this).data('msValue') + '-selectable');
+          ms.find('option[value="' + $(this).data('msValue') + '"]').prop('selected', false);
+      });
+
+      this.$selectableUl.find(ids.join(',')).filter(':not(.'+this.options.disabledClass+')').removeClass('ms-selected').show();
       this.$selectableUl.focus();
       ms.trigger('change');
       if (typeof this.options.afterDeselect === 'function') {
-        this.options.afterDeselect.call(this, values);
+        this.options.afterDeselect.call(this, ids);
       }
     },
 
