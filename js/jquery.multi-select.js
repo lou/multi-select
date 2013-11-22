@@ -446,7 +446,7 @@
           ms.find('option[value="' + $(this).data('msValue') + '"]').prop('selected', false);
       });
 
-      this.$selectableUl.find(ids.join(',')).filter(':not(.'+this.options.disabledClass+')').addClass('ms-selected').show();
+      this.$selectableUl.find(ids.join(',')).filter(':not(.'+this.options.disabledClass+')').removeClass('ms-selected').show();
       this.$selectableUl.focus();
       ms.trigger('change');
       if (typeof this.options.afterDeselect === 'function') {
