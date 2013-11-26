@@ -102,6 +102,10 @@
           ms = that.$element,
           attributes = "",
           $option = $(option);
+          
+      function escapeHtml(text){
+        return $("<div>").text(text).html();
+      }
 
       for (var cpt = 0; cpt < option.attributes.length; cpt++){
         var attr = option.attributes[cpt];
@@ -110,7 +114,7 @@
           attributes += attr.name+'="'+attr.value+'" ';
         }
       }
-      var selectableLi = $('<li '+attributes+'><span>'+$option.text()+'</span></li>'),
+      var selectableLi = $('<li '+attributes+'><span>'+escapeHtml($option.text())+'</span></li>'),
           selectedLi = selectableLi.clone(),
           value = $option.val(),
           elementId = that.sanitize(value, that.sanitizeRegexp);
