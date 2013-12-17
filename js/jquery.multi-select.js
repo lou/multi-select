@@ -27,7 +27,7 @@
     this.$selectableUl = $('<ul/>', { 'class': "ms-list", 'tabindex' : '-1' });
     this.$selectionUl = $('<ul/>', { 'class': "ms-list", 'tabindex' : '-1' });
     this.scrollTo = 0;
-    this.sanitizeRegexp = new RegExp("\\W+", 'gi');
+    this.sanitizeRegexp = /!@#$%^&*()><}{/gi;
     this.elemsSelector = 'li:visible:not(.ms-optgroup-label,.ms-optgroup-container,.'+options.disabledClass+')';
   };
 
@@ -138,11 +138,11 @@
             optgroupId = that.sanitize(optgroupLabel, that.sanitizeRegexp),
             $selectableOptgroup = that.$selectableUl.find('#optgroup-selectable-'+optgroupId),
             $selectionOptgroup = that.$selectionUl.find('#optgroup-selection-'+optgroupId);
-        
+
         if ($selectableOptgroup.length === 0){
           var optgroupContainerTpl = '<li class="ms-optgroup-container"></li>',
               optgroupTpl = '<ul class="ms-optgroup"><li class="ms-optgroup-label"><span>'+optgroupLabel+'</span></li></ul>';
-          
+
           $selectableOptgroup = $(optgroupContainerTpl);
           $selectionOptgroup = $(optgroupContainerTpl);
           $selectableOptgroup.attr('id', 'optgroup-selectable-'+optgroupId);
@@ -269,7 +269,7 @@
       }
       if ($nextElem.length > 0){
         $nextElem.addClass('ms-hover');
-        var scrollTo = $list.scrollTop() + $nextElem.position().top - 
+        var scrollTo = $list.scrollTop() + $nextElem.position().top -
                        containerHeight / 2 + elemHeight / 2;
 
         $list.scrollTop(scrollTo);
@@ -355,7 +355,7 @@
           });
         } else {
           if (that.options.keepOrder){
-            var selectionLiLast = that.$selectionUl.find('.ms-selected'); 
+            var selectionLiLast = that.$selectionUl.find('.ms-selected');
             if((selectionLiLast.length > 1) && (selectionLiLast.last().get(0) != selections.get(0))) {
               selections.insertAfter(selectionLiLast.last());
             }
