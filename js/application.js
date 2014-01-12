@@ -1,7 +1,6 @@
 // Put your application scripts here
 (function($){
   $(function(){
-    
     $('.multiselect').multiSelect({});
 
     $('.searchable').multiSelect({
@@ -44,7 +43,7 @@
     $('#keep-order').multiSelect({
       keepOrder: true
     });
-    
+
     $('#optgroup').multiSelect({
       selectableOptgroup: true
     });
@@ -69,10 +68,10 @@
     $('#refresh').on('click', function(){
       $('#public-methods').multiSelect('refresh');
       return false;
-    })
+    });
 
     $('#public-methods').multiSelect({});
-    
+
     $('#select-all').click(function(){
       $('#public-methods').multiSelect('select_all');
       return false;
@@ -95,6 +94,12 @@
     $('#deselect-100').click(function(){
       $('#public-methods').multiSelect('deselect', arr);
       return false;
-    }); 
+    });
+
+    $('#add-option').on('click', function(){
+      $('#public-methods').multiSelect('addOption', { value: 42, text: 'test 42', index: 0 });
+      return false;
+    });
+
   });
 })(jQuery);

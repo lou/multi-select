@@ -97,7 +97,7 @@
       }
     },
 
-    'generateLisFromOption' : function(option){
+    'generateLisFromOption' : function(option, index, $container){
       var that = this,
           ms = that.$element,
           attributes = "",
@@ -138,11 +138,11 @@
             optgroupId = that.sanitize(optgroupLabel, that.sanitizeRegexp),
             $selectableOptgroup = that.$selectableUl.find('#optgroup-selectable-'+optgroupId),
             $selectionOptgroup = that.$selectionUl.find('#optgroup-selection-'+optgroupId);
-        
+
         if ($selectableOptgroup.length === 0){
           var optgroupContainerTpl = '<li class="ms-optgroup-container"></li>',
               optgroupTpl = '<ul class="ms-optgroup"><li class="ms-optgroup-label"><span>'+optgroupLabel+'</span></li></ul>';
-          
+
           $selectableOptgroup = $(optgroupContainerTpl);
           $selectionOptgroup = $(optgroupContainerTpl);
           $selectableOptgroup.attr('id', 'optgroup-selectable-'+optgroupId);
@@ -162,12 +162,31 @@
           that.$selectableUl.append($selectableOptgroup);
           that.$selectionUl.append($selectionOptgroup);
         }
-        $selectableOptgroup.children().append(selectableLi);
-        $selectionOptgroup.children().append(selectedLi);
+        index = index == undefined ? $selectableOptgroup.children().length : index + 1;
+        selectableLi.insertAt(index, $selectableOptgroup.children());
+        selectedLi.insertAt(index, $selectionOptgroup.children());
       } else {
-        that.$selectableUl.append(selectableLi);
-        that.$selectionUl.append(selectedLi);
+        index = index == undefined ? that.$selectableUl.children().length : index;
+
+        selectableLi.insertAt(index, that.$selectableUl);
+        selectedLi.insertAt(index, that.$selectionUl);
       }
+    },
+
+    'addOption' : function(options){
+      var that = this;
+
+      if (options.value) options = [options];
+      $.each(options, function(index, option){
+        if (option.value && that.$element.find("option[value='"+option.value+"']").length === 0){
+          var $option = $('<option value="'+option.value+'">'+option.text+'</option>'),
+              index = parseInt((typeof option.index === 'undefined' ? that.$element.children().length : option.index)),
+              $container = option.nested == undefined ? that.$element : $("optgroup[label='"+option.nested+"']")
+
+          $option.insertAt(index, $container);
+          that.generateLisFromOption($option.get(0), index, option.nested);
+        }
+      })
     },
 
     'activeKeyboard' : function($list){
@@ -187,17 +206,30 @@
             e.stopPropagation();
             that.moveHighlight($(this), (e.which === 38) ? -1 : 1);
             return;
-          case 32:
-            e.preventDefault();
-            e.stopPropagation();
-            that.selectHighlighted($list);
-            return;
           case 37:
           case 39:
             e.preventDefault();
             e.stopPropagation();
             that.switchList($list);
             return;
+          case 9:
+            if(that.$element.is('[tabindex]')){
+              e.preventDefault();
+              var tabindex = parseInt(that.$element.attr('tabindex'), 10);
+              tabindex = (e.shiftKey) ? tabindex-1 : tabindex+1;
+              $('[tabindex="'+(tabindex)+'"]').focus();
+              return;
+            }else{
+              if(e.shiftKey){
+                that.$element.trigger('focus');
+              }
+            }
+        }
+        if($.inArray(e.which, that.options.keySelect) > -1){
+          e.preventDefault();
+          e.stopPropagation();
+          that.selectHighlighted($list);
+          return;
         }
       });
     },
@@ -459,6 +491,7 @@
   };
 
   $.fn.multiSelect.defaults = {
+    keySelect: [32],
     selectableOptgroup: false,
     disabledClass : 'disabled',
     dblClick : false,
@@ -466,5 +499,15 @@
   };
 
   $.fn.multiSelect.Constructor = MultiSelect;
+
+  $.fn.insertAt = function(index, $parent) {
+    return this.each(function() {
+      if (index === 0) {
+        $parent.prepend(this);
+      } else {
+        $parent.children().eq(index - 1).after(this);
+      }
+    });
+}
 
 }(window.jQuery);

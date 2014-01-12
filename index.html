@@ -14,7 +14,7 @@
         var _gaq = _gaq || [];
         _gaq.push(['_setAccount', 'UA-23068623-1']);
         _gaq.push(['_trackPageview']);
-        
+
         (function() {
           var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
           ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
@@ -240,6 +240,50 @@
         Refresh current multiselect.
       </p>
       <pre><code data-language='javascript'>$('#your-select').multiSelect('refresh');</code></pre>
+      <br />
+      <h4>.multiSelect('addOption', Hash)</h4>
+      <p>
+        Dynamically add option to the multiselect.
+        <br />
+        The options hash is described bellow:
+        <table class='table table-bordered table-striped'>
+          <thead>
+            <tr>
+              <th width='120'>key</th>
+              <th>type</th>
+              <th>required</th>
+              <th>desription</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>value</td>
+              <td>String</td>
+              <td>true</td>
+              <td>The value of the option to create</td>
+            </tr>
+            <tr>
+              <td>text</td>
+              <td>String</td>
+              <td>true</td>
+              <td>The text of the option to create</td>
+            </tr>
+            <tr>
+              <td>index</td>
+              <td>Number</td>
+              <td>false</td>
+              <td>The index where to insert the option. If none given, it will be inserted as last option.</td>
+            </tr>
+            <tr>
+              <td>nested</td>
+              <td>String</td>
+              <td>false</td>
+              <td>If there are optgroups you can choose under which optgroup you want to insert the option.</td>
+            </tr>
+          </tbody>
+        </table>
+      </p>
+      <pre><code data-language='javascript'>$('#your-select').multiSelect('addOption', { value: 'test', text: 'test', index: 0, nested: 'optgroup_label' });</code></pre>
       <br />
       <h3>Keyboard</h3>
       <table class='table table-bordered table-striped'>
@@ -628,7 +672,16 @@
         </div>
         <div class='span7'>
           <pre><code data-language='html'>&lt;a href='#' id='select-all'&gt;select all&lt;/a&gt;&#x000A;&lt;a href='#' id='deselect-all'&gt;deselect all&lt;/a&gt;&#x000A;&lt;a href='#' id='select-100'&gt;select 100 elems&lt;/a&gt;&#x000A;&lt;a href='#' id='deselect-100'&gt;deselect 100 elems&lt;/a&gt;&#x000A;&lt;select id='public-methods' multiple='multiple'&gt;&#x000A;  &lt;option value='elem_1'&gt;elem 1&lt;/option&gt;&#x000A;  &lt;option value='elem_2' disabled&gt;elem 2&lt;/option&gt;&#x000A;  &lt;option value='elem_3'&gt;elem 3&lt;/option&gt;&#x000A;  &lt;option value='elem_4'&gt;elem 4&lt;/option&gt;&#x000A;  ...&#x000A;  &lt;option value='elem_1000'&gt;elem 100&lt;/option&gt;&#x000A;&lt;/select&gt;</code></pre>
-          <pre><code data-language='javascript'>$('#public-methods').multiSelect();&#x000A;$('select-all').click(function(){&#x000A;  $('#public-methods').multiSelect('select_all');&#x000A;  return false;&#x000A;});&#x000A;$('deselect-all').click(function(){&#x000A;  $('#public-methods').multiSelect('deselect_all');&#x000A;  return false;&#x000A;});&#x000A;$('select-100').click(function(){&#x000A;  $('#public-methods').multiSelect('select', ['elem_0', 'elem_1' ..., 'elem_99']);&#x000A;  return false;&#x000A;});&#x000A;$('deselect-100').click(function(){&#x000A;  $('#public-methods').multiSelect('deselect', ['elem_0', 'elem_1' ..., 'elem_99']);&#x000A;  return false;&#x000A;});</code></pre>
+          <pre><code data-language='javascript'>$('#public-methods').multiSelect();&#x000A;$('#select-all').click(function(){&#x000A;  $('#public-methods').multiSelect('select_all');&#x000A;  return false;&#x000A;});&#x000A;$('#deselect-all').click(function(){&#x000A;  $('#public-methods').multiSelect('deselect_all');&#x000A;  return false;&#x000A;});&#x000A;$('#select-100').click(function(){&#x000A;  $('#public-methods').multiSelect('select', ['elem_0', 'elem_1' ..., 'elem_99']);&#x000A;  return false;&#x000A;});&#x000A;$('#deselect-100').click(function(){&#x000A;  $('#public-methods').multiSelect('deselect', ['elem_0', 'elem_1' ..., 'elem_99']);&#x000A;  return false;&#x000A;});
+$('#refresh').on('click', function(){
+  $('#public-methods').multiSelect('refresh');
+  return false;
+});
+$('#add-option').on('click', function(){
+  $('#public-methods').multiSelect('addOption', { value: 42, text: 'test 42', index: 0 });
+  return false;
+});
+          </code></pre>
         </div>
         <div class='span5'>
           <a id="select-all" href="#">select all</a>
@@ -639,6 +692,8 @@
           /
           <a id="deselect-100" href="#">deselect 100 elems</a>
           <br />
+          <a id="add-option" href="#">Add option</a>
+          <br >
           <a id="refresh" href="#">refresh</a>
           <br />
           <br />
