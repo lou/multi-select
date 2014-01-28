@@ -1,5 +1,5 @@
 /*
-* MultiSelect v0.9.9
+* MultiSelect v0.9.10
 * Copyright (c) 2012 Louis Cuny
 *
 * This program is free software. It comes without any warranty, to
@@ -20,7 +20,6 @@
   var MultiSelect = function (element, options) {
     this.options = options;
     this.$element = $(element);
-
     this.$container = $('<div/>', { 'class': "ms-container" });
     this.$selectableContainer = $('<div/>', { 'class': 'ms-selectable' });
     this.$selectionContainer = $('<div/>', { 'class': 'ms-selection' });
@@ -41,7 +40,7 @@
         ms.css({ position: 'absolute', left: '-9999px' });
         ms.attr('id', ms.attr('id') ? ms.attr('id') : Math.ceil(Math.random()*1000)+'multiselect');
         this.$container.attr('id', 'ms-'+ms.attr('id'));
-
+        this.$container.addClass(that.options.cssClass);
         ms.find('option').each(function(){
           that.generateLisFromOption(this);
         });
@@ -502,7 +501,8 @@
     selectableOptgroup: false,
     disabledClass : 'disabled',
     dblClick : false,
-    keepOrder: false
+    keepOrder: false,
+    cssClass: ''
   };
 
   $.fn.multiSelect.Constructor = MultiSelect;
