@@ -1,12 +1,14 @@
 {
   "name": "multiselect",
-  "version": "0.9.8",
+  "version": "0.9.10",
+  "description" : "A user-friendlier drop-in replacement for the standard select with multiple attribute activated.",
+  "license" : "WTFPL",
   "main": [
     "./css/multi-select.css",
     "./img/switch.png",
     "./js/jquery.multi-select.js"
   ],
   "dependencies" : {
-    "jquery" : ">=1.7.1"
+    "jquery" : ">= 1.7.1"
   }
 }
