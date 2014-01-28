@@ -108,7 +108,7 @@
           attributes += attr.name+'="'+attr.value+'" ';
         }
       }
-      var selectableLi = $('<li '+attributes+'><span>'+$option.text()+'</span></li>'),
+      var selectableLi = $('<li '+attributes+'><span>'+that.escapeHTML($option.text())+'</span></li>'),
           selectedLi = selectableLi.clone(),
           value = $option.val(),
           elementId = that.sanitize(value);
@@ -185,6 +185,10 @@
           that.generateLisFromOption($option.get(0), index, option.nested);
         }
       })
+    },
+
+    'escapeHtml' : function(text){
+      return $("<div>").text(text).html();
     },
 
     'activeKeyboard' : function($list){
