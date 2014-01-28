@@ -187,7 +187,7 @@
       })
     },
 
-    'escapeHtml' : function(text){
+    'escapeHTML' : function(text){
       return $("<div>").text(text).html();
     },
 
