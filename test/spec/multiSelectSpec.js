@@ -102,6 +102,26 @@ describe("multiSelect", function() {
     });
   });
 
+  describe('destroy', function(){
+
+    describe('destroy multi select', function(){
+      beforeEach(function(){
+        select.multiSelect();
+        msContainer = select.next();
+        select.multiSelect('destroy');
+      });
+
+      it('should show the original select', function(){
+        expect(select.css('position')).not.toBe('absolute');
+        expect(select.css('left')).not.toBe('-9999px');
+      });
+
+      it('should destroy the multiSelect container', function(){
+        expect(select.next().size()).toEqual(0);
+      });
+    });
+  });
+
   describe('optgroup', function(){
     var optgroupMsContainer, optgroupSelect, optgroupLabels;
 

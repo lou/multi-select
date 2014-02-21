@@ -342,6 +342,7 @@
 
     'destroy' : function(){
       $("#ms-"+this.$element.attr("id")).remove();
+      this.$element.css('position', '').css('left', '')
       this.$element.removeData('multiselect');
     },
 
