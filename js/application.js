@@ -1,6 +1,9 @@
 // Put your application scripts here
 (function($){
   $(function(){
+    $('#aloha').multiSelect({
+      keepOrder: true
+    });
     $('.multiselect').multiSelect({});
 
     $('.searchable').multiSelect({
