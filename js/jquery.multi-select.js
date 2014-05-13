@@ -474,12 +474,12 @@
     },
 
     sanitize: function(value){
-      var hash = 0, i, char;
+      var hash = 0, i, character;
       if (value.length == 0) return hash;
       var ls = 0;
       for (i = 0, ls = value.length; i < ls; i++) {
-        char  = value.charCodeAt(i);
-        hash  = ((hash<<5)-hash)+char;
+        character  = value.charCodeAt(i);
+        hash  = ((hash<<5)-hash)+character;
         hash |= 0; // Convert to 32bit integer
       }
       return hash;
