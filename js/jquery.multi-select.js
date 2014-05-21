@@ -160,7 +160,7 @@
           that.$selectableUl.append($selectableOptgroup);
           that.$selectionUl.append($selectionOptgroup);
         }
-        index = index == undefined ? $selectableOptgroup.children().length : index + 1;
+        index = index == undefined ? $selectableOptgroup.find('ul').children().length : index + 1;
         selectableLi.insertAt(index, $selectableOptgroup.children());
         selectedLi.insertAt(index, $selectionOptgroup.children());
       } else {
