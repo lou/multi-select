@@ -160,7 +160,7 @@
           that.$selectableUl.append($selectableOptgroup);
           that.$selectionUl.append($selectionOptgroup);
         }
-        index = index == undefined ? $selectableOptgroup.children().length : index + 1;
+        index = index == undefined ? $selectableOptgroup.find('ul').children().length : index + 1;
         selectableLi.insertAt(index, $selectableOptgroup.children());
         selectedLi.insertAt(index, $selectionOptgroup.children());
       } else {
@@ -322,8 +322,10 @@
 
     'activeMouse' : function($list){
       var that = this;
-
+      var lastMovedDom = false;
       $list.on('mousemove', function(){
+        if (lastMovedDom === this) return;
+        lastMovedDom = this;
         var elems = $list.find(that.elemsSelector);
 
         elems.on('mouseenter', function(){
@@ -340,6 +342,7 @@
 
     'destroy' : function(){
       $("#ms-"+this.$element.attr("id")).remove();
+      this.$element.css('position', '').css('left', '')
       this.$element.removeData('multiselect');
     },
 
@@ -381,7 +384,7 @@
           });
         } else {
           if (that.options.keepOrder && method !== 'init'){
-            var selectionLiLast = that.$selectionUl.find('.ms-selected'); 
+            var selectionLiLast = that.$selectionUl.find('.ms-selected');
             if((selectionLiLast.length > 1) && (selectionLiLast.last().get(0) != selections.get(0))) {
               selections.insertAfter(selectionLiLast.last());
             }
@@ -471,12 +474,12 @@
     },
 
     sanitize: function(value){
-      var hash = 0, i, char;
+      var hash = 0, i, character;
       if (value.length == 0) return hash;
       var ls = 0;
       for (i = 0, ls = value.length; i < ls; i++) {
-        char  = value.charCodeAt(i);
-        hash  = ((hash<<5)-hash)+char;
+        character  = value.charCodeAt(i);
+        hash  = ((hash<<5)-hash)+character;
         hash |= 0; // Convert to 32bit integer
       }
       return hash;
