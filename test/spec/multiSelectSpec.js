@@ -316,7 +316,7 @@ describe("multiSelect", function() {
         $('#multi-select').multiSelect();
 
         clickedItem = $('.ms-selection ul.ms-list li').first();
-        value = clickedItem.attr('id').replace('-selection', '');
+        value = clickedItem.data('ms-value');
         correspondingSelectableItem = $('.ms-selection ul.ms-list li').first();
         spyOnEvent(select, 'change');
         spyOnEvent(select, 'focus');
@@ -328,7 +328,7 @@ describe("multiSelect", function() {
       });
 
       it('should show associated selectable item', function(){
-        expect($('#'+value+'-selectable')).toBe(':visible');
+        expect($('#'+sanitize(value)+'-selectable')).toBe(':visible');
       });
 
       it('should remove the .ms-selected class to the corresponding selectable item', function(){
@@ -357,7 +357,7 @@ describe("multiSelect", function() {
         $('#multi-select').multiSelect();
 
         clickedItem = $('.ms-selection ul.ms-list li').first();
-        value = clickedItem.attr('id').replace('-selection', '');
+        value = clickedItem.data('ms-value');
         correspondingSelectableItem = $('.ms-selection ul.ms-list li').first();
         spyOnEvent(select, 'change');
         spyOnEvent(select, 'focus');
