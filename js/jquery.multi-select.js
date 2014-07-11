@@ -248,7 +248,7 @@
       // It fixes a bug when mouse is over the list
       $elems.off('mouseenter');
 
-      $elems.removeClass('ms-hover');
+      $elems;
       if (direction === 1){ // DOWN
 
         $nextElem = $currElem.nextAll(this.elemsSelector).first();
@@ -289,7 +289,7 @@
         }
       }
       if ($nextElem.length > 0){
-        $nextElem.addClass('ms-hover');
+        $nextElem;
         var scrollTo = $list.scrollTop() + $nextElem.position().top - 
                        containerHeight / 2 + elemHeight / 2;
 
@@ -307,7 +307,7 @@
           } else {
             this.deselect($highlightedElem.data('ms-value'));
           }
-          $elems.removeClass('ms-hover');
+          $elems;
         }
     },
 
@@ -329,8 +329,8 @@
 				var elems = $list.find(that.elemsSelector);
 
         elems.on('mouseenter', function(){
-          elems.removeClass('ms-hover');
-          $(this).addClass('ms-hover');
+          elems;
+          $(this);
         });
       });
     },
