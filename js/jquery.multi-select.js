@@ -313,6 +313,7 @@
 
     'switchList' : function($list){
       $list.blur();
+      this.$container.find(this.elemsSelector).removeClass('ms-hover');
       if ($list.parent().hasClass('ms-selectable')){
         this.$selectionUl.focus();
       } else {
@@ -322,16 +323,10 @@
 
     'activeMouse' : function($list){
       var that = this;
-      var lastMovedDom = false;
-      $list.on('mousemove', function(){
-        if (lastMovedDom === this) return;
-        lastMovedDom = this;
-        var elems = $list.find(that.elemsSelector);
 
-        elems.on('mouseenter', function(){
-          elems.removeClass('ms-hover');
-          $(this).addClass('ms-hover');
-        });
+      $('body').on('mouseenter', that.elemsSelector, function(){
+        $(this).parents('.ms-container').find(that.elemsSelector).removeClass('ms-hover');
+        $(this).addClass('ms-hover');
       });
     },
 
@@ -364,7 +359,10 @@
       if (selectables.length > 0){
         selectables.addClass('ms-selected').hide();
         selections.addClass('ms-selected').show();
+
         options.prop('selected', true);
+
+        that.$container.find(that.elemsSelector).removeClass('ms-hover');
 
         var selectableOptgroups = that.$selectableUl.children('.ms-optgroup-container');
         if (selectableOptgroups.length > 0){
@@ -413,6 +411,8 @@
         selectables.removeClass('ms-selected').show();
         selections.removeClass('ms-selected').hide();
         options.prop('selected', false);
+
+        that.$container.find(that.elemsSelector).removeClass('ms-hover');
 
         var selectableOptgroups = that.$selectableUl.children('.ms-optgroup-container');
         if (selectableOptgroups.length > 0){
