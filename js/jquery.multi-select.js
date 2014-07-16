@@ -244,10 +244,6 @@
           containerHeight = $list.height(),
           containerSelector = '#'+this.$container.prop('id');
 
-      // Deactive mouseenter event when move is active
-      // It fixes a bug when mouse is over the list
-      $elems.off('mouseenter');
-
       $elems.removeClass('ms-hover');
       if (direction === 1){ // DOWN
 
@@ -298,17 +294,17 @@
     },
 
     'selectHighlighted' : function($list){
-        var $elems = $list.find(this.elemsSelector),
-            $highlightedElem = $elems.filter('.ms-hover').first();
+      var $elems = $list.find(this.elemsSelector),
+          $highlightedElem = $elems.filter('.ms-hover').first();
 
-        if ($highlightedElem.length > 0){
-          if ($list.parent().hasClass('ms-selectable')){
-            this.select($highlightedElem.data('ms-value'));
-          } else {
-            this.deselect($highlightedElem.data('ms-value'));
-          }
-          $elems.removeClass('ms-hover');
+      if ($highlightedElem.length > 0){
+        if ($list.parent().hasClass('ms-selectable')){
+          this.select($highlightedElem.data('ms-value'));
+        } else {
+          this.deselect($highlightedElem.data('ms-value'));
         }
+        $elems.removeClass('ms-hover');
+      }
     },
 
     'switchList' : function($list){
