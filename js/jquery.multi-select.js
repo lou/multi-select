@@ -149,11 +149,11 @@
           $selectionOptgroup.append($(optgroupTpl));
           if (that.options.selectableOptgroup){
             $selectableOptgroup.find('.ms-optgroup-label').on('click', function(){
-              var values = $optgroup.children(':not(:selected)').map(function(){ return $(this).val() }).get();
+              var values = $optgroup.children(':not(:selected, :disabled)').map(function(){ return $(this).val() }).get();
               that.select(values);
             });
             $selectionOptgroup.find('.ms-optgroup-label').on('click', function(){
-              var values = $optgroup.children(':selected').map(function(){ return $(this).val() }).get();
+              var values = $optgroup.children(':selected:not(:disabled)').map(function(){ return $(this).val() }).get();
               that.deselect(values);
             });
           }
