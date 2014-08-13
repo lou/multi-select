@@ -324,6 +324,10 @@
         $(this).parents('.ms-container').find(that.elemsSelector).removeClass('ms-hover');
         $(this).addClass('ms-hover');
       });
+
+      $('body').on('mouseleave', that.elemsSelector, function () {
+          $(this).parents('.ms-container').find(that.elemsSelector).removeClass('ms-hover');;
+      });
     },
 
     'refresh' : function() {
