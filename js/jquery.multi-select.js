@@ -187,6 +187,18 @@
       })
     },
 
+    'removeOption' : function(options){
+      var that = this;
+
+      if (options.value) options = [options];
+      $.each(options, function(index, option){
+        if (option.value && that.$element.find("option[value='"+option.value+"']").length === 1){
+          that.$element.find("option[value='" + option.value + "']").remove();
+          that.$container.find("ul.ms-list [id^='" + option.value + "']").remove();
+        }
+      })
+    },
+
     'escapeHTML' : function(text){
       return $("<div>").text(text).html();
     },
