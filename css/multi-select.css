@@ -95,5 +95,5 @@
 .ms-container .ms-selection li .ms-elem-image{
   width: 32px;
   height: 32px;
-  padding: 3px;
+  padding: 3px 3px 3px 0;
 }
