@@ -116,6 +116,7 @@
       //copy attr of option to multi-select li
       for (var attrname in attributes){
         selectableLi.attr(attrname, attributes[attrname]);
+        selectedLi.attr(attrname, attributes[attrname]);
       }
 
       selectableLi
