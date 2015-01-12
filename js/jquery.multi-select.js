@@ -98,20 +98,25 @@
     'generateLisFromOption' : function(option, index, $container){
       var that = this,
           ms = that.$element,
-          attributes = "",
+          attributes = {},
           $option = $(option);
 
       for (var cpt = 0; cpt < option.attributes.length; cpt++){
         var attr = option.attributes[cpt];
 
         if(attr.name !== 'value' && attr.name !== 'disabled'){
-          attributes += attr.name+'="'+attr.value+'" ';
+          attributes[attr.name] = attr.value;
         }
       }
-      var selectableLi = $('<li '+attributes+'><span>'+that.escapeHTML($option.text())+'</span></li>'),
+      var selectableLi = $('<li><span>'+that.escapeHTML($option.text())+'</span></li>'),
           selectedLi = selectableLi.clone(),
           value = $option.val(),
           elementId = that.sanitize(value);
+      
+      //copy attr of option to multi-select li
+      for (attr in attributes){
+        selectableLi.attr(attr, attributes[attr]);
+      }
 
       selectableLi
         .data('ms-value', value)
