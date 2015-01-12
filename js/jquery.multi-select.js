@@ -114,8 +114,8 @@
           elementId = that.sanitize(value);
       
       //copy attr of option to multi-select li
-      for (attr in attributes){
-        selectableLi.attr(attr, attributes[attr]);
+      for (var attrname in attributes){
+        selectableLi.attr(attrname, attributes[attrname]);
       }
 
       selectableLi
