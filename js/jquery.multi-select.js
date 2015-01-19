@@ -484,7 +484,6 @@
         options = ms.find('option').filter(function () { return ($.inArray(this.value, value) > -1); });
 
       selectables.addClass(that.options.disabledClass);
-      selectables.addClass(that.options.disabledClass);
     },
 
     sanitize: function(value){
