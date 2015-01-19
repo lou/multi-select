@@ -473,6 +473,20 @@
       }
     },
 
+     // to disable an element
+    'disable': function (value) {
+      if (typeof value === 'string') { value = [value]; }
+      var that = this,
+        ms = this.$element,
+        msIds = $.map(value, function (val) { return (that.sanitize(val)); }),
+        selectables = this.$selectableUl.find('#' + msIds.join('-selectable, #') + '-selectable'),
+        selections = this.$selectionUl.find('#' + msIds.join('-selection, #') + '-selection').filter('.ms-selected').filter(':not(.' + that.options.disabledClass + ')'),
+        options = ms.find('option').filter(function () { return ($.inArray(this.value, value) > -1); });
+
+      selectables.addClass(that.options.disabledClass);
+      selectables.addClass(that.options.disabledClass);
+    },
+
     sanitize: function(value){
       var hash = 0, i, character;
       if (value.length == 0) return hash;
