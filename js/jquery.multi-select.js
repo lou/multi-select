@@ -126,8 +126,8 @@
           elementId = that.sanitize(value),
           elementText = that.escapeHTML($option.text()),
           elementDisabled = $option.prop('disabled') || ms.prop('disabled'),
-          selectableLi = '<li '+attributes+' data-ms-value="'+value+'" class="ms-elem-selectable'+(elementDisabled?' '+that.options.disabledClass:'')+'" id="'+elementId+'-selectable"><span>'+elementText+'</span></li>',
-          selectedLi = '<li '+attributes+' data-ms-value="'+value+'" class="ms-elem-selection'+(elementDisabled?' '+that.options.disabledClass:'')+'" id="'+elementId+'-selection" style="display:none;"><span>'+elementText+'</span></li>';
+          selectableLi = '<li '+attributes+' data-ms-value="'+value+'" class="ms-elem-selectable'+(elementDisabled?' '+that.options.disabledClass:'')+'" id="ms-elem-'+elementId+'-selectable"><span>'+elementText+'</span></li>',
+          selectedLi = '<li '+attributes+' data-ms-value="'+value+'" class="ms-elem-selection'+(elementDisabled?' '+that.options.disabledClass:'')+'" id="ms-elem-'+elementId+'-selection" style="display:none;"><span>'+elementText+'</span></li>';
 
 
       var $optgroup = $option.parent('optgroup');
@@ -360,18 +360,18 @@
     },
 
     'select' : function(value, method){
-      if (typeof value === 'string'){ value = [value]; }
+      if (typeof value === 'string' || typeof value === 'number'){ value = [''+value]; }
 
       var that = this,
           ms = this.$element,
           msIds = $.map(value, function(val){ return(that.sanitize(val)); }),
-          selectables = this.$selectableUl.find('#' + msIds.join('-selectable, #')+'-selectable').filter(':not(.'+that.options.disabledClass+')'),
-          selections = this.$selectionUl.find('#' + msIds.join('-selection, #') + '-selection').filter(':not(.'+that.options.disabledClass+')'),
+          selectables = this.$selectableUl.find('#ms-elem-' + msIds.join('-selectable, #ms-elem-')+'-selectable').filter(':not(.'+that.options.disabledClass+')'),
+          selections = this.$selectionUl.find('#ms-elem-' + msIds.join('-selection, #ms-elem-') + '-selection').filter(':not(.'+that.options.disabledClass+')'),
           options = ms.find('option:not(:disabled)').filter(function(){ return($.inArray(this.value, value) > -1); });
 
       if (method === 'init'){
-        selectables = this.$selectableUl.find('#' + msIds.join('-selectable, #')+'-selectable'),
-        selections = this.$selectionUl.find('#' + msIds.join('-selection, #') + '-selection');
+        selectables = this.$selectableUl.find('#ms-elem-' + msIds.join('-selectable, #ms-elem-')+'-selectable'),
+        selections = this.$selectionUl.find('#ms-elem-' + msIds.join('-selection, #ms-elem-') + '-selection');
       }
 
       if (selectables.length > 0){
@@ -416,13 +416,13 @@
     },
 
     'deselect' : function(value){
-      if (typeof value === 'string'){ value = [value]; }
+      if (typeof value === 'string' || typeof value === 'number'){ value = [''+value]; }
 
       var that = this,
           ms = this.$element,
           msIds = $.map(value, function(val){ return(that.sanitize(val)); }),
-          selectables = this.$selectableUl.find('#' + msIds.join('-selectable, #')+'-selectable'),
-          selections = this.$selectionUl.find('#' + msIds.join('-selection, #')+'-selection').filter('.ms-selected').filter(':not(.'+that.options.disabledClass+')'),
+          selectables = this.$selectableUl.find('#ms-elem-' + msIds.join('-selectable, #ms-elem-')+'-selectable'),
+          selections = this.$selectionUl.find('#ms-elem-' + msIds.join('-selection, #ms-elem-')+'-selection').filter('.ms-selected').filter(':not(.'+that.options.disabledClass+')'),
           options = ms.find('option').filter(function(){ return($.inArray(this.value, value) > -1); });
 
       if (selections.length > 0){
