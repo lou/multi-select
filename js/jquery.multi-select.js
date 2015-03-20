@@ -41,9 +41,22 @@
         ms.attr('id', ms.attr('id') ? ms.attr('id') : Math.ceil(Math.random()*1000)+'multiselect');
         this.$container.attr('id', 'ms-'+ms.attr('id'));
         this.$container.addClass(that.options.cssClass);
-        ms.find('option').each(function(){
-          that.generateLisFromOption(this);
+        var handler = {
+            selectableUl: [],
+            selectionUl: [],
+            selectableOptgroups: {},
+            selectionOptgroups: {}
+        };
+        ms.find('option').each(function(index){
+          that.generateLisFromOption(this, index, null, handler);
         });
+        that.$selectableUl.html(handler.selectableUl.join(''));
+        that.$selectionUl.html(handler.selectionUl.join(''));
+        for(var optgroupId in handler.selectableOptgroups){
+            that.$selectableUl.find('#optgroup-selectable-'+optgroupId).html(handler.selectableOptgroups[optgroupId].join(''));
+            that.$selectionUl.find('#optgroup-selection-'+optgroupId).html(handler.selectionOptgroups[optgroupId].join(''));
+        }
+        handler = null;
 
         this.$selectionUl.find('.ms-optgroup-label').hide();
 
@@ -95,7 +108,7 @@
       }
     },
 
-    'generateLisFromOption' : function(option, index, $container){
+    'generateLisFromOption' : function(option, index, $container, $handler){
       var that = this,
           ms = that.$element,
           attributes = "",
@@ -108,28 +121,17 @@
           attributes += attr.name+'="'+attr.value+'" ';
         }
       }
-      var selectableLi = $('<li '+attributes+'><span>'+that.escapeHTML($option.text())+'</span></li>'),
-          selectedLi = selectableLi.clone(),
-          value = $option.val(),
-          elementId = that.sanitize(value);
 
-      selectableLi
-        .data('ms-value', value)
-        .addClass('ms-elem-selectable')
-        .attr('id', elementId+'-selectable');
+      var value = $option.val(),
+          elementId = that.sanitize(value),
+          elementText = that.escapeHTML($option.text()),
+          elementDisabled = $option.prop('disabled') || ms.prop('disabled'),
+          selectableLi = '<li '+attributes+' data-ms-value="'+value+'" class="ms-elem-selectable'+(elementDisabled?' '+that.options.disabledClass:'')+'" id="'+elementId+'-selectable"><span>'+elementText+'</span></li>',
+          selectedLi = '<li '+attributes+' data-ms-value="'+value+'" class="ms-elem-selection'+(elementDisabled?' '+that.options.disabledClass:'')+'" id="'+elementId+'-selection" style="display:none;"><span>'+elementText+'</span></li>';
 
-      selectedLi
-        .data('ms-value', value)
-        .addClass('ms-elem-selection')
-        .attr('id', elementId+'-selection')
-        .hide();
-
-      if ($option.prop('disabled') || ms.prop('disabled')){
-        selectedLi.addClass(that.options.disabledClass);
-        selectableLi.addClass(that.options.disabledClass);
-      }
 
       var $optgroup = $option.parent('optgroup');
+      var hasHandler = typeof $handler === 'object';
 
       if ($optgroup.length > 0){
         var optgroupLabel = $optgroup.attr('label'),
@@ -159,15 +161,31 @@
           }
           that.$selectableUl.append($selectableOptgroup);
           that.$selectionUl.append($selectionOptgroup);
-        }
-        index = index == undefined ? $selectableOptgroup.find('ul').children().length : index + 1;
-        selectableLi.insertAt(index, $selectableOptgroup.children());
-        selectedLi.insertAt(index, $selectionOptgroup.children());
-      } else {
-        index = index == undefined ? that.$selectableUl.children().length : index;
 
-        selectableLi.insertAt(index, that.$selectableUl);
-        selectedLi.insertAt(index, that.$selectionUl);
+          if(hasHandler){
+              $handler.selectableOptgroups[optgroupId] = [];
+              $handler.selectionOptgroups[optgroupId] = [];
+          }
+        }
+        if(hasHandler){
+            index = index == undefined ? $handler.selectableOptgroups[optgroupId].length : index;
+            $handler.selectableOptgroups[optgroupId].splice(index, 0, selectableLi);
+            $handler.selectionOptgroups[optgroupId].splice(index, 0, selectedLi);
+        }else{
+            index = index == undefined ? $selectableOptgroup.find('ul').children().length : index + 1;
+            $(selectableLi).insertAt(index, $selectableOptgroup.children());
+            $(selectedLi).insertAt(index, $selectionOptgroup.children());
+        }
+      } else {
+        if(hasHandler){
+            index = index == undefined ? $handler.selectableUl.length : index;
+            $handler.selectableUl.splice(index, 0, selectableLi);
+            $handler.selectionUl.splice(index, 0, selectedLi);
+        }else{
+            index = index == undefined ? that.$selectableUl.children().length : index;
+            $(selectableLi).insertAt(index, that.$selectableUl);
+            $(selectedLi).insertAt(index, that.$selectionUl);
+        }
       }
     },
 
@@ -286,7 +304,7 @@
       }
       if ($nextElem.length > 0){
         $nextElem.addClass('ms-hover');
-        var scrollTo = $list.scrollTop() + $nextElem.position().top - 
+        var scrollTo = $list.scrollTop() + $nextElem.position().top -
                        containerHeight / 2 + elemHeight / 2;
 
         $list.scrollTop(scrollTo);
