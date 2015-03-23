@@ -174,9 +174,12 @@
     'addOption' : function(options){
       var that = this;
 
-      if (options.value) options = [options];
+      if (options.value !== undefined && options.value !== null){
+        options = [options];
+      } 
       $.each(options, function(index, option){
-        if (option.value && that.$element.find("option[value='"+option.value+"']").length === 0){
+        if (option.value !== undefined && option.value !== null &&
+            that.$element.find("option[value='"+option.value+"']").length === 0){
           var $option = $('<option value="'+option.value+'">'+option.text+'</option>'),
               index = parseInt((typeof option.index === 'undefined' ? that.$element.children().length : option.index)),
               $container = option.nested == undefined ? that.$element : $("optgroup[label='"+option.nested+"']")
