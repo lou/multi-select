@@ -48,7 +48,7 @@
             selectionOptgroups: {}
         };
         ms.find('option').each(function(index){
-          that.generateLisFromOption(this, index, null, handler);
+          that.generateListFromOption(this, index, null, handler);
         });
         that.$selectableUl.html(handler.selectableUl.join(''));
         that.$selectionUl.html(handler.selectionUl.join(''));
@@ -108,7 +108,7 @@
       }
     },
 
-    'generateLisFromOption' : function(option, index, $container, $handler){
+    'generateListFromOption' : function(option, index, $container, $handler){
       var that = this,
           ms = that.$element,
           attributes = "",
