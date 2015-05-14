@@ -50,11 +50,11 @@
         ms.find('option').each(function(index){
           that.generateListFromOption(this, index, null, handler);
         });
-        that.$selectableUl.html(handler.selectableUl.join(''));
-        that.$selectionUl.html(handler.selectionUl.join(''));
+        that.$selectableUl.prepend(handler.selectableUl.join(''));
+        that.$selectionUl.prepend(handler.selectionUl.join(''));
         for(var optgroupId in handler.selectableOptgroups){
-            that.$selectableUl.find('#optgroup-selectable-'+optgroupId).html(handler.selectableOptgroups[optgroupId].join(''));
-            that.$selectionUl.find('#optgroup-selection-'+optgroupId).html(handler.selectionOptgroups[optgroupId].join(''));
+            that.$selectableUl.find('#optgroup-selectable-'+optgroupId+' ul.ms-optgroup').append(handler.selectableOptgroups[optgroupId].join(''));
+            that.$selectionUl.find('#optgroup-selection-'+optgroupId+' ul.ms-optgroup').append(handler.selectionOptgroups[optgroupId].join(''));
         }
         handler = null;
 
@@ -138,7 +138,7 @@
             optgroupId = that.sanitize(optgroupLabel),
             $selectableOptgroup = that.$selectableUl.find('#optgroup-selectable-'+optgroupId),
             $selectionOptgroup = that.$selectionUl.find('#optgroup-selection-'+optgroupId);
-
+    
         if ($selectableOptgroup.length === 0){
           var optgroupContainerTpl = '<li class="ms-optgroup-container"></li>',
               optgroupTpl = '<ul class="ms-optgroup"><li class="ms-optgroup-label"><span>'+optgroupLabel+'</span></li></ul>';
@@ -200,7 +200,7 @@
               $container = option.nested == undefined ? that.$element : $("optgroup[label='"+option.nested+"']")
 
           $option.insertAt(index, $container);
-          that.generateLisFromOption($option.get(0), index, option.nested);
+          that.generateListFromOption($option.get(0), index, option.nested);
         }
       })
     },
