@@ -107,7 +107,14 @@
         that.options.afterInit.call(this, this.$container);
       }
     },
-
+    
+    'addImageToOption': function (optionImage, optionLi){
+      optionLi.prepend($('<img/>', {
+        src: optionImage,
+        class: 'ms-elem-image'
+      }));
+    },
+    
     'generateListFromOption' : function(option, index, $container, $handler){
       var that = this,
           ms = that.$element,
@@ -121,14 +128,20 @@
           attributes += attr.name+'="'+attr.value+'" ';
         }
       }
-
+	  
       var value = $option.val(),
           elementId = that.sanitize(value),
+                                      
           elementText = that.escapeHTML($option.text()),
           elementDisabled = $option.prop('disabled') || ms.prop('disabled'),
           selectableLi = '<li '+attributes+' data-ms-value="'+value+'" class="ms-elem-selectable'+(elementDisabled?' '+that.options.disabledClass:'')+'" id="ms-elem-'+elementId+'-selectable"><span>'+elementText+'</span></li>',
           selectedLi = '<li '+attributes+' data-ms-value="'+value+'" class="ms-elem-selection'+(elementDisabled?' '+that.options.disabledClass:'')+'" id="ms-elem-'+elementId+'-selection" style="display:none;"><span>'+elementText+'</span></li>';
-
+          
+	  var optionImage = $option.data('ms-image');
+  			if (optionImage) {
+    		that.addImageToOption(optionImage, selectableLi);
+    		that.addImageToOption(optionImage, selectedLi);
+  	  }
 
       var $optgroup = $option.parent('optgroup');
       var hasHandler = typeof $handler === 'object';
