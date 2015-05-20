@@ -128,7 +128,7 @@
           attributes += attr.name+'="'+attr.value+'" ';
         }
       }
-	  
+
       var value = $option.val(),
           elementId = that.sanitize(value),
                                       
@@ -136,7 +136,7 @@
           elementDisabled = $option.prop('disabled') || ms.prop('disabled'),
           selectableLi = '<li '+attributes+' data-ms-value="'+value+'" class="ms-elem-selectable'+(elementDisabled?' '+that.options.disabledClass:'')+'" id="ms-elem-'+elementId+'-selectable"><span>'+elementText+'</span></li>',
           selectedLi = '<li '+attributes+' data-ms-value="'+value+'" class="ms-elem-selection'+(elementDisabled?' '+that.options.disabledClass:'')+'" id="ms-elem-'+elementId+'-selection" style="display:none;"><span>'+elementText+'</span></li>';
-          
+
 	  var optionImage = $option.data('ms-image');
   			if (optionImage) {
     		that.addImageToOption(optionImage, selectableLi);
