@@ -476,14 +476,15 @@
       }
     },
 
+    /*
+      djb2 hash algorithm with unsigned bit shift right
+      to ensure javascript treats hash as an unsigned int
+    */
     sanitize: function(value){
-      var hash = 0, i, character;
-      if (value.length == 0) return hash;
-      var ls = 0;
-      for (i = 0, ls = value.length; i < ls; i++) {
-        character  = value.charCodeAt(i);
-        hash  = ((hash<<5)-hash)+character;
-        hash |= 0; // Convert to 32bit integer
+      var hash = 5381;
+      for (var i = 0; i < value.length; i++) {
+          var c = value.charCodeAt(i);
+          hash = (((hash << 5) >>> 0) + hash) + c; /* hash * 33 + c */
       }
       return hash;
     }
