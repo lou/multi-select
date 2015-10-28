@@ -323,13 +323,13 @@
     'activeMouse' : function($list){
       var that = this;
 
-      $('.ms-container').on('mouseenter', that.elemsSelector, function(){
+      this.$container.on('mouseenter', that.elemsSelector, function(){
         $(this).parents('.ms-container').find(that.elemsSelector).removeClass('ms-hover');
         $(this).addClass('ms-hover');
       });
 
-      $('.ms-container').on('mouseleave', that.elemsSelector, function () {
-          $(this).parents('.ms-container').find(that.elemsSelector).removeClass('ms-hover');;
+      this.$container.on('mouseleave', that.elemsSelector, function () {
+        $(this).parents('.ms-container').find(that.elemsSelector).removeClass('ms-hover');;
       });
     },
 
