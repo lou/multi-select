@@ -179,10 +179,22 @@
       } 
       $.each(options, function(index, option){
         if (option.value !== undefined && option.value !== null &&
-            that.$element.find("option[value='"+option.value+"']").length === 0){
-          var $option = $('<option value="'+option.value+'">'+option.text+'</option>'),
-              index = parseInt((typeof option.index === 'undefined' ? that.$element.children().length : option.index)),
-              $container = option.nested == undefined ? that.$element : $("optgroup[label='"+option.nested+"']")
+            that.$element.find("option[value='"+option.value+"']").length === 0) {
+
+          var $option = $('<option value="'+option.value+'">'+option.text+'</option>');
+          var $container = that.$element;
+
+          if ('undefined' !== typeof option.nested) {
+            if (0 === $("optgroup[label='"+option.nested+"']").length) {
+              var $opt_group_element = $('<optgroup label="'+option.nested+'"/>');
+
+              $opt_group_element.insertAt($container.children().length, $container);
+            }
+
+            $container = $("optgroup[label='"+option.nested+"']");
+          }
+
+          var index = parseInt((typeof option.index === 'undefined') ? $container.children().length : option.index);
 
           $option.insertAt(index, $container);
           that.generateLisFromOption($option.get(0), index, option.nested);
