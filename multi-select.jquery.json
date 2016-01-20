@@ -21,12 +21,7 @@
       "url": "https://github.com/lou"
     }
   ],
-  "licenses": [
-    {
-      "type": "wtfpl",
-      "url": "http://sam.zoy.org/wtfpl/COPYING"
-    }
-  ],
+  "license": "MIT",
   "bugs": "https://github.com/lou/multi-select/issues",
   "homepage": "http://loudev.com/",
   "docs": "http://loudev.com/",
