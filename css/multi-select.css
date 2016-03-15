@@ -78,7 +78,8 @@
 }
 
 .ms-container .ms-selectable li.ms-hover,
-.ms-container .ms-selection li.ms-hover{
+.ms-container .ms-selection li.ms-hover,
+.ms-container .ms-selection li.ui-sortable-helper{
   cursor: pointer;
   color: #fff;
   text-decoration: none;

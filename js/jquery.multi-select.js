@@ -84,7 +84,23 @@
 
         ms.on('focus', function(){
           that.$selectableUl.focus();
-        })
+        });
+        if (that.options.sortable){
+          // we depend on jQueryUi for ordering so check if it is available
+          if (jQuery.ui) {
+            // initialize jQueryUi sortable
+            that.$selectionUl.sortable({
+              stop: function(event,ui){
+                that.sort();
+              },
+              axis: "y"
+            });
+            that.$selectionUl.disableSelection();
+          } else {
+            that.options.sortable = false;
+            console.warn('Please include jQueryUI if you want to use the sortable option. Sorting has been disabled.')
+          }
+        }
       }
 
       var selectedValues = ms.find('option:selected').map(function(){ return $(this).val(); }).get();
@@ -329,7 +345,7 @@
       });
 
       this.$container.on('mouseleave', that.elemsSelector, function () {
-        $(this).parents('.ms-container').find(that.elemsSelector).removeClass('ms-hover');;
+        $(this).parents('.ms-container').find(that.elemsSelector).removeClass('ms-hover');
       });
     },
 
@@ -341,7 +357,7 @@
     'destroy' : function(){
       $("#ms-"+this.$element.attr("id")).remove();
       this.$element.off('focus');
-      this.$element.css('position', '').css('left', '')
+      this.$element.css('position', '').css('left', '');
       this.$element.removeData('multiselect');
     },
 
@@ -398,6 +414,7 @@
             that.options.afterSelect.call(this, value);
           }
         }
+        this.sort();
       }
     },
 
@@ -477,6 +494,17 @@
       }
     },
 
+    'sort': function(){
+      var ms = this.$element,
+          that = this;
+      if (that.options.sortable){
+        // iterate over the selected elements in order and append the corresponding option element to the select.
+        that.$selectionUl.find('.ms-selected').each(function() {
+          ms.append(ms.find('[value="'+$(this).data('ms-value')+'"]'));
+        });
+      }
+    },
+
     sanitize: function(value){
       var hash = 0, i, character;
       if (value.length == 0) return hash;
@@ -518,7 +546,8 @@
     disabledClass : 'disabled',
     dblClick : false,
     keepOrder: false,
-    cssClass: ''
+    cssClass: '',
+    sortable: false
   };
 
   $.fn.multiSelect.Constructor = MultiSelect;
