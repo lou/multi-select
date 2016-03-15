@@ -165,22 +165,22 @@
           $selectionOptgroup.append($(optgroupTpl));
           if (that.options.selectableOptgroup){
             $selectableOptgroup.find('.ms-optgroup-label').on('click', function(){
-              var values = $optgroup.children(':not(:selected, :disabled)').map(function(){ return $(this).val() }).get();
+              var values = $optgroup.children(':not(:selected, :disabled)').map(function(){ return $(this).val();}).get();
               that.select(values);
             });
             $selectionOptgroup.find('.ms-optgroup-label').on('click', function(){
-              var values = $optgroup.children(':selected:not(:disabled)').map(function(){ return $(this).val() }).get();
+              var values = $optgroup.children(':selected:not(:disabled)').map(function(){ return $(this).val();}).get();
               that.deselect(values);
             });
           }
           that.$selectableUl.append($selectableOptgroup);
           that.$selectionUl.append($selectionOptgroup);
         }
-        index = index == undefined ? $selectableOptgroup.find('ul').children().length : index + 1;
+        index = index === undefined ? $selectableOptgroup.find('ul').children().length : index + 1;
         selectableLi.insertAt(index, $selectableOptgroup.children());
         selectedLi.insertAt(index, $selectionOptgroup.children());
       } else {
-        index = index == undefined ? that.$selectableUl.children().length : index;
+        index = index === undefined ? that.$selectableUl.children().length : index;
 
         selectableLi.insertAt(index, that.$selectableUl);
         selectedLi.insertAt(index, that.$selectionUl);
@@ -198,12 +198,12 @@
             that.$element.find("option[value='"+option.value+"']").length === 0){
           var $option = $('<option value="'+option.value+'">'+option.text+'</option>'),
               index = parseInt((typeof option.index === 'undefined' ? that.$element.children().length : option.index)),
-              $container = option.nested == undefined ? that.$element : $("optgroup[label='"+option.nested+"']")
+              $container = option.nested === undefined ? that.$element : $("optgroup[label='"+option.nested+"']");
 
           $option.insertAt(index, $container);
           that.generateLisFromOption($option.get(0), index, option.nested);
         }
-      })
+      });
     },
 
     'escapeHTML' : function(text){
@@ -560,6 +560,6 @@
         $parent.children().eq(index - 1).after(this);
       }
     });
-}
+};
 
 }(window.jQuery);
