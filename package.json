@@ -1,0 +1,10 @@
+{
+  "name": "multiselect",
+  "version": "0.9.10",
+  "description": "A user-friendlier drop-in replacement for the standard select with multiple attribute activated.",
+  "main": "./js/jquery.multi-select.js",
+  "dependencies": {
+    "jquery": ">=1.7.1"
+  },
+  "license": "WTFPL"
+}
