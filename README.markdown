@@ -5,6 +5,7 @@
 
 ### Update
 Added to options:
+
 	mouseActive: boolean, default true // Set false to optimize a large lists (over 1000 records)
 
 ### License
