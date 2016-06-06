@@ -8,5 +8,11 @@ Added to options:
 
 	mouseActive: boolean, default true // Set false to optimize a large lists (over 1000 records)
 
+Added methods:
+
+	.selectFiltered() - select only filtered values from quicksearch input
+
+	.deselectFiltered() - deselect only filtered values from quicksearch input
+
 ### License
 Multi-select is released under the [MIT License](http://opensource.org/licenses/MIT "MIT License").
