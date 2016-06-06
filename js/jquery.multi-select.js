@@ -310,6 +310,34 @@
       }
     },
 
+    'selectFiltered' : function(){
+      var $selectedElems = this.$selectableUl.find(this.elemsSelector);
+
+      if ($selectedElems.length > 0){
+        var elmIds = []
+        $selectedElems.each(function(i, e){
+          elmIds.push($(e).data('ms-value'));
+        });
+      
+        this.select(elmIds);
+        $selectedElems.removeClass('ms-hover');
+      }
+    },
+
+    'deselectFiltered' : function(){
+      var $selectedElems = this.$selectionUl.find(this.elemsSelector);
+
+      if ($selectedElems.length > 0){
+        var elmIds = []
+        $selectedElems.each(function(i, e){
+          elmIds.push($(e).data('ms-value'));
+        });
+        
+        this.deselect(elmIds);
+        $selectedElems.removeClass('ms-hover');
+      }
+    },
+
     'switchList' : function($list){
       $list.blur();
       this.$container.find(this.elemsSelector).removeClass('ms-hover');
