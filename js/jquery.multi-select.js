@@ -93,7 +93,8 @@
               stop: function(event,ui){
                 that.sort();
               },
-              axis: "y"
+              axis: "y",
+              helper: "clone"
             });
             that.$selectionUl.disableSelection();
           } else {
