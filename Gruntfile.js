@@ -5,9 +5,9 @@
                 //src ===============================
                 var src;
                 config.src = src = {
-                     sassMain        : 'scss/app.scss',
-                     distFolder      : 'css/app.dist.css',
-                     devFolder       : 'app.dev.css',
+                     sassMain        : 'scss/multi-select.scss',
+                     distFolder      : 'css/multi-select.dist.css',
+                     devFolder       : 'css/multi-select.dev.css',
                      sassFolder      : 'scss/**/*.scss',
                 
                 };
