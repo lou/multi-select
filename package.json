@@ -1,0 +1,29 @@
+{
+  "name": "multiselect",
+  "version": "0.9.12",
+  "description": "A user-friendlier drop-in replacement for the standard select with multiple attribute activated.",
+  "main": "Gruntfile.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/douglasdeodato/multi-select.git"
+  },
+  "author": "",
+  "license": "WTFPL",
+  "bugs": {
+    "url": "https://github.com/lou/multi-select/issues"
+  },
+  "devDependencies": {
+    "grunt": "*",
+    "load-grunt-tasks": "^3.5.0",
+    "time-grunt": "^1.3.0",
+    "grunt-contrib-sass": "*",
+    "grunt-contrib-watch": "*"
+  },
+  "homepage": "https://github.com/douglasdeodato/multi-select#readme"
+}
