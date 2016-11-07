@@ -92,3 +92,7 @@
   color: #aaa;
   cursor: text;
 }
+
+.ms-container .ms-list.ui-sortable > li {
+  cursor: move;
+}
