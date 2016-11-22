@@ -99,13 +99,18 @@
       var that = this,
           ms = that.$element,
           attributes = "",
-          $option = $(option);
+          $option = $(option),
+          selected = false;
 
       for (var cpt = 0; cpt < option.attributes.length; cpt++){
         var attr = option.attributes[cpt];
 
         if(attr.name !== 'value' && attr.name !== 'disabled'){
           attributes += attr.name+'="'+attr.value+'" ';
+        }
+
+        if(attr.name == 'selected'){
+          selected = true;
         }
       }
       var selectableLi = $('<li '+attributes+'><span>'+that.escapeHTML($option.text())+'</span></li>'),
@@ -169,6 +174,10 @@
         selectableLi.insertAt(index, that.$selectableUl);
         selectedLi.insertAt(index, that.$selectionUl);
       }
+
+      if(selected){
+        that.select($option.val(),'init');
+      }      
     },
 
     'addOption' : function(options){
@@ -180,7 +189,8 @@
       $.each(options, function(index, option){
         if (option.value !== undefined && option.value !== null &&
             that.$element.find("option[value='"+option.value+"']").length === 0){
-          var $option = $('<option value="'+option.value+'">'+option.text+'</option>'),
+          var selected = option.selected ? 'selected':'a';
+          var $option = $('<option '+selected+' value="'+option.value+'">'+option.text+'</option>'),
               index = parseInt((typeof option.index === 'undefined' ? that.$element.children().length : option.index)),
               $container = option.nested === undefined ? that.$element : $("optgroup[label='"+option.nested+"']");
 
@@ -194,6 +204,7 @@
 
           $option.insertAt(index, $container);
           that.generateLisFromOption($option.get(0), index, option.nested);
+          that.$element.find('option').eq(index).before($option);
         }
       });
     },
