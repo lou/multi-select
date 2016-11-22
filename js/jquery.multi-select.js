@@ -184,6 +184,14 @@
               index = parseInt((typeof option.index === 'undefined' ? that.$element.children().length : option.index)),
               $container = option.nested === undefined ? that.$element : $("optgroup[label='"+option.nested+"']");
 
+          if (option.optionClass) {
+            $option.addClass(option.optionClass);
+          }
+
+          if (option.disabled) {
+            $option.prop('disabled', true);
+          }
+
           $option.insertAt(index, $container);
           that.generateLisFromOption($option.get(0), index, option.nested);
         }
