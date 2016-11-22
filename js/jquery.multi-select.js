@@ -124,7 +124,7 @@
         .attr('id', elementId+'-selection')
         .hide();
 
-      if ($option.prop('disabled') || ms.prop('disabled')){
+      if ($option.prop('disabled') || ms.prop('disabled') || ms.attr('readonly') === 'readonly'){
         selectedLi.addClass(that.options.disabledClass);
         selectableLi.addClass(that.options.disabledClass);
       }
