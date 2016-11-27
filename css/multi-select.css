@@ -77,10 +77,9 @@
   font-size: 14px;
 }
 
-.ms-container .ms-selectable li.ms-hover,
-.ms-container .ms-selection li.ms-hover{
+.ms-elem-selectable:hover, .ms-elem-selection:hover,{
   cursor: pointer;
-  color: #fff;
+  color: #fff !important;
   text-decoration: none;
   background-color: #08c;
 }
