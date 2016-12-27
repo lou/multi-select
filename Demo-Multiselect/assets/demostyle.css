@@ -1,0 +1,35 @@
+body {
+  padding-top: 20px;
+  padding-bottom: 40px;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 800px;
+}
+.container > hr {
+  margin: 30px 0;
+}
+
+.custom-header{
+  text-align: center;
+  padding: 3px;
+  background: #000;
+  color: #fff;
+}
+
+h3{
+  margin: 1em 0;
+}
+
+#ms-searchable.ms-container{
+  background-position: 168px 110px;
+}
+
+input.search-input{
+  box-sizing: border-box;
+  -moz-box-sizing:border-box;
+  width: 100%;
+  margin-bottom: 5px;
+  height: auto;
+}
