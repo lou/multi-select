@@ -176,7 +176,7 @@
 
       if (options.value !== undefined && options.value !== null){
         options = [options];
-      } 
+      }
       $.each(options, function(index, option){
         if (option.value !== undefined && option.value !== null &&
             that.$element.find("option[value='"+option.value+"']").length === 0){
@@ -297,7 +297,7 @@
       }
       if ($nextElem.length > 0){
         $nextElem.addClass('ms-hover');
-        var scrollTo = $list.scrollTop() + $nextElem.position().top - 
+        var scrollTo = $list.scrollTop() + $nextElem.position().top -
                        containerHeight / 2 + elemHeight / 2;
 
         $list.scrollTop(scrollTo);
@@ -459,7 +459,7 @@
       this.$selectionUl.find('.ms-optgroup-label').show();
       this.$selectableUl.find('.ms-optgroup-label').hide();
       this.$selectionUl.find('.ms-elem-selection').filter(':not(.'+this.options.disabledClass+')').addClass('ms-selected').show();
-      this.$selectionUl.focus();
+    //   this.$selectionUl.focus();
       ms.trigger('change');
       if (typeof this.options.afterSelect === 'function') {
         var selectedValues = $.grep(ms.val(), function(item){
@@ -478,7 +478,7 @@
       this.$selectionUl.find('.ms-optgroup-label').hide();
       this.$selectableUl.find('.ms-optgroup-label').show();
       this.$selectionUl.find('.ms-elem-selection').removeClass('ms-selected').hide();
-      this.$selectableUl.focus();
+    //   this.$selectableUl.focus();
       ms.trigger('change');
       if (typeof this.options.afterDeselect === 'function') {
         this.options.afterDeselect.call(this, values);
