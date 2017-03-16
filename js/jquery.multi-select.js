@@ -199,6 +199,8 @@
     },
 
     'escapeHTML' : function(text){
+      if(this.options.contentType == 'html')
+        return text
       return $("<div>").text(text).html();
     },
 
@@ -318,6 +320,34 @@
       }
     },
 
+    'selectFiltered' : function(){
+      var $selectedElems = this.$selectableUl.find(this.elemsSelector);
+
+      if ($selectedElems.length > 0){
+        var elmIds = []
+        $selectedElems.each(function(i, e){
+          elmIds.push($(e).data('ms-value'));
+        });
+      
+        this.select(elmIds);
+        $selectedElems.removeClass('ms-hover');
+      }
+    },
+
+    'deselectFiltered' : function(){
+      var $selectedElems = this.$selectionUl.find(this.elemsSelector);
+
+      if ($selectedElems.length > 0){
+        var elmIds = []
+        $selectedElems.each(function(i, e){
+          elmIds.push($(e).data('ms-value'));
+        });
+        
+        this.deselect(elmIds);
+        $selectedElems.removeClass('ms-hover');
+      }
+    },
+
     'switchList' : function($list){
       $list.blur();
       this.$container.find(this.elemsSelector).removeClass('ms-hover');
@@ -331,14 +361,18 @@
     'activeMouse' : function($list){
       var that = this;
 
-      this.$container.on('mouseenter', that.elemsSelector, function(){
-        $(this).parents('.ms-container').find(that.elemsSelector).removeClass('ms-hover');
-        $(this).addClass('ms-hover');
-      });
+      if(that.options.mouseActive)
+      {
+        this.$container.on('mouseenter', that.elemsSelector, function(){
+          $(this).parents('.ms-container').find(that.elemsSelector).removeClass('ms-hover');
+          $(this).addClass('ms-hover');
+        });
 
-      this.$container.on('mouseleave', that.elemsSelector, function () {
-        $(this).parents('.ms-container').find(that.elemsSelector).removeClass('ms-hover');
-      });
+        this.$container.on('mouseleave', that.elemsSelector, function () {
+          $(this).parents('.ms-container').find(that.elemsSelector).removeClass('ms-hover');
+        });  
+      }
+      
     },
 
     'refresh' : function() {
@@ -526,6 +560,8 @@
     disabledClass : 'disabled',
     dblClick : false,
     keepOrder: false,
+    mouseActive: true,
+    contentType: 'text',
     cssClass: ''
   };
 
