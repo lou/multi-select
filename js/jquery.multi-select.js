@@ -191,6 +191,8 @@
     },
 
     'escapeHTML' : function(text){
+      if(this.options.contentType == 'html')
+        return text
       return $("<div>").text(text).html();
     },
 
@@ -551,6 +553,7 @@
     dblClick : false,
     keepOrder: false,
     mouseActive: true,
+    contentType: 'text',
     cssClass: ''
   };
 

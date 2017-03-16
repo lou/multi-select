@@ -5,6 +5,8 @@
 
 ### Update
 Added to options:
+	
+	contentType: 'html' | 'text', default 'text'. Set content type for list options 
 
 	mouseActive: boolean, default true // Set false to optimize a large lists (over 1000 records)
 
