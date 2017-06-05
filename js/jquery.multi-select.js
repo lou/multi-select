@@ -9,6 +9,12 @@
 * http://sam.zoy.org/wtfpl/COPYING for more details.
 */
 
+// add a case insensitive contains selector to jQuery ":icontains"
+$.expr[':'].icontains = function(a, i, m) {
+  return jQuery(a).text().toUpperCase()
+      .indexOf(m[3].toUpperCase()) >= 0;
+};
+
 !function ($) {
 
   "use strict";
@@ -51,7 +57,7 @@
           that.$selectableContainer.append(that.options.selectableHeader);
         }
 	if (that.options.searchEngine){
-	    that.$container.append($("<input type='text' class='ms-search' />"));
+	    that.$container.append($("<input type='text' class='ms-search form-control' />"));
 	    that.$container.on('keyup', '.ms-search', function() {
 		that.filter($(this).val());
 	    });
@@ -102,6 +108,17 @@
             that.$selectionUl.on(action, '.ms-elem-selection .preview-button', that.options.previewButton);
 	}
 
+	if (that.options.selectAll) {
+	    that.$container.find(that.options.selectAll).click(function() {
+		that.select_all();
+	    });
+	}
+	if (that.options.deselectAll) {
+	    that.$container.find(that.options.deselectAll).click(function() {
+		that.deselect_all();
+	    });
+	}
+
         that.activeMouse(that.$selectionUl);
         that.activeKeyboard(that.$selectionUl);
 
@@ -116,11 +133,28 @@
       if (typeof that.options.afterInit === 'function') {
         that.options.afterInit.call(this, this.$container);
       }
+
+      that.$container.siblings(".add-another").hide();
     },
 
 
     'filter': function(value){
-	console.debug(value);
+	var that = this;
+
+	if (value == "")
+	    that.$container.find("li").removeClass("unmatched");
+	else {
+	    // hide all
+	    that.$container.find("li").addClass("unmatched");
+
+	    // show matching li AND the optgroup label if it exists
+	    that.$container.find("li:icontains('"+value+"')").removeClass("unmatched")
+		.prev(".ms-optgroup-label").removeClass("unmatched");
+
+	    // show the whole optgroup if the value matches an optgroup label
+	    that.$container.find("li.ms-optgroup-label:icontains('"+value+"')")
+	    	.siblings("li").removeClass("unmatched");
+	}
     },
 
 
@@ -234,7 +268,7 @@
       }
       escaped += $("<div>").text(text).html();
       if (this.options.selectButton) {
-	  escaped += $("<span class='select-button icon icon-selector-add'>")[0].outerHTML;
+	  escaped += $("<span class='select-button icon icon-selector'>")[0].outerHTML;
       }
       return escaped;
     },
@@ -390,6 +424,13 @@
       this.$element.removeData('multiselect');
     },
 
+    'updateCounters': function(){
+      if (this.options.counterClass) {
+	  this.$container.find(".ms-selectable "+this.options.counterClass).text(this.$selectableUl.find(".ms-elem-selectable").filter(":visible").length);
+	  this.$container.find(".ms-selection "+this.options.counterClass).text(this.$selectionUl.find(".ms-elem-selection").filter(":visible").length);
+      }
+    },
+
     'select' : function(value, method){
       if (typeof value === 'string'){ value = [value]; }
 
@@ -413,7 +454,7 @@
 
         that.$container.find(that.elemsSelector).removeClass('ms-hover');
 
-        var selectableOptgroups = that.$selectableUl.children('.ms-optgroup-container');
+        var selectableOptgroups = that.$selectableUl.children('.ms-optgroup-container').not(".unmatched");
         if (selectableOptgroups.length > 0){
           selectableOptgroups.each(function(){
             var selectablesLi = $(this).find('.ms-elem-selectable');
@@ -422,7 +463,7 @@
             }
           });
 
-          var selectionOptgroups = that.$selectionUl.children('.ms-optgroup-container');
+          var selectionOptgroups = that.$selectionUl.children('.ms-optgroup-container').not(".unmatched");
           selectionOptgroups.each(function(){
             var selectionsLi = $(this).find('.ms-elem-selection');
             if (selectionsLi.filter('.ms-selected').length > 0){
@@ -437,6 +478,7 @@
             }
           }
         }
+
         if (method !== 'init'){
           ms.trigger('change');
           if (typeof that.options.afterSelect === 'function') {
@@ -444,6 +486,7 @@
           }
         }
       }
+      that.updateCounters();
     },
 
     'deselect' : function(value){
@@ -463,7 +506,7 @@
 
         that.$container.find(that.elemsSelector).removeClass('ms-hover');
 
-        var selectableOptgroups = that.$selectableUl.children('.ms-optgroup-container');
+        var selectableOptgroups = that.$selectableUl.children('.ms-optgroup-container').not(".unmatched");
         if (selectableOptgroups.length > 0){
           selectableOptgroups.each(function(){
             var selectablesLi = $(this).find('.ms-elem-selectable');
@@ -472,7 +515,7 @@
             }
           });
 
-          var selectionOptgroups = that.$selectionUl.children('.ms-optgroup-container');
+          var selectionOptgroups = that.$selectionUl.children('.ms-optgroup-container').not(".unmatched");
           selectionOptgroups.each(function(){
             var selectionsLi = $(this).find('.ms-elem-selection');
             if (selectionsLi.filter('.ms-selected').length === 0){
@@ -481,6 +524,8 @@
           });
         }
         ms.trigger('change');
+	that.updateCounters();
+
         if (typeof that.options.afterDeselect === 'function') {
           that.options.afterDeselect.call(this, value);
         }
@@ -497,7 +542,10 @@
       this.$selectableUl.find('.ms-optgroup-label').hide();
       this.$selectionUl.find('.ms-elem-selection').filter(':not(.'+this.options.disabledClass+')').addClass('ms-selected').show();
       this.$selectionUl.focus();
+
       ms.trigger('change');
+      this.updateCounters();
+
       if (typeof this.options.afterSelect === 'function') {
         var selectedValues = $.grep(ms.val(), function(item){
           return $.inArray(item, values) < 0;
@@ -516,7 +564,10 @@
       this.$selectableUl.find('.ms-optgroup-label').show();
       this.$selectionUl.find('.ms-elem-selection').removeClass('ms-selected').hide();
       this.$selectableUl.focus();
+
       ms.trigger('change');
+      this.updateCounters();
+
       if (typeof this.options.afterDeselect === 'function') {
         this.options.afterDeselect.call(this, values);
       }
