@@ -31,7 +31,7 @@
 
   MultiSelect.prototype = {
     constructor: MultiSelect,
-
+    
     init: function(){
       var that = this,
           ms = this.$element;
@@ -50,6 +50,12 @@
         if (that.options.selectableHeader){
           that.$selectableContainer.append(that.options.selectableHeader);
         }
+	if (that.options.searchEngine){
+	    that.$container.append($("<input type='text' class='ms-search' />"));
+	    that.$container.on('keyup', '.ms-search', function() {
+		that.filter($(this).val());
+	    });
+	}
         that.$selectableContainer.append(that.$selectableUl);
         if (that.options.selectableFooter){
           that.$selectableContainer.append(that.options.selectableFooter);
@@ -58,6 +64,9 @@
         if (that.options.selectionHeader){
           that.$selectionContainer.append(that.options.selectionHeader);
         }
+	if (that.options.selectionSearch){
+	    that.$selectionContainer.append($("<input type='text' class='ms--search' />"));
+	}
         that.$selectionContainer.append(that.$selectionUl);
         if (that.options.selectionFooter){
           that.$selectionContainer.append(that.options.selectionFooter);
@@ -71,13 +80,27 @@
         that.activeKeyboard(that.$selectableUl);
 
         var action = that.options.dblClick ? 'dblclick' : 'click';
+	var selector = that.options.selectButton ? '.select-button' : '';
+	
+        that.$selectableUl.on(action, '.ms-elem-selectable '+ selector, function(){
+	    var value = $(this).data('ms-value') || $(this).parents("li").data('ms-value'); 
+            that.select(value);
+	    if ($.isFunction(that.options.selectButton)) {
+		that.options.selectButton($(this));
+	    }
+        });
+        that.$selectionUl.on(action, '.ms-elem-selection '+ selector, function(){
+	    var value = $(this).data('ms-value') || $(this).parents("li").data('ms-value');
+            that.deselect(value);
+	    if ($.isFunction(that.options.selectButton)) {
+		that.options.selectButton($(this));
+	    }
+        });
 
-        that.$selectableUl.on(action, '.ms-elem-selectable', function(){
-          that.select($(this).data('ms-value'));
-        });
-        that.$selectionUl.on(action, '.ms-elem-selection', function(){
-          that.deselect($(this).data('ms-value'));
-        });
+        if ($.isFunction(that.options.previewButton)) {
+            that.$selectableUl.on(action, '.ms-elem-selectable .preview-button', that.options.previewButton);
+            that.$selectionUl.on(action, '.ms-elem-selection .preview-button', that.options.previewButton);
+	}
 
         that.activeMouse(that.$selectionUl);
         that.activeKeyboard(that.$selectionUl);
@@ -94,6 +117,12 @@
         that.options.afterInit.call(this, this.$container);
       }
     },
+
+
+    'filter': function(value){
+	console.debug(value);
+    },
+
 
     'generateLisFromOption' : function(option, index, $container){
       var that = this,
@@ -199,7 +228,15 @@
     },
 
     'escapeHTML' : function(text){
-      return $("<div>").text(text).html();
+      var escaped = "";
+      if (this.options.previewButton) {
+	  escaped += $("<span class='preview-button icon icon-eye'>")[0].outerHTML;
+      }
+      escaped += $("<div>").text(text).html();
+      if (this.options.selectButton) {
+	  escaped += $("<span class='select-button icon icon-selector-add'>")[0].outerHTML;
+      }
+      return escaped;
     },
 
     'activeKeyboard' : function($list){
