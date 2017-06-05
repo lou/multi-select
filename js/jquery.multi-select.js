@@ -26,6 +26,7 @@ $.expr[':'].icontains = function(a, i, m) {
   var MultiSelect = function (element, options) {
     this.options = options;
     this.$element = $(element);
+    this.$orig = $(element).clone();
     this.$container = $('<div/>', { 'class': "ms-container" });
     this.$selectableContainer = $('<div/>', { 'class': 'ms-selectable' });
     this.$selectionContainer = $('<div/>', { 'class': 'ms-selection' });
@@ -116,6 +117,11 @@ $.expr[':'].icontains = function(a, i, m) {
 	if (that.options.deselectAll) {
 	    that.$container.find(that.options.deselectAll).click(function() {
 		that.deselect_all();
+	    });
+	}
+	if (that.options.refreshClass) {
+	    that.$container.find(that.options.refreshClass).click(function() {
+		that.refresh();
 	    });
 	}
 
@@ -414,6 +420,7 @@ $.expr[':'].icontains = function(a, i, m) {
 
     'refresh' : function() {
       this.destroy();
+      this.$element.html(this.$orig.html());
       this.$element.multiSelect(this.options);
     },
 
