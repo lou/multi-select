@@ -67,6 +67,9 @@ $('#my-select').multiSelect({
 	
 	previewButton: function($button){}	// Add a preview button and call the function when clicked
 	selectButton: true|function($button){}	// Add a select button and call the function when clicked. If set to true, the callback function is simply the select/deselect. If set to a function, it is called AFTER select/deselect. Note that the label itself is not clickable when the button is added
+	selectAll: null				// CSS class for a select-all-html-tag that has been added into the DOM (with selectableFooter or selectableHeader for instance)
+	deselectAll: null			// CSS class for a deselect-all-html-tag that has been added into the DOM (with selectableFooter or selectableHeader for instance)
+	counterClass: null			// CSS class for two html tags that will contain the bnumbers of elements available in each list. They must be in the ms-container so they should be created using selectableFooter or selectableHeader)
 })
 ```
 
