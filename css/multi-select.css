@@ -91,3 +91,18 @@
   color: #aaa;
   cursor: text;
 }
+
+.ms-container .preview-button {
+  background: transparent url('../img/preview.png') no-repeat 50% 50%;
+  background-size:cover;
+}
+
+.ms-container .ms-selectable .select-button {
+  background: transparent url('../img/select.png') no-repeat 50% 50%;
+  background-size:cover;
+}
+
+.ms-container .ms-selection .select-button {
+  background: transparent url('../img/deselect.png') no-repeat 50% 50%;
+  background-size:cover;
+}
