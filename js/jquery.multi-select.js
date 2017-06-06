@@ -58,7 +58,7 @@ $.expr[':'].icontains = function(a, i, m) {
           that.$selectableContainer.append(that.options.selectableHeader);
         }
 	if (that.options.searchEngine){
-	    that.$container.append($("<input type='text' class='ms-search form-control' />"));
+	    that.$container.append($("<div class='ms-search-wrapper'><span class='icon-search'></span><input type='text' class='ms-search form-control' /></div>"));
 	    that.$container.on('keyup', '.ms-search', function() {
 		that.filter($(this).val());
 	    });
