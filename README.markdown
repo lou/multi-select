@@ -16,10 +16,10 @@ I'm a user-friendlier drop-in replacement for the standard select with multiple 
 ## Contributors
 @outofpluto
 
-### Usage
+## Usage
 
-HTML
------------
+### HTML
+
 ```html
 <html>
   <head>
@@ -36,10 +36,12 @@ HTML
     </select>
     <script src="path/to/jquery.multi-select.js" type="text/javascript"></script>
   </body>
-</html>```
+</html>
+```
 
-JavaScript
------------
+
+### JavaScript
+
 ```JavaScript
 $('#my-select').multiSelect();
 ```
@@ -75,5 +77,5 @@ $('#my-select').multiSelect({
 ```
 
 
-### License
+## License
 Multi-select is released under the [MIT License](http://opensource.org/licenses/MIT "MIT License").
