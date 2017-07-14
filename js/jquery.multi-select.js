@@ -181,8 +181,19 @@
         if (option.value !== undefined && option.value !== null &&
             that.$element.find("option[value='"+option.value+"']").length === 0){
           var $option = $('<option value="'+option.value+'">'+option.text+'</option>'),
-              $container = option.nested === undefined ? that.$element : $("optgroup[label='"+option.nested+"']"),
-              index = parseInt((typeof option.index === 'undefined' ? $container.children().length : option.index));
+              opt_group = $("optgroup[label='"+option.nested+"']"),
+              $container = that.$element ;
+
+          if(option.nested !== undefined) {
+              if (opt_group.length === 0) {
+                  var $opt_group_element = $('<optgroup label="' + option.nested + '"/>');
+                  $opt_group_element.insertAt($container.children().length, $container);
+
+              }
+              $container = $("optgroup[label='"+option.nested+"']");
+          }
+          
+          index = parseInt((typeof option.index === 'undefined' ? $container.children().length : option.index));
 
           if (option.optionClass) {
             $option.addClass(option.optionClass);
@@ -196,6 +207,7 @@
           that.generateLisFromOption($option.get(0), index, option.nested);
         }
       });
+      this.$selectionUl.find('.ms-optgroup-label').hide();
     },
 
     'escapeHTML' : function(text){
