@@ -37,7 +37,7 @@
           ms = this.$element;
 
       if (ms.next('.ms-container').length === 0){
-        ms.css({ position: 'absolute', left: '-9999px' });
+        ms.css({ position: 'absolute', display: 'none' });
         ms.attr('id', ms.attr('id') ? ms.attr('id') : Math.ceil(Math.random()*1000)+'multiselect');
         this.$container.attr('id', 'ms-'+ms.attr('id'));
         this.$container.addClass(that.options.cssClass);
