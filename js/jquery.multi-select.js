@@ -49,7 +49,7 @@ $.expr[':'].icontains = function(a, i, m) {
 		this.$container.attr('id', 'ms-'+ms.attr('id'));
 		this.$container.addClass(that.options.cssClass);
 		ms.find('option').each(function(){
-		    that.generateLisFromOption(this);
+		    that.generateListFromOption(this);
 		});
 
 		this.$selectionUl.find('.ms-optgroup-label').hide();
@@ -169,7 +169,7 @@ $.expr[':'].icontains = function(a, i, m) {
 	},
 
 
-	'generateLisFromOption' : function(option, index, $container){
+	'generateListFromOption' : function(option, index, $container){
 	    var that = this,
             ms = that.$element,
             attributes = "",
@@ -255,13 +255,14 @@ $.expr[':'].icontains = function(a, i, m) {
 		if (option.value !== undefined && option.value !== null &&
 		    that.$element.find("option[value='"+option.value+"']").length === 0){
 		    var $option = $('<option value="'+option.value+'">'+option.text+'</option>'),
-		    $container = option.nested === undefined ? that.$element : $("optgroup[label='"+option.nested+"']"),
+		    $container = option.nested === undefined ? that.$element : that.$element.find("optgroup[label='"+option.nested+"']"),
 		    index = parseInt((typeof option.index === 'undefined' ? $container.children().length : option.index));
 
 		    // if the optgroup does not exist, create it
 		    if (option.nested && $container.length == 0) {
 			$container = $('<optgroup label="'+ option.nested+'" />');
 			$container.insertAt(index, that.$element);
+			index = 0;
 		    }
 		    if (option.optionClass) {
 			$option.addClass(option.optionClass);
@@ -271,9 +272,43 @@ $.expr[':'].icontains = function(a, i, m) {
 			$option.prop('disabled', true);
 		    }
 
-		    console.debug($container);
 		    $option.insertAt(index, $container);
-		    that.generateLisFromOption($option.get(0), index, option.nested);
+		    that.generateListFromOption($option.get(0), index, option.nested);
+		}
+	    });
+	},
+
+	'removeOption' : function(options){
+	    var that = this;
+
+	    if (options.value !== undefined && options.value !== null){
+		options = [options];
+	    } 
+	    $.each(options, function(index, option) {
+		if (option.value !== undefined && option.value !== null) {
+		    var $option = that.$element.find("option[value='"+option.value+"']");
+		    if ($option.length === 1) {
+			var $containerli;
+			var $container = $option.parent("optgroup");
+			$option.remove();
+			that.$selectableUl.find("li").each(function(cnt, li) {
+			    if ($(li).data("ms-value") == option.value) {
+				$containerli = $(li).parents(".ms-optgroup-container");
+				console.debug($containerli);
+				$(li).remove();
+			    }
+			});
+			that.$selectionUl.find("li").each(function(cnt, li) {
+			    if ($(li).data("ms-value") == option.value) {
+				$containerli = $(li).parents(".ms-optgroup-container");
+				$(li).remove();
+			    }
+			});
+
+			if ($container.length == 1 && $container.find("option").length == 0) {
+			    $container.remove();
+			}
+		    }
 		}
 	    });
 	},
