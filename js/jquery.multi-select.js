@@ -484,6 +484,10 @@
         this.options.afterDeselect.call(this, values);
       }
     },
+	'clear_all': function () {
+        this.$selectableUl.html('');
+        this.$selectionUl.html('');
+    },
 
     sanitize: function(value){
       var hash = 0, i, character;
