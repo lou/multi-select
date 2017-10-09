@@ -291,17 +291,21 @@ $.expr[':'].icontains = function(a, i, m) {
 			var $containerli;
 			var $container = $option.parent("optgroup");
 			$option.remove();
+
 			that.$selectableUl.find("li").each(function(cnt, li) {
 			    if ($(li).data("ms-value") == option.value) {
 				$containerli = $(li).parents(".ms-optgroup-container");
-				console.debug($containerli);
 				$(li).remove();
+				if ($containerli.find('.ms-elem-selectable').length == 0)
+				    $containerli.remove();
 			    }
 			});
 			that.$selectionUl.find("li").each(function(cnt, li) {
 			    if ($(li).data("ms-value") == option.value) {
 				$containerli = $(li).parents(".ms-optgroup-container");
 				$(li).remove();
+				if ($containerli.find('.ms-elem-selection').length == 0)
+				    $containerli.remove();
 			    }
 			});
 
