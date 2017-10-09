@@ -284,6 +284,18 @@ $.expr[':'].icontains = function(a, i, m) {
 	    if (options.value !== undefined && options.value !== null){
 		options = [options];
 	    } 
+	    // first deselect all (to eventually trigger other events
+	    $.each(options, function(index, option) {
+		if (option.value !== undefined && option.value !== null) {
+		    that.$selectionUl.find("li").each(function(cnt, li) {
+			if ($(li).data("ms-value") == option.value) {
+			    that.deselect($(li).data("ms-value"));
+			}
+		    });
+		}
+	    });
+
+	    // then remove options from selectable list
 	    $.each(options, function(index, option) {
 		if (option.value !== undefined && option.value !== null) {
 		    var $option = that.$element.find("option[value='"+option.value+"']");
@@ -291,27 +303,17 @@ $.expr[':'].icontains = function(a, i, m) {
 			var $containerli;
 			var $container = $option.parent("optgroup");
 			$option.remove();
-
+			
 			that.$selectableUl.find("li").each(function(cnt, li) {
 			    if ($(li).data("ms-value") == option.value) {
 				$containerli = $(li).parents(".ms-optgroup-container");
 				$(li).remove();
-				if ($containerli.find('.ms-elem-selectable').length == 0)
+				if ($containerli.find('.ms-elem-selectable').length == 0) {
 				    $containerli.remove();
+				    $container.remove();
+				}
 			    }
 			});
-			that.$selectionUl.find("li").each(function(cnt, li) {
-			    if ($(li).data("ms-value") == option.value) {
-				$containerli = $(li).parents(".ms-optgroup-container");
-				$(li).remove();
-				if ($containerli.find('.ms-elem-selection').length == 0)
-				    $containerli.remove();
-			    }
-			});
-
-			if ($container.length == 1 && $container.find("option").length == 0) {
-			    $container.remove();
-			}
 		    }
 		}
 	    });
@@ -551,7 +553,7 @@ $.expr[':'].icontains = function(a, i, m) {
 
 	    var that = this,
             ms = this.$element,
-            msIds = $.map(value, function(val){ return(that.sanitize(val)); }),
+            msIds = $.map(value, function(val){ console.debug(val, that.sanitize(val)); return(that.sanitize(val)); }),
             selectables = this.$selectableUl.find('#' + msIds.join('-selectable, #')+'-selectable'),
             selections = this.$selectionUl.find('#' + msIds.join('-selection, #')+'-selection').filter('.ms-selected').filter(':not(.'+that.options.disabledClass+')'),
             options = ms.find('option').filter(function(){ return($.inArray(this.value, value) > -1); });
