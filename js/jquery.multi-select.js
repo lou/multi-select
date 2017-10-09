@@ -33,7 +33,7 @@ $.expr[':'].icontains = function(a, i, m) {
 	this.$selectableUl = $('<ul/>', { 'class': "ms-list", 'tabindex' : '-1' });
 	this.$selectionUl = $('<ul/>', { 'class': "ms-list", 'tabindex' : '-1' });
 	this.scrollTo = 0;
-	this.elemsSelector = 'li:visible:not(.ms-optgroup-label,.ms-optgroup-container,.'+options.disabledClass+')';
+	this.elemsSelector = "li[style!='display: none;']:not(.ms-optgroup-label,.ms-optgroup-container,."+options.disabledClass+")";
     };
 
     MultiSelect.prototype = {
@@ -253,7 +253,7 @@ $.expr[':'].icontains = function(a, i, m) {
 	    } 
 	    $.each(options, function(index, option){
 		if (option.value !== undefined && option.value !== null &&
-		    that.$element.find("option[value='"+option.value+"']").length === 0){
+		    that.$element.find("option[value='"+option.value+"']").length === 0) {
 		    var $option = $('<option value="'+option.value+'">'+option.text+'</option>'),
 		    $container = option.nested === undefined ? that.$element : that.$element.find("optgroup[label='"+option.nested+"']"),
 		    index = parseInt((typeof option.index === 'undefined' ? $container.children().length : option.index));
@@ -276,6 +276,7 @@ $.expr[':'].icontains = function(a, i, m) {
 		    that.generateListFromOption($option.get(0), index, option.nested);
 		}
 	    });
+	    that.updateCounters();
 	},
 
 	'removeOption' : function(options){
@@ -317,6 +318,7 @@ $.expr[':'].icontains = function(a, i, m) {
 		    }
 		}
 	    });
+	    that.updateCounters();
 	},
 
 	'escapeHTML' : function(text){
@@ -393,7 +395,7 @@ $.expr[':'].icontains = function(a, i, m) {
 
 		    if ($optgroupUl.hasClass('ms-optgroup')){
 			var $optgroupLi = $optgroupUl.parent(),
-			$nextOptgroupLi = $optgroupLi.next(':visible');
+			$nextOptgroupLi = $optgroupLi.next("[style!='display: none;']");
 
 			if ($nextOptgroupLi.length > 0){
 			    $nextElem = $nextOptgroupLi.find(this.elemsSelector).first();
@@ -412,7 +414,7 @@ $.expr[':'].icontains = function(a, i, m) {
 
 		    if ($optgroupUl.hasClass('ms-optgroup')){
 			var $optgroupLi = $optgroupUl.parent(),
-			$prevOptgroupLi = $optgroupLi.prev(':visible');
+			$prevOptgroupLi = $optgroupLi.prev("[style!='display: none;']");
 
 			if ($prevOptgroupLi.length > 0){
 			    $nextElem = $prevOptgroupLi.find(this.elemsSelector).last();
@@ -485,8 +487,8 @@ $.expr[':'].icontains = function(a, i, m) {
 
 	'updateCounters': function(){
 	    if (this.options.counterClass) {
-		this.$container.find(".ms-selectable "+this.options.counterClass).text(this.$selectableUl.find(".ms-elem-selectable").filter(":visible").length);
-		this.$container.find(".ms-selection "+this.options.counterClass).text(this.$selectionUl.find(".ms-elem-selection").filter(":visible").length);
+		this.$container.find(".ms-selectable "+this.options.counterClass).text(this.$selectableUl.find(".ms-elem-selectable").filter("[style!='display: none;']").length);
+		this.$container.find(".ms-selection "+this.options.counterClass).text(this.$selectionUl.find(".ms-elem-selection").filter("[style!='display: none;']").length);
 	    }
 	},
 
