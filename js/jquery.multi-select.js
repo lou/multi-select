@@ -198,8 +198,16 @@
         if (option.value !== undefined && option.value !== null &&
             that.$element.find("option[value='"+option.value+"']").length === 0){
           var $option = $('<option value="'+option.value+'">'+option.text+'</option>'),
-              index = parseInt((typeof option.index === 'undefined' ? that.$element.children().length : option.index)),
-              $container = option.nested === undefined ? that.$element : $("optgroup[label='"+option.nested+"']");
+              $container = option.nested === undefined ? that.$element : $("optgroup[label='"+option.nested+"']"),
+              index = parseInt((typeof option.index === 'undefined' ? $container.children().length : option.index));
+
+          if (option.optionClass) {
+            $option.addClass(option.optionClass);
+          }
+
+          if (option.disabled) {
+            $option.prop('disabled', true);
+          }
 
           $option.insertAt(index, $container);
           that.generateLisFromOption($option.get(0), index, option.nested);
