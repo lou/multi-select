@@ -69,15 +69,35 @@
 
         that.activeMouse(that.$selectableUl);
         that.activeKeyboard(that.$selectableUl);
+        
+        if (that.options.singleDblClick) {
+          that.$selectableUl.on('click', '.ms-elem-selectable', function(){
+            if (typeof that.options.beforeSelect === 'function') {
+              that.options.beforeSelect.call(this, $(this).data('ms-value'));
+            }
+          });
+          that.$selectionUl.on('click', '.ms-elem-selection', function(){
+            if (typeof that.options.beforeDeselect === 'function') {
+              that.options.beforeDeselect.call(this, $(this).data('ms-value'));
+            }
+          });
+          that.$selectableUl.on('dblclick', '.ms-elem-selectable', function(){
+            that.select($(this).data('ms-value'));
+          });
+          that.$selectionUl.on('dblclick', '.ms-elem-selection', function(){
+            that.deselect($(this).data('ms-value'));
+          });
+        } 
+        else {
+          var action = that.options.dblClick ? 'dblclick' : 'click';
 
-        var action = that.options.dblClick ? 'dblclick' : 'click';
-
-        that.$selectableUl.on(action, '.ms-elem-selectable', function(){
-          that.select($(this).data('ms-value'));
-        });
-        that.$selectionUl.on(action, '.ms-elem-selection', function(){
-          that.deselect($(this).data('ms-value'));
-        });
+          that.$selectableUl.on(action, '.ms-elem-selectable', function(){
+            that.select($(this).data('ms-value'));
+          });
+          that.$selectionUl.on(action, '.ms-elem-selection', function(){
+            that.deselect($(this).data('ms-value'));
+          });
+        }
 
         that.activeMouse(that.$selectionUl);
         that.activeKeyboard(that.$selectionUl);
@@ -525,6 +545,7 @@
     selectableOptgroup: false,
     disabledClass : 'disabled',
     dblClick : false,
+    singleDblClick : false,
     keepOrder: false,
     cssClass: ''
   };
