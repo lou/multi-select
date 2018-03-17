@@ -454,6 +454,10 @@
       var ms = this.$element,
           values = ms.val();
 
+      if(ms.prop('disabled')){
+        return;
+      }
+      
       ms.find('option:not(":disabled")').prop('selected', true);
       this.$selectableUl.find('.ms-elem-selectable').filter(':not(.'+this.options.disabledClass+')').addClass('ms-selected').hide();
       this.$selectionUl.find('.ms-optgroup-label').show();
@@ -472,6 +476,10 @@
     'deselect_all' : function(){
       var ms = this.$element,
           values = ms.val();
+
+      if(ms.prop('disabled')){
+        return;
+      }
 
       ms.find('option').prop('selected', false);
       this.$selectableUl.find('.ms-elem-selectable').removeClass('ms-selected').show();
