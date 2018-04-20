@@ -106,3 +106,10 @@
   background: transparent url('../img/deselect.png') no-repeat 50% 50%;
   background-size:cover;
 }
+
+.ms-container .ms-text-overflow {
+    width:92%;
+    height:2em;
+    overflow:hidden;
+    display:inline-block;
+}

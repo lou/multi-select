@@ -326,7 +326,7 @@ $.expr[':'].icontains = function(a, i, m) {
 	    if (this.options.previewButton) {
 		escaped += $("<span class='preview-button icon icon-eye'>")[0].outerHTML;
 	    }
-	    escaped += $("<div>").text(text).html();
+	    escaped += "<span class='ms-overflow-text'>" + $("<div>").text(text).html() + "</span>";
 	    if (this.options.selectButton) {
 		escaped += $("<span class='select-button icon icon-selector'>")[0].outerHTML;
 	    }
@@ -555,7 +555,7 @@ $.expr[':'].icontains = function(a, i, m) {
 
 	    var that = this,
             ms = this.$element,
-            msIds = $.map(value, function(val){ console.debug(val, that.sanitize(val)); return(that.sanitize(val)); }),
+            msIds = $.map(value, function(val){ return(that.sanitize(val)); }),
             selectables = this.$selectableUl.find('#' + msIds.join('-selectable, #')+'-selectable'),
             selections = this.$selectionUl.find('#' + msIds.join('-selection, #')+'-selection').filter('.ms-selected').filter(':not(.'+that.options.disabledClass+')'),
             options = ms.find('option').filter(function(){ return($.inArray(this.value, value) > -1); });
