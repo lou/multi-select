@@ -493,7 +493,9 @@ $.expr[':'].icontains = function(a, i, m) {
 	},
 
 	'select' : function(value, method){
-	    if (typeof value === 'string'){ value = [value]; }
+	    if (typeof value === 'string' ||typeof value === 'number') {
+		value = ['' + value]; 
+	    }
 
 	    var that = this,
             ms = this.$element,

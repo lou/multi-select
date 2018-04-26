@@ -107,7 +107,7 @@
   background-size:cover;
 }
 
-.ms-container .ms-text-overflow {
+.ms-container .ms-overflow-text {
     width:92%;
     height:2em;
     overflow:hidden;
