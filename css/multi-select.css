@@ -108,8 +108,18 @@
 }
 
 .ms-container .ms-overflow-text {
-    width:92%;
+    width:88%;
     height:2em;
     overflow:hidden;
     display:inline-block;
+}
+@media (max-width: 1200px) {
+.ms-container .ms-overflow-text {
+    width:80%;
+    }
+}
+@media (max-width: 750px) {
+.ms-container .ms-overflow-text {
+    width:65%;
+    }
 }
