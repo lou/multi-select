@@ -15,6 +15,8 @@ $.expr[':'].icontains = function(a, i, m) {
 	.indexOf(m[3].toUpperCase()) >= 0;
 };
 
+var multi$;
+
 !function ($) {
 
     "use strict";
@@ -693,5 +695,5 @@ $.expr[':'].icontains = function(a, i, m) {
 	    }
 	});
     };
-
+    multi$ = $;
 }(window.jQuery);
