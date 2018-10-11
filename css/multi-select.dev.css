@@ -1,10 +1,11 @@
 /* line 1, ../scss/multi-select.scss */
 .ms-container {
-  background: transparent url("../img/switch.png") no-repeat 50% 50%;
+  background: transparent url("../img/switch.svg") no-repeat 50% 50%;
+  background-size: 21px 21px;
   width: 370px;
 }
 
-/* line 6, ../scss/multi-select.scss */
+/* line 7, ../scss/multi-select.scss */
 .ms-container:after {
   content: ".";
   display: block;
@@ -16,7 +17,7 @@
   visibility: hidden;
 }
 
-/* line 17, ../scss/multi-select.scss */
+/* line 18, ../scss/multi-select.scss */
 .ms-container .ms-selectable, .ms-container .ms-selection {
   background: #fff;
   color: #555555;
@@ -24,12 +25,12 @@
   width: 45%;
 }
 
-/* line 23, ../scss/multi-select.scss */
+/* line 24, ../scss/multi-select.scss */
 .ms-container .ms-selection {
   float: right;
 }
 
-/* line 27, ../scss/multi-select.scss */
+/* line 28, ../scss/multi-select.scss */
 .ms-container .ms-list {
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
@@ -49,7 +50,7 @@
   overflow-y: auto;
 }
 
-/* line 46, ../scss/multi-select.scss */
+/* line 47, ../scss/multi-select.scss */
 .ms-container .ms-list.ms-focus {
   border-color: rgba(82, 168, 236, 0.8);
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
@@ -59,19 +60,19 @@
   outline: thin dotted \9;
 }
 
-/* line 55, ../scss/multi-select.scss */
+/* line 56, ../scss/multi-select.scss */
 .ms-container ul {
   margin: 0;
   list-style-type: none;
   padding: 0;
 }
 
-/* line 61, ../scss/multi-select.scss */
+/* line 62, ../scss/multi-select.scss */
 .ms-container .ms-optgroup-container {
   width: 100%;
 }
 
-/* line 65, ../scss/multi-select.scss */
+/* line 66, ../scss/multi-select.scss */
 .ms-container .ms-optgroup-label {
   margin: 0;
   padding: 5px 0px 0px 5px;
@@ -79,7 +80,7 @@
   color: #999;
 }
 
-/* line 72, ../scss/multi-select.scss */
+/* line 73, ../scss/multi-select.scss */
 .ms-container .ms-selectable li.ms-elem-selectable,
 .ms-container .ms-selection li.ms-elem-selection {
   border-bottom: 1px #eee solid;
@@ -88,7 +89,7 @@
   font-size: 14px;
 }
 
-/* line 80, ../scss/multi-select.scss */
+/* line 81, ../scss/multi-select.scss */
 .ms-container .ms-selectable li.ms-hover,
 .ms-container .ms-selection li.ms-hover {
   cursor: pointer;
@@ -97,7 +98,7 @@
   background-color: #08c;
 }
 
-/* line 88, ../scss/multi-select.scss */
+/* line 89, ../scss/multi-select.scss */
 .ms-container .ms-selectable li.disabled,
 .ms-container .ms-selection li.disabled {
   background-color: #eee;
