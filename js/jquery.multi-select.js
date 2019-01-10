@@ -486,15 +486,12 @@
     },
 
     sanitize: function(value){
-      var hash = 0, i, character;
-      if (value.length == 0) return hash;
-      var ls = 0;
-      for (i = 0, ls = value.length; i < ls; i++) {
-        character  = value.charCodeAt(i);
-        hash  = ((hash<<5)-hash)+character;
-        hash |= 0; // Convert to 32bit integer
+      var hash = 5381, index = value.length;
+      while (index) {
+        hash = (hash * 33) ^ value.charCodeAt(--index);
       }
-      return hash;
+
+      return hash >>> 0;
     }
   };
 
