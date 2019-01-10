@@ -389,4 +389,41 @@ describe("multiSelect", function() {
       });
     });
   });
+
+  describe('manipulation of values', function(){
+
+    describe('when calling the "addOption" method', function(){
+      beforeEach(function(){
+        select.multiSelect();
+        select.multiSelect('addOption', { value: 'test', text: 'test' });
+      });
+
+      it('should add a new option to the original select', function() {
+        expect( select.children('option').length  ).toEqual(11);
+      });
+
+      it('should add a new li entry to the multiselect container', function() {
+        expect( $("div.ms-container .ms-selectable li").length ).toEqual(11);
+        expect( $("div.ms-container .ms-selection li").length ).toEqual(11);
+      });
+    });
+
+    describe('when calling the "removeOption" method', function(){
+
+      beforeEach(function(){
+        select.multiSelect();
+        select.multiSelect('removeOption', {value: 'value1' });
+      });
+
+      it('should remove the specified option from the original select', function() {
+        expect( select.children('option').length ).toEqual(9);
+      });
+
+      it('should remove the specified li entry from the multiselect container', function() {
+        expect( $("div.ms-container li[id^='value1-']").length ).toEqual(0);
+      });
+    });
+
+  });
+
 });

@@ -1,0 +1,36 @@
+--- index.html	2014-09-18 12:01:30.776022500 +0200
++++ index_new.html	2014-09-18 12:10:26.224562000 +0200
+@@ -305,7 +305,32 @@
+         </table>
+       <p></p>
+       <pre><code data-language="javascript" class="rainbow"><span class="selector">$</span>(<span class="string">'#your-select'</span>).<span class="function call">multiSelect</span>(<span class="string">'addOption'</span>, { value: <span class="string">'test'</span>, text: <span class="string">'test'</span>, index: <span class="constant numeric">0</span>, nested: <span class="string">'optgroup_label'</span> });</code></pre>
+-      <br>
++      <h4>.multiSelect('removeOption', Hash)</h4>
++      <p>
++        Dynamically remove option from the multiselect.
++        <br>
++        The options hash is described bellow:
++        </p><table class="table table-bordered table-striped">
++          <thead>
++            <tr>
++              <th width="120">key</th>
++              <th>type</th>
++              <th>required</th>
++              <th>desription</th>
++            </tr>
++          </thead>
++          <tbody>
++            <tr>
++              <td>value</td>
++              <td>String</td>
++              <td>true</td>
++              <td>The value of the option to remove</td>
++            </tr>
++          </tbody>
++        </table>
++      <p></p>
++      <pre><code data-language="javascript" class="rainbow"><span class="selector">$</span>(<span class="string">'#your-select'</span>).<span class="function call">multiSelect</span>(<span class="string">'removeOption'</span>, { value: <span class="string">'test'</span> });</code></pre>
++      <br>	  
+       <h3>Keyboard</h3>
+       <table class="table table-bordered table-striped">
+         <thead>
