@@ -108,7 +108,8 @@
           attributes += attr.name+'="'+attr.value+'" ';
         }
       }
-      var selectableLi = $('<li '+attributes+'><span>'+that.escapeHTML($option.text())+'</span></li>'),
+
+      var selectableLi = (that.options.escapeHTML === false) ? $('<li '+attributes+'><span>'+that.escapeHTML($option.html())+'</span></li>') : $('<li '+attributes+'><span>'+that.escapeHTML($option.text())+'</span></li>'),
           selectedLi = selectableLi.clone(),
           value = $option.val(),
           elementId = that.sanitize(value);
@@ -199,7 +200,10 @@
     },
 
     'escapeHTML' : function(text){
-      return $("<div>").text(text).html();
+      if (this.options.escapeHTML !== false) { 
+        return $("<div>").text(text).html();
+      }
+      return text;
     },
 
     'activeKeyboard' : function($list){
