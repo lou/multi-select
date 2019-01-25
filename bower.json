@@ -5,7 +5,7 @@
   "license" : "WTFPL",
   "main": [
     "./css/multi-select.css",
-    "./img/switch.png",
+    "./img/switch.svg",
     "./js/jquery.multi-select.js"
   ],
   "dependencies" : {
