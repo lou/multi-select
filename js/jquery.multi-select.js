@@ -47,6 +47,10 @@
 
         this.$selectionUl.find('.ms-optgroup-label').hide();
 
+        if (that.options.fullHeader){
+          that.$container.append(that.options.fullHeader);
+        }
+
         if (that.options.selectableHeader){
           that.$selectableContainer.append(that.options.selectableHeader);
         }
