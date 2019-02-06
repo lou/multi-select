@@ -1,0 +1,84 @@
+﻿@import "partials/variables";
+@import "partials/mixins";
+
+.ms-container{
+  background: transparent url('#{$image-switch}') no-repeat 50% 50%;
+  width: $container-width;
+
+    &:after {
+        content: ".";
+        display: block;
+        height: 0;
+        line-height: 0;
+        font-size: 0;
+        clear: both;
+        min-height: 0;
+        visibility: hidden;
+    }
+
+    .ms-selectable, .ms-selection {
+        background: $list-bg-color;
+        color: $list-color;
+        float: left;
+        width: $list-width;
+
+        li {
+            &.disabled {
+                @include li-disabled();
+            }
+
+            &.ms-hover {
+                @include li-hover();
+            }
+        }
+    }
+
+    .ms-selectable {
+        &.ms-elem-selectable {
+            @include li-select();
+        }
+    }
+
+    .ms-selection {
+        float: right;
+
+        &.ms-elem-selection {
+            @include li-select();
+        }
+    }
+
+    .ms-list {
+        @include shadow();
+        @include list-transition();
+        @include list-radius($list-radius);
+        border: 1px solid $list-border-color;
+        position: relative;
+        height: $list-height;
+        padding: 0;
+        overflow-y: auto;
+
+        .ms-focus {
+            border-color: $focus-color;
+            @include shadowfocus();
+            outline: 0;
+            outline: thin dotted $outline-ref-value;
+        }
+    }
+
+    ul {
+        margin: 0;
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .ms-optgroup-container  {
+        width: 100%;
+    }
+
+    .ms-optgroup-label {
+      margin: 0;
+      padding: $optgroup-padding 0 0 $optgroup-padding;
+      cursor: pointer;
+      color: $optgroup-label-color;
+    }
+}
