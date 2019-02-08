@@ -73,7 +73,10 @@
         var action = that.options.dblClick ? 'dblclick' : 'click';
 
         that.$selectableUl.on(action, '.ms-elem-selectable', function(){
-          that.select($(this).data('ms-value'));
+          var selectedCount = ms.find(':selected').length;
+          if (!that.options.limit || that.options.limit > selectedCount) {
+              that.select($(this).data('ms-value'));
+          }
         });
         that.$selectionUl.on(action, '.ms-elem-selection', function(){
           that.deselect($(this).data('ms-value'));
@@ -526,7 +529,8 @@
     disabledClass : 'disabled',
     dblClick : false,
     keepOrder: false,
-    cssClass: ''
+    cssClass: '',
+    limit: null
   };
 
   $.fn.multiSelect.Constructor = MultiSelect;
