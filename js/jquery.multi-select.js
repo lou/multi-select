@@ -456,7 +456,7 @@
 
       ms.find('option:not(":disabled")').attr('selected', 'selected');
       this.$selectableUl.find('.ms-elem-selectable').filter(':not(.'+this.options.disabledClass+')').addClass('ms-selected').hide();
-      this.$selectionUl.find('.ms-optgroup-label').show();
+      //this.$selectionUl.find('.ms-optgroup-label').show(); 
       this.$selectableUl.find('.ms-optgroup-label').hide();
       this.$selectionUl.find('.ms-elem-selection').filter(':not(.'+this.options.disabledClass+')').addClass('ms-selected').show();
       this.$selectionUl.focus();
