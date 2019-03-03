@@ -4,7 +4,7 @@
 
 - [About](#about)
 - [Creator](#creator)
-- [Usage and demos](#usage)
+- [Usage and demos](http://loudev.com/#demos)
 - [License](#license)
 
 ## About
