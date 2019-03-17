@@ -88,6 +88,11 @@
       }
 
       var selectedValues = ms.find('option:selected').map(function(){ return $(this).val(); }).get();
+
+      // Make sure to deselected all previously selected item (if any)
+      // before selecting items that should be selected indeed.
+      that.deselect_all();
+
       that.select(selectedValues, 'init');
 
       if (typeof that.options.afterInit === 'function') {
