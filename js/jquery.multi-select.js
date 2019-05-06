@@ -95,6 +95,13 @@
       }
     },
 
+    addImageToOption: function (optionImage, optionLi){
+      optionLi.prepend($('<img/>', {
+        src: optionImage,
+        class: 'ms-elem-image'
+      }));
+    },
+
     'generateLisFromOption' : function(option, index, $container){
       var that = this,
           ms = that.$element,
@@ -112,6 +119,12 @@
           selectedLi = selectableLi.clone(),
           value = $option.val(),
           elementId = that.sanitize(value);
+
+      var optionImage = $option.data('ms-image');
+      if (optionImage) {
+        that.addImageToOption(optionImage, selectableLi);
+        that.addImageToOption(optionImage, selectedLi);
+      }
 
       selectableLi
         .data('ms-value', value)
@@ -297,7 +310,7 @@
       }
       if ($nextElem.length > 0){
         $nextElem.addClass('ms-hover');
-        var scrollTo = $list.scrollTop() + $nextElem.position().top - 
+        var scrollTo = $list.scrollTop() + $nextElem.position().top -
                        containerHeight / 2 + elemHeight / 2;
 
         $list.scrollTop(scrollTo);
