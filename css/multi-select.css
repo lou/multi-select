@@ -108,7 +108,7 @@
 }
 
 .ms-container .ms-overflow-text {
-    width:88%;
+    max-width:88%;
     height:2em;
     overflow:hidden;
     display:inline-block;
