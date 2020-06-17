@@ -372,7 +372,7 @@
         selectables.addClass('ms-selected').hide();
         selections.addClass('ms-selected').show();
 
-        options.attr('selected', 'selected');
+        options.prop('selected', 'selected');
 
         that.$container.find(that.elemsSelector).removeClass('ms-hover');
 
