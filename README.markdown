@@ -1,6 +1,6 @@
 # [jquery multi-select.js](http://loudev.com/)
 
-## Summary 
+## Summary
 
 - [About](#about)
 - [Creator](#creator)
@@ -15,6 +15,12 @@ I'm a user-friendlier drop-in replacement for the standard select with multiple 
 
 ## Contributors
 @outofpluto
+
+## Install
+
+```sh
+yarn add multiselect
+```
 
 ## Usage
 
@@ -43,6 +49,9 @@ I'm a user-friendlier drop-in replacement for the standard select with multiple 
 ### JavaScript
 
 ```JavaScript
+import $ from "jquery"
+import multiselect from "multiselect"
+
 $('#my-select').multiSelect();
 ```
 
@@ -66,7 +75,7 @@ $('#my-select').multiSelect({
 
 	cssClass: ""				// Add a custom CSS class to the multiselect container.
 	disabledClass: 'disabled' 		// CSS class for disabled items.
-	
+
 	previewButton: function($button){}	// Add a preview button and call the function when clicked
 	selectButton: true|function($button){}	// Add a select button and call the function when clicked. If set to true, the callback function is simply the select/deselect. If set to a function, it is called AFTER select/deselect. Note that the label itself is not clickable when the button is added
 	selectAll: null				// CSS class for a select-all-html-tag that has been added into the DOM (with selectableFooter or selectableHeader for instance)
