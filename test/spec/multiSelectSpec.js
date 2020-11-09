@@ -55,7 +55,7 @@ describe("multiSelect", function() {
 
       it ('should select the pre-selected options', function(){
         $.each(selectedValues, function(index, value){
-          expect($('.ms-selectable ul.ms-list li#'+sanitize(value)+'-selectable')).toBe('.ms-selected');
+          expect($('.ms-selectable ul.ms-list li#ms-elem-'+sanitize(value)+'-selectable')).toBe('.ms-selected');
         });
         expect($('.ms-selectable ul.ms-list li.ms-selected').length).toEqual(2);
       });
@@ -75,7 +75,7 @@ describe("multiSelect", function() {
 
       it ('should select the disabled pre-selected options', function(){
         $.each(selectedValues, function(index, value){
-          expect($('.ms-selectable ul.ms-list li#'+sanitize(value)+'-selectable')).toBe('.ms-selected');
+          expect($('.ms-selectable ul.ms-list li#ms-elem-'+sanitize(value)+'-selectable')).toBe('.ms-selected');
         });
         expect($('.ms-selectable ul.ms-list li.ms-selected').length).toEqual(3);
       });
@@ -95,7 +95,7 @@ describe("multiSelect", function() {
 
       it ('should not select the disabled non-selected options', function(){
         $.each(selectedValues, function(index, value){
-          expect($('.ms-selectable ul.ms-list li#'+sanitize(value)+'-selectable')).toBe('.ms-selected');
+          expect($('.ms-selectable ul.ms-list li#ms-elem-'+sanitize(value)+'-selectable')).toBe('.ms-selected');
         });
         expect($('.ms-selectable ul.ms-list li.ms-selected').length).toEqual(2);
       });
@@ -226,7 +226,7 @@ describe("multiSelect", function() {
       });
 
       it('should show the associated selected item', function(){
-        expect($('#'+sanitize(value)+'-selection')).toBe(':visible');
+        expect($('#ms-elem-'+sanitize(value)+'-selection')).toBe(':visible');
       });
 
       it('should trigger the original select change event', function(){
@@ -264,7 +264,7 @@ describe("multiSelect", function() {
       });
 
       it('should not show the associated selected item', function(){
-        expect($('#'+sanitize(value)+'-selection')).not.toBe(':visible');
+        expect($('#ms-elem-'+sanitize(value)+'-selection')).not.toBe(':visible');
       });
 
       it('should not trigger the original select change event', function(){
@@ -328,7 +328,7 @@ describe("multiSelect", function() {
       });
 
       it('should show associated selectable item', function(){
-        expect($('#'+sanitize(value)+'-selectable')).toBe(':visible');
+        expect($('#ms-elem-'+sanitize(value)+'-selectable')).toBe(':visible');
       });
 
       it('should remove the .ms-selected class to the corresponding selectable item', function(){
