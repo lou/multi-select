@@ -1,6 +1,6 @@
 {
   "name": "multiselect",
-  "version": "0.9.10",
+  "version": "0.9.12",
   "description" : "A user-friendlier drop-in replacement for the standard select with multiple attribute activated.",
   "license" : "WTFPL",
   "main": [
