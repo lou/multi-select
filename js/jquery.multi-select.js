@@ -108,7 +108,8 @@
           attributes += attr.name+'="'+attr.value+'" ';
         }
       }
-      var selectableLi = $('<li '+attributes+'><span>'+that.escapeHTML($option.text())+'</span></li>'),
+      var content = $option.data('html') ?? '<span>' + that.escapeHTML($option.text()) + '</span>';
+      var selectableLi = $('<li ' + attributes + '>' + content + '</li>'),
           selectedLi = selectableLi.clone(),
           value = $option.val(),
           elementId = that.sanitize(value);
