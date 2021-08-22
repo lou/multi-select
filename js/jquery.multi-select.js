@@ -66,6 +66,9 @@
         that.$container.append(that.$selectableContainer);
         that.$container.append(that.$selectionContainer);
         ms.after(that.$container);
+        
+        that.$selectableUl.css("height", that.options.selectBoxHeight);
+        that.$selectionUl.css("height", that.options.selectBoxHeight);
 
         that.activeMouse(that.$selectableUl);
         that.activeKeyboard(that.$selectableUl);
@@ -526,7 +529,8 @@
     disabledClass : 'disabled',
     dblClick : false,
     keepOrder: false,
-    cssClass: ''
+    cssClass: '',
+    selectBoxHeight: '200px'
   };
 
   $.fn.multiSelect.Constructor = MultiSelect;
