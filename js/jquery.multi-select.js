@@ -393,7 +393,7 @@
             }
           });
         } else {
-          if (that.options.keepOrder && method !== 'init'){
+          if (that.options.keepOrder != true && method !== 'init'){
             var selectionLiLast = that.$selectionUl.find('.ms-selected');
             if((selectionLiLast.length > 1) && (selectionLiLast.last().get(0) != selections.get(0))) {
               selections.insertAfter(selectionLiLast.last());
