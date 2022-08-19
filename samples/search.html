@@ -15,13 +15,21 @@
 <div class="container">
     <!-- start -->
     <div class="page-header">
-        <h1>Callbaks</h1>
+        <h1>Search</h1>
     </div>
-    <select id='callbacks' multiple='multiple'>
-        <option value='elem_1'>elem 1</option>
-        <option value='elem_2'>elem 2</option>
-        <option value='elem_3'>elem 3</option>
-        <option value='elem_4'>elem 4</option>
+    <select id='search' multiple='multiple'>
+        <optgroup label="GP 1">
+            <option value='elem_1'>elem 1</option>
+            <option value='elem_2'>elem 2</option>
+            <option value='elem_3'>elem 3</option>
+            <option value='elem_4'>elem 4</option>
+        </optgroup>
+        <optgroup label="GP 2">
+            <option value='elem_5'>elem 5</option>
+            <option value='elem_6'>elem 6</option>
+            <option value='elem_7'>elem 7</option>
+            <option value='elem_8'>elem 8</option>
+        </optgroup>
         ...
         <option value='elem_100'>elem 100</option>
     </select>
@@ -33,14 +41,16 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
 <script src="../js/jquery.multi-select.js"></script>
 <script type="text/javascript">
+
     // run callbacks
-    $('#callbacks').multiSelect({
-        afterSelect: function (values) {
-            alert("Select value: " + values);
-        },
-        afterDeselect: function (values) {
-            alert("Deselect value: " + values);
-        }
+    $('#search').multiSelect({
+        selectableHeader: "Selectable Header",
+        selectionHeader: "Selection Header",
+        selectableFooter: "Selectable Footer",
+        selectionFooter: "Selection Footer",
+        search: true,
+        cssClass: 'tet-class',
+        selectableOptgroup: true,
     });
 </script>
 </body>
