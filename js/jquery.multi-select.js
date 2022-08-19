@@ -106,6 +106,7 @@
             var selectedValues = ms.find('option:selected').map(function () {
                 return $(this).val();
             }).get();
+
             that.select(selectedValues, 'init');
 
             if (typeof that.options.afterInit === 'function') {
@@ -286,41 +287,41 @@
             $list.on('focus', function () {
                 $(this).addClass('ms-focus');
             }).on('blur', function () {
-                    $(this).removeClass('ms-focus');
+                $(this).removeClass('ms-focus');
             }).on('keydown', function (e) {
-                    switch (e.which) {
-                        case 40:
-                        case 38:
-                            e.preventDefault();
-                            e.stopPropagation();
-                            that.moveHighlight($(this), (e.which === 38) ? -1 : 1);
-                            return;
-                        case 37:
-                        case 39:
-                            e.preventDefault();
-                            e.stopPropagation();
-                            that.switchList($list);
-                            return;
-                        case 9:
-                            if (that.$element.is('[tabindex]')) {
-                                e.preventDefault();
-                                var tabindex = parseInt(that.$element.attr('tabindex'), 10);
-                                tabindex = (e.shiftKey) ? tabindex - 1 : tabindex + 1;
-                                $('[tabindex="' + (tabindex) + '"]').focus();
-                                return;
-                            } else {
-                                if (e.shiftKey) {
-                                    that.$element.trigger('focus');
-                                }
-                            }
-                    }
-                    if ($.inArray(e.which, that.options.keySelect) > -1) {
+                switch (e.which) {
+                    case 40:
+                    case 38:
                         e.preventDefault();
                         e.stopPropagation();
-                        that.selectHighlighted($list);
+                        that.moveHighlight($(this), (e.which === 38) ? -1 : 1);
                         return;
-                    }
-                });
+                    case 37:
+                    case 39:
+                        e.preventDefault();
+                        e.stopPropagation();
+                        that.switchList($list);
+                        return;
+                    case 9:
+                        if (that.$element.is('[tabindex]')) {
+                            e.preventDefault();
+                            var tabindex = parseInt(that.$element.attr('tabindex'), 10);
+                            tabindex = (e.shiftKey) ? tabindex - 1 : tabindex + 1;
+                            $('[tabindex="' + (tabindex) + '"]').focus();
+                            return;
+                        } else {
+                            if (e.shiftKey) {
+                                that.$element.trigger('focus');
+                            }
+                        }
+                }
+                if ($.inArray(e.which, that.options.keySelect) > -1) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    that.selectHighlighted($list);
+                    return;
+                }
+            });
         },
 
         'moveHighlight': function ($list, direction) {
@@ -588,26 +589,27 @@
         }
     };
 
-    /* MULTISELECT PLUGIN DEFINITION
-     * ======================= */
+    /* MULTISELECT PLUGIN DEFINITION */
 
     $.fn.multiSelect = function () {
         var option = arguments[0],
             args = arguments;
 
         return this.each(function () {
-            var $this = $(this),
-                data = $this.data('multiselect'),
-                options = $.extend({}, $.fn.multiSelect.defaults, $this.data(), typeof option === 'object' && option);
+            var $this = $(this);
+            if ($this.prop("multiple")) {
+                var data = $this.data('multiselect'),
+                    options = $.extend({}, $.fn.multiSelect.defaults, $this.data(), typeof option === 'object' && option);
 
-            if (!data) {
-                $this.data('multiselect', (data = new MultiSelect(this, options)));
-            }
+                if (!data) {
+                    $this.data('multiselect', (data = new MultiSelect(this, options)));
+                }
 
-            if (typeof option === 'string') {
-                data[option](args[1]);
-            } else {
-                data.init();
+                if (typeof option === 'string') {
+                    data[option](args[1]);
+                } else {
+                    data.init();
+                }
             }
         });
     };

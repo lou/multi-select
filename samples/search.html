@@ -6,42 +6,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Title Page</title>
+    <title>Multiselect with Search</title>
     <!-- Bootstrap CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css">
     <link rel="stylesheet" type="text/css" href="../css/multi-select.css">
 </head>
 <body>
 <div class="container">
     <!-- start -->
-    <div class="page-header">
-        <h1>Search</h1>
+    <div class="text-center mt-5 mb-4 border-bottom">
+        <h1>Multiselect with Search</h1>
     </div>
-    <select id='search' multiple='multiple'>
-        <optgroup label="GP 1">
-            <option value='elem_1'>elem 1</option>
-            <option value='elem_2'>elem 2</option>
-            <option value='elem_3'>elem 3</option>
-            <option value='elem_4'>elem 4</option>
-        </optgroup>
-        <optgroup label="GP 2">
-            <option value='elem_5'>elem 5</option>
-            <option value='elem_6'>elem 6</option>
-            <option value='elem_7'>elem 7</option>
-            <option value='elem_8'>elem 8</option>
-        </optgroup>
-        ...
-        <option value='elem_100'>elem 100</option>
-    </select>
+    <div class="row">
+        <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
+            <div class="form-group">
+                <select class="form-control" multiple id='search'>
+                    <optgroup label="GP 1">
+                        <option value='elem_1'>elem 1</option>
+                        <option value='elem_2'>elem 2</option>
+                        <option value='elem_3'>elem 3</option>
+                        <option value='elem_4'>elem 4</option>
+                    </optgroup>
+                    <optgroup label="GP 2">
+                        <option value='elem_5'>elem 5</option>
+                        <option value='elem_6'>elem 6</option>
+                        <option value='elem_7'>elem 7</option>
+                        <option value='elem_8'>elem 8</option>
+                    </optgroup>
+                    ...
+                    <option value='elem_100'>elem 100</option>
+                </select>
+            </div>
+            <div class="form-group">
+<pre><code class="language-javascript">
+&lt;script type="text/javascript"&gt;
+    $('#search').multiSelect({
+        selectableHeader: "Selectable Header",
+        selectionHeader: "Selection Header",
+        selectableFooter: "Selectable Footer",
+        selectionFooter: "Selection Footer",
+        search: true,
+        selectableOptgroup: true,
+    });
+&lt;/script&gt;
+</code></pre>
+            </div>
+        </div>
+    </div>
     <!-- ends -->
 </div>
 <!-- jQuery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <!-- Bootstrap JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
 <script src="../js/jquery.multi-select.js"></script>
 <script type="text/javascript">
-
     // run callbacks
     $('#search').multiSelect({
         selectableHeader: "Selectable Header",
@@ -49,9 +70,9 @@
         selectableFooter: "Selectable Footer",
         selectionFooter: "Selection Footer",
         search: true,
-        cssClass: 'tet-class',
         selectableOptgroup: true,
     });
+    hljs.highlightAll();
 </script>
 </body>
 
