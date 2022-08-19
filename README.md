@@ -133,7 +133,12 @@ The options hash is described bellow:
 | nested | String | false    | If there are optgroups you can choose under which optgroup you want to insert the option. |
 
 ```
-$('#your-select').multiSelect('addOption', { value: 'test', text: 'test', index: 0, nested: 'optgroup_label' });
+$('#your-select').multiSelect('addOption', { 
+    value: 'test', 
+    text: 'test', 
+    index: 0, 
+    nested: 'optgroup_label'
+});
 ```
 
 ### Keyboard
